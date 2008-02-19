@@ -1,0 +1,22 @@
+stringex
+========
+
+Some [hopefully] useful extensions to Ruby's String class. It is made up of acts_as_url, unidecode, and the generic sounding string_extensions libraries.
+
+
+Examples
+=======
+
+TK. In the meantime, check out the test suite which has examples [are tests examples?] of their usages.
+
+
+Thanks & Acknowledgements
+=========================
+
+If it's not painfully obvious, acts_as_url is based on Rick Olsen's permalink_fu[1] plugin. unidecode is a Ruby port of Sean Burke's Text::Unidecode[2] module for Perl. And, finally, the bulk of String#strip_html was stolen from Tobias -Fünke's- Lütke's Regex in Typo[3].
+
+[1] http://svn.techno-weenie.net/projects/plugins/permalink_fu/
+[2] http://interglacial.com/~sburke/tpj/as_html/tpj22.html
+[3] http://typosphere.org/
+
+copyright (c) 2008 Lucky Sneaks, released under the MIT license
