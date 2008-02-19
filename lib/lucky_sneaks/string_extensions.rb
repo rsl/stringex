@@ -1,6 +1,10 @@
 module LuckySneaks
   module StringExtensions
-    # Returns the string converted (via Textile/RedCloth) to HTML format
+    # Returns the string converted (via Textile/RedCloth) to HTML format or
+    # self if Redcloth is not available
+    # 
+    # Using :lite argument will cause RedCloth to not wrap the HTML in a container
+    # P element, which is useful behavior for generating header element text, etc
     def to_html(lite_mode = false)
       if defined?(RedCloth)
         if lite_mode
@@ -13,7 +17,6 @@ module LuckySneaks
           end
         end
       else
-        logger.info "String#to_html called when RedCloth was not available!"
         self
       end
     end
