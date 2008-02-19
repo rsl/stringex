@@ -23,7 +23,7 @@ module LuckySneaks
     
     # Create a URI-friendly representation of the string
     def to_url
-      downcase.remove_formatting.replace_whitespace("-").collapse("-")
+      remove_formatting.downcase.replace_whitespace("-").collapse("-")
     end
     
     # Performs multiple text manipulations. Essentially a shortcut for typing them all.
