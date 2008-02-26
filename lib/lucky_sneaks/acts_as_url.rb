@@ -32,7 +32,7 @@ module LuckySneaks
       if url_owners.size > 0
         n = 1
         while url_owners.detect{|u| u.url == "#{base_url}-#{n}"}
-          n.succ!
+          n = n.succ
         end
         self.url = "#{base_url}-#{n}"
       else
