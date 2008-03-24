@@ -6,20 +6,23 @@ module LuckySneaks
     
     module ClassMethods
       def acts_as_url(attribute, options = {})
-        cattr_accessor :attribute_for_url
+        cattr_accessor :attribute_to_urlify
         cattr_accessor :scope_for_url
+        cattr_accessor :url_attribute # The attribute on the DB
         
         before_validation :ensure_unique_url
 
-        self.attribute_for_url = attribute
+        self.attribute_to_urlify = attribute
         self.scope_for_url = options[:scope]
+        self.url_attribute = options[:url_attribute] || "url"
       end
     end
       
   private
     def ensure_unique_url
-      base_url = self.send(self.class.attribute_for_url).to_s.to_url
-      conditions = ["url like ?", "#{base_url}%"]
+      url_attribute = self.class.url_attribute
+      base_url = self.send(self.class.attribute_to_urlify).to_s.to_url
+      conditions = ["#{url_attribute} like ?", "#{base_url}%"]
       unless new_record?
         conditions.first << " and id != ?"
         conditions << id
@@ -31,12 +34,12 @@ module LuckySneaks
       url_owners = self.class.find(:all, :conditions => conditions)
       if url_owners.size > 0
         n = 1
-        while url_owners.detect{|u| u.url == "#{base_url}-#{n}"}
+        while url_owners.detect{|u| u.send(url_attribute) == "#{base_url}-#{n}"}
           n = n.succ
         end
-        self.url = "#{base_url}-#{n}"
+        write_attribute url_attribute, "#{base_url}-#{n}"
       else
-        self.url = base_url
+        write_attribute url_attribute, base_url
       end
     end
   end

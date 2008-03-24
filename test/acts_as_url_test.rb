@@ -23,6 +23,10 @@ ActiveRecord::Schema.define(:version => 1) do
   create_table :mocuments, :force => true do |t|
     t.string :title, :url, :other
   end
+  
+  create_table :permuments, :force => true do |t|
+    t.string :title, :permalink, :other
+  end
 end
 ActiveRecord::Migration.verbose = true
 
@@ -34,6 +38,10 @@ end
 
 class Mocument < ActiveRecord::Base
   acts_as_url :title, :scope => :other
+end
+
+class Permument < ActiveRecord::Base
+  acts_as_url :title, :url_attribute => :permalink
 end
 
 class ActsAsUrlTest < Test::Unit::TestCase
@@ -66,5 +74,10 @@ class ActsAsUrlTest < Test::Unit::TestCase
     @moc = Mocument.create!(:title => "Mocumentary", :other => "Suddenly, I care if I'm unique")
     @other_moc = Mocument.create!(:title => "Mocumentary", :other => "Suddenly, I care if I'm unique")
     assert_not_equal @moc.url, @other_moc.url
+  end
+  
+  def test_should_use_alternate_field_name
+    @perm = Permument.create!(:title => "Anything at This Point")
+    assert_equal "anything-at-this-point", @perm.permalink
   end
 end
