@@ -10,7 +10,11 @@ module LuckySneaks
         cattr_accessor :scope_for_url
         cattr_accessor :url_attribute # The attribute on the DB
         
-        before_validation :ensure_unique_url
+        if options[:sync_url]
+          before_validation :ensure_unique_url
+        else
+          before_validation_on_create :ensure_unique_url
+        end
 
         self.attribute_to_urlify = attribute
         self.scope_for_url = options[:scope]

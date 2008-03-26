@@ -37,7 +37,7 @@ class Document < ActiveRecord::Base
 end
 
 class Mocument < ActiveRecord::Base
-  acts_as_url :title, :scope => :other
+  acts_as_url :title, :scope => :other, :sync_url => true
 end
 
 class Permument < ActiveRecord::Base
@@ -79,5 +79,19 @@ class ActsAsUrlTest < Test::Unit::TestCase
   def test_should_use_alternate_field_name
     @perm = Permument.create!(:title => "Anything at This Point")
     assert_equal "anything-at-this-point", @perm.permalink
+  end
+  
+  def test_should_not_update_url_by_default
+    @doc = Document.create!(:title => "Stable as Stone")
+    @original_url = @doc.url
+    @doc.update_attributes :title => "New Unstable Madness"
+    assert_equal @original_url, @doc.url
+  end
+  
+  def test_should_update_url_if_asked
+    @moc = Mocument.create!(:title => "Original")
+    @original_url = @moc.url
+    @moc.update_attributes :title => "New and Improved"
+    assert_not_equal @original_url, @moc.url
   end
 end
