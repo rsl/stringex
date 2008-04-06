@@ -38,7 +38,9 @@ class StringExtensionsTest < Test::Unit::TestCase
       "<p>This has 100% too much    <em>formatting</em></p>" =>
         "this-has-100-percent-too-much-formatting",
       "Tea   &amp; crumpets &amp; <strong>cr&ecirc;pes</strong> for me!" => 
-        "tea-and-crumpets-and-crepes-for-me"
+        "tea-and-crumpets-and-crepes-for-me",
+      "The Suspense... Is... Killing Me" =>
+        "the-suspense-dot-dot-dot-is-dot-dot-dot-killing-me"
     }.each do |html, plain|
       assert_equal plain, html.to_url
     end

@@ -111,7 +111,7 @@ module LuckySneaks
     # you should run any methods which convert HTML entities (convert_html_entities and convert_misc_entities)
     # before running this method.
     def convert_misc_characters
-      dummy = dup
+      dummy = dup.gsub(/\.{3,}/, " dot dot dot ") # Catch ellipses before single dot rule!
       {
         /\s*&\s*/ => "and",
         /\s*#/ => "number",
@@ -120,7 +120,7 @@ module LuckySneaks
         /(\s|^)\$(\d*)(\s|$)/ => '\2 dollars',
         /\s*\*\s*/ => "star",
         /\s*%\s*/ => "percent",
-        /\s*(\\|\/)\s*/ => "slash"
+        /\s*(\\|\/)\s*/ => "slash",
       }.each do |found, replaced|
         replaced = " #{replaced} " unless replaced =~ /\\1/
         dummy.gsub!(found, replaced)
