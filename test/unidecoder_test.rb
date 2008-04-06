@@ -1,6 +1,6 @@
 require "test/unit"
 
-require File.join(File.dirname(__FILE__), "../lib/lucky_sneaks/unidecoder")
+require File.join(File.dirname(__FILE__), "../init")
 
 class UnidecoderTest < Test::Unit::TestCase
   # Silly phrases courtesy of Frank da Cruz

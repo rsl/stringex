@@ -10,7 +10,7 @@ rescue LoadError
   RAILS_ROOT = File.dirname(__FILE__) 
 end
 
-require File.join(File.dirname(__FILE__), '../lib/lucky_sneaks/acts_as_url')
+require File.join(File.dirname(__FILE__), '../init')
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :dbfile => "acts_as_url.sqlite3")
 

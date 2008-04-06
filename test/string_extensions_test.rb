@@ -1,7 +1,7 @@
 require "test/unit"
 
 TEST_ROOT = File.dirname(__FILE__)
-require File.join(TEST_ROOT, "../lib/lucky_sneaks/string_extensions")
+require File.join(TEST_ROOT, "../init")
 
 class StringExtensionsTest < Test::Unit::TestCase
   def test_to_html
