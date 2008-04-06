@@ -1,10 +1,24 @@
 module LuckySneaks
-  module ActsAsUrl
+  module ActsAsUrl # :nodoc:
     def self.included(base)
       base.extend ClassMethods
     end
     
-    module ClassMethods
+    module ClassMethods # :doc:
+      # Creates a callback to automatically create an url-friendly representation
+      # of the <tt>attribute</tt> argument. Example:
+      # 
+      #   act_as_url :title
+      # 
+      # will use the string contents of the <tt>title</tt> attribute
+      # to create the permalink. The default attribute for <tt>acts_as_url</tt>
+      # is <tt>url</tt> but can be changed in the options hash. Available options are:
+      # 
+      # <tt>:url_attribute</tt>:: The name of the attribute to use for storing the generated url string.
+      #                           Default is <tt>:url</tt>
+      # <tt>:scope</tt>:: The name of model attribute to scope unique urls to. There is no default here.
+      # <tt>:sync_url</tt>:: If set to true, the url field will be updated when changes are made to the
+      #                      attribute it is based on. Default is false.
       def acts_as_url(attribute, options = {})
         cattr_accessor :attribute_to_urlify
         cattr_accessor :scope_for_url
