@@ -36,11 +36,13 @@ module LuckySneaks
   end
 end
 
-class String
-  # Returns string with its UTF-8 characters transliterated to ASCII ones. Example: 
-  # 
-  #   "⠋⠗⠁⠝⠉⠑".to_ascii #=> "braille"
-  def to_ascii
-    LuckySneaks::Unidecoder::decode(self)
+module LuckySneaks
+  module StringExtensions
+    # Returns string with its UTF-8 characters transliterated to ASCII ones. Example: 
+    # 
+    #   "⠋⠗⠁⠝⠉⠑".to_ascii #=> "braille"
+    def to_ascii
+      LuckySneaks::Unidecoder::decode(self)
+    end
   end
 end
