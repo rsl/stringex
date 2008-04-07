@@ -30,8 +30,6 @@ ActiveRecord::Schema.define(:version => 1) do
 end
 ActiveRecord::Migration.verbose = true
 
-ActiveRecord::Base.send :include, LuckySneaks::ActsAsUrl
-
 class Document < ActiveRecord::Base
   acts_as_url :title
 end
