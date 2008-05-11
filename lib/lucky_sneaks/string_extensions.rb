@@ -35,7 +35,7 @@ module LuckySneaks
     # Performs multiple text manipulations. Essentially a shortcut for typing them all. View source
     # below to see which methods are run.
     def remove_formatting
-      to_ascii.strip_html_tags.convert_accented_entities.convert_misc_entities.convert_misc_characters
+      to_ascii.strip_html_tags.convert_accented_entities.convert_misc_entities.convert_misc_characters.collapse
     end
 
     # Removes HTML tags from text. This code is simplified from Tobias Luettke's regular expression
@@ -125,7 +125,7 @@ module LuckySneaks
         replaced = " #{replaced} " unless replaced =~ /\\1/
         dummy.gsub!(found, replaced)
       end
-      dummy = dummy.gsub(/(^|\w)'(\w|$)/, '\1\2').gsub(/[\.,:;()\[\]\/\?!\^'"_]/, "")
+      dummy = dummy.gsub(/(^|\w)'(\w|$)/, '\1\2').gsub(/[\.,:;()\[\]\/\?!\^'"_]/, " ")
     end
 
     # Replace runs of whitespace in string. Defaults to a single space but any replacement

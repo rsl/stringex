@@ -39,7 +39,11 @@ class StringExtensionsTest < Test::Unit::TestCase
       "Tea   &amp; crumpets &amp; <strong>cr&ecirc;pes</strong> for me!" => 
         "tea-and-crumpets-and-crepes-for-me",
       "The Suspense... Is... Killing Me" =>
-        "the-suspense-dot-dot-dot-is-dot-dot-dot-killing-me"
+        "the-suspense-dot-dot-dot-is-dot-dot-dot-killing-me",
+      "How to use attr_accessible and attr_protected" =>
+        "how-to-use-attr-accessible-and-attr-protected",
+      "I'm just making sure there's nothing wrong with things!" =>
+        "im-just-making-sure-theres-nothing-wrong-with-things"
     }.each do |html, plain|
       assert_equal plain, html.to_url
     end
