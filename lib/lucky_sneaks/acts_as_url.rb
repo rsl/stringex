@@ -34,6 +34,16 @@ module LuckySneaks
         self.scope_for_url = options[:scope]
         self.url_attribute = options[:url_attribute] || "url"
       end
+
+      # Initialize the url fields for the records that need it. Designed for people who add
+      # <tt>acts_as_url</tt> support once there's already development/production data they'd
+      # like to keep around.
+      def initialize_urls
+        find(:all, :conditions => {:url => nil}).each do |instance|
+          instance.send :ensure_unique_url
+          instance.save
+        end
+      end
     end
       
   private
