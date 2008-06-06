@@ -1,6 +1,10 @@
 module LuckySneaks
   # These methods are all added on String class.
   module StringExtensions
+    def self.included(base) # :nodoc:
+      base.extend(ClassMethods)
+    end
+    
     # Returns the string converted (via Textile/RedCloth) to HTML format or
     # self if Redcloth is not available.
     # 
@@ -143,6 +147,19 @@ module LuckySneaks
     # Note: This method has been superceded by ActiveSupport's squish method.
     def collapse(character = " ")
       sub(/^#{character}*/, "").sub(/#{character}*$/, "").squeeze(character)
+    end
+    
+    module ClassMethods
+      # Returns string of random characters with a length matching the specified limit. Excludes 0
+      # to avoid confusion between 0 and O.
+      def random(limit)
+        strong_alphanumerics = %w{
+          a b c d e f g h i j k l m n o p q r s t u v w x y z
+          A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+          1 2 3 4 5 6 7 8 9
+        }
+        Array.new(limit, "").collect{strong_alphanumerics[rand(61)]}.join
+      end
     end
   end
 end
