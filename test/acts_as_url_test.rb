@@ -106,4 +106,18 @@ class ActsAsUrlTest < Test::Unit::TestCase
     assert_equal "initial", @doc_1.url
     assert_equal "subsequent", @doc_2.url
   end
+  
+  def test_should_mass_initialize_urls_with_custom_url_attribute
+    @doc_1 = Permument.create!(:title => "Initial")
+    @doc_2 = Permument.create!(:title => "Subsequent")
+    @doc_1.update_attribute :permalink, nil
+    @doc_2.update_attribute :permalink, nil
+    assert_nil @doc_1.permalink
+    assert_nil @doc_2.permalink
+    Permument.initialize_urls
+    @doc_1.reload
+    @doc_2.reload
+    assert_equal "initial", @doc_1.permalink
+    assert_equal "subsequent", @doc_2.permalink
+  end
 end

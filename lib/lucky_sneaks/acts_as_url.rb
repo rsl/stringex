@@ -43,7 +43,7 @@ module LuckySneaks
       # on a large selection, you will get much better results writing your own version with
       # using pagination.
       def initialize_urls
-        find(:all, :conditions => {:url => nil}).each do |instance|
+        find(:all, :conditions => {self.url_attribute => nil}).each do |instance|
           instance.send :ensure_unique_url
           instance.save
         end
