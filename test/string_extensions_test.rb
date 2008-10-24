@@ -8,8 +8,8 @@ class StringExtensionsTest < Test::Unit::TestCase
     require "RedCloth"
     {
       "h1. A Solution" => "<h1>A Solution</h1>",
-      "I hated wrapping textilize around a string.\n\nIt always felt dirty and un-OOP." =>
-        "<p>I hated wrapping textilize around a string.</p>\n<p>It always felt dirty and un-OOP.</p>",
+      "I hated wrapping textilize around a string.\n\nIt always felt dirty." =>
+        "<p>I hated wrapping textilize around a string.</p>\n<p>It always felt dirty.</p>",
       "I think _this_ is awesome" => "<p>I think <em>this</em> is awesome</p>",
       "Um... _*really*_, man" => "<p>Um&#8230; <em><strong>really</strong></em>, man</p>"
     }.each do |plain, html|
