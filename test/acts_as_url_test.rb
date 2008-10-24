@@ -27,6 +27,10 @@ ActiveRecord::Schema.define(:version => 1) do
   create_table :permuments, :force => true do |t|
     t.string :title, :permalink, :other
   end
+  
+  create_table :procuments, :force => true do |t|
+    t.string :title, :url, :other
+  end
 end
 ActiveRecord::Migration.verbose = true
 
@@ -40,6 +44,14 @@ end
 
 class Permument < ActiveRecord::Base
   acts_as_url :title, :url_attribute => :permalink
+end
+
+class Procument < ActiveRecord::Base
+  acts_as_url :non_attribute_method
+  
+  def non_attribute_method
+    "#{title} got massaged"
+  end
 end
 
 class ActsAsUrlTest < Test::Unit::TestCase
@@ -119,5 +131,10 @@ class ActsAsUrlTest < Test::Unit::TestCase
     @doc_2.reload
     assert_equal "initial", @doc_1.permalink
     assert_equal "subsequent", @doc_2.permalink
+  end
+  
+  def test_should_utilize_block_if_given
+    @doc = Procument.create!(:title => "Title String")
+    assert_equal "title-string-got-massaged", @doc.url
   end
 end

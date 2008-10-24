@@ -11,8 +11,12 @@ module LuckySneaks
       #   act_as_url :title
       # 
       # will use the string contents of the <tt>title</tt> attribute
-      # to create the permalink. The default attribute for <tt>acts_as_url</tt>
-      # is <tt>url</tt> but can be changed in the options hash. Available options are:
+      # to create the permalink. <strong>Note:</strong> you can also use a non-database-backed
+      # method to supply the string contents for the permalink. Just use that method's name
+      # as the argument as you would an attribute.
+      # 
+      # The default attribute <tt>acts_as_url</tt> uses to save the permalink is <tt>url</tt>
+      # but this can be changed in the options hash. Available options are:
       # 
       # <tt>:url_attribute</tt>:: The name of the attribute to use for storing the generated url string.
       #                           Default is <tt>:url</tt>
