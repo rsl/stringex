@@ -204,5 +204,6 @@ Gem::Specification.new do |s|
     test/string_extensions_test.rb
     test/unidecoder_test.rb
   }
-  s.rdoc_options = ["--main", "README.rdoc", "--line-numbers"]
+  s.rdoc_options = %w{--main README.rdoc --line-numbers}
+  s.extra_rdoc_files =  %w{MIT-LICENSE README.rdoc}
 end
