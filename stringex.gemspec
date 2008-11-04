@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name     = "stringex"
-  s.version  = "0.9.1"
+  s.version  = "0.9.2"
   s.date     = "2008-10-04"
   s.summary  = "Some [hopefully] useful extensions to Ruby’s String class"
   s.email    = "rsl@luckysneaks.com"
