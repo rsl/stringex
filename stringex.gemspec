@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
     Rakefile
     README.rdoc
     stringex.gemspec
+    lib/stringex.rb
     lib/lucky_sneaks/acts_as_url.rb
     lib/lucky_sneaks/string_extensions.rb
     lib/lucky_sneaks/unidecoder.rb
