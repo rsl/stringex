@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name     = "stringex"
-  s.version  = "0.9.0"
+  s.version  = "0.9.1"
   s.date     = "2008-10-04"
   s.summary  = "Some [hopefully] useful extensions to Ruby’s String class"
   s.email    = "rsl@luckysneaks.com"
@@ -204,5 +204,5 @@ Gem::Specification.new do |s|
     test/string_extensions_test.rb
     test/unidecoder_test.rb
   }
-  s.rdoc_options = %w{--main README.rdoc --line-numbers}
+  s.rdoc_options = ["--main", "README.rdoc", "--line-numbers"]
 end
