@@ -26,3 +26,4 @@ Gem::Specification.new do |s|
     test/unidecoder_test.rb
   }
   s.rdoc_options = %w{--main README.rdoc --line-numbers}
+end
