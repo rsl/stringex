@@ -199,11 +199,10 @@ Gem::Specification.new do |s|
     lib/lucky_sneaks/unidecoder_data/xff.yml
   }
   s.test_files = %w{
-    test/acts_as_url.sqlite3
     test/acts_as_url_test.rb
     test/string_extensions_test.rb
     test/unidecoder_test.rb
   }
-  s.rdoc_options = %w{--main README.rdoc --line-numbers}
+  s.rdoc_options = %w{--main README.rdoc --charset utf-8 --line-numbers}
   s.extra_rdoc_files =  %w{MIT-LICENSE README.rdoc}
 end

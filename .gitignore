@@ -1,3 +1,4 @@
 .DS_Store
 doc
+github-test.rb
 test/*.sqlite3
