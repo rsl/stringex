@@ -4,4 +4,6 @@ require 'lucky_sneaks/unidecoder'
 
 String.send :include, LuckySneaks::StringExtensions
 
-ActiveRecord::Base.send :include, LuckySneaks::ActsAsUrl
+if defined?(ActiveRecord)
+  ActiveRecord::Base.send :include, LuckySneaks::ActsAsUrl
+end
