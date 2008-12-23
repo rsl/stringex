@@ -31,6 +31,10 @@ ActiveRecord::Schema.define(:version => 1) do
   create_table :procuments, :force => true do |t|
     t.string :title, :url, :other
   end
+
+  create_table :blankuments, :force => true do |t|
+    t.string :title, :url, :other
+  end
 end
 ActiveRecord::Migration.verbose = true
 
@@ -52,6 +56,10 @@ class Procument < ActiveRecord::Base
   def non_attribute_method
     "#{title} got massaged"
   end
+end
+
+class Blankument < ActiveRecord::Base
+  acts_as_url :title, :only_when_blank => true
 end
 
 class ActsAsUrlTest < Test::Unit::TestCase
@@ -103,6 +111,14 @@ class ActsAsUrlTest < Test::Unit::TestCase
     @original_url = @moc.url
     @moc.update_attributes :title => "New and Improved"
     assert_not_equal @original_url, @moc.url
+  end
+  
+  def test_should_update_url_only_when_blank_if_asked
+    @original_url = 'the-url-of-concrete'
+    @blank = Blankument.create!(:title => "Stable as Stone", :url => @original_url)
+    assert_equal @original_url, @blank.url
+    @blank = Blankument.create!(:title => "Stable as Stone")
+    assert_equal 'stable-as-stone', @blank.url
   end
   
   def test_should_mass_initialize_urls
