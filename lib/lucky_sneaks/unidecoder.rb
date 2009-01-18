@@ -48,7 +48,7 @@ module LuckySneaks
     # 
     #   "⠋⠗⠁⠝⠉⠑".to_ascii #=> "braille"
     def to_ascii
-      LuckySneaks::Unidecoder::decode(self)
+      LuckySneaks::Unidecoder.decode(self)
     end
   end
 end
