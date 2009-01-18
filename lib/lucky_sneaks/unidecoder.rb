@@ -13,8 +13,9 @@ module LuckySneaks
       # You're probably better off just using the added String#to_ascii
       def decode(string)
         string.gsub(/[^\x00-\x7f]/u) do |codepoint|
+          unpacked = codepoint.unpack("U")[0]
           begin
-            CODEPOINTS[code_group(codepoint)][grouped_point(codepoint)]
+            CODEPOINTS[code_group(unpacked)][grouped_point(unpacked)]
           rescue
             # Hopefully this won't come up much
             "?"
@@ -24,13 +25,13 @@ module LuckySneaks
     
     private
       # Returns the Unicode codepoint grouping for the given character
-      def code_group(character)
-        "x%02x" % (character.unpack("U")[0] >> 8)
+      def code_group(unpacked_character)
+        "x%02x" % (unpacked_character >> 8)
       end
     
       # Returns the index of the given character in the YAML file for its codepoint group
-      def grouped_point(character)
-        character.unpack("U")[0] & 255
+      def grouped_point(unpacked_character)
+        unpacked_character & 255
       end
     end
   end
