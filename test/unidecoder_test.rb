@@ -48,7 +48,7 @@ class UnidecoderTest < Test::Unit::TestCase
       "Si hagarasuwoShi beraremasu. sorehaSi woShang tukemasen. ",
   }
   
-  def test_unicode_decode
+  def test_unidecoder_decode
     DONT_CONVERT.each do |ascii|
       assert_equal ascii, LuckySneaks::Unidecoder.decode(ascii)
     end
@@ -66,7 +66,7 @@ class UnidecoderTest < Test::Unit::TestCase
     end
   end
   
-  def test_unicode_encode
+  def test_unidecoder_encode
     {
       # Strings
       "0041" => "A",
