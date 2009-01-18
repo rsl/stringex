@@ -65,4 +65,15 @@ class UnidecoderTest < Test::Unit::TestCase
       assert_equal ascii, unicode.to_ascii
     end
   end
+  
+  def test_unicode_encode
+    {
+      # Strings
+      "0041" => "A",
+      "00e6" => "æ",
+      "042f" => "Я"
+    }.each do |codepoint, unicode|
+      assert_equal unicode, LuckySneaks::Unidecoder::encode(codepoint)
+    end
+  end
 end

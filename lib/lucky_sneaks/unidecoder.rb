@@ -22,6 +22,11 @@ module LuckySneaks
           end
         end
       end
+      
+      # This should only be used for debugging
+      def encode(codepoint)
+        ["0x#{codepoint}".to_i(16)].pack("U")
+      end
     
     private
       # Returns the Unicode codepoint grouping for the given character
