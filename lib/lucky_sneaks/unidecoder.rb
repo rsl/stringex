@@ -27,6 +27,13 @@ module LuckySneaks
       def encode(codepoint)
         ["0x#{codepoint}".to_i(16)].pack("U")
       end
+      
+      # Returns string indicating which file (and line) contains the
+      # transliteration value for the character
+      def in_yaml_file(character)
+        unpacked = character.unpack("U")[0]
+        "#{code_group(unpacked)}.yml (line #{grouped_point(unpacked) + 2})"
+      end
     
     private
       # Returns the Unicode codepoint grouping for the given character

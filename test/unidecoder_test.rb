@@ -76,4 +76,14 @@ class UnidecoderTest < Test::Unit::TestCase
       assert_equal unicode, LuckySneaks::Unidecoder.encode(codepoint)
     end
   end
+  
+  def test_unidecoder_in_yaml_file
+    {
+      "A" => "x00.yml (line 67)",
+      "π" => "x03.yml (line 194)",
+      "Я" => "x04.yml (line 49)"
+    }.each do |character, output|
+      assert_equal output, LuckySneaks::Unidecoder.in_yaml_file(character)
+    end
+  end
 end
