@@ -23,7 +23,7 @@ module LuckySneaks
         end
       end
       
-      # This should only be used for debugging
+      # Returns character for the given Unicode codepoint
       def encode(codepoint)
         ["0x#{codepoint}".to_i(16)].pack("U")
       end
