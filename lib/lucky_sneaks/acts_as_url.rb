@@ -21,12 +21,15 @@ module LuckySneaks
       # <tt>:url_attribute</tt>:: The name of the attribute to use for storing the generated url string.
       #                           Default is <tt>:url</tt>
       # <tt>:scope</tt>:: The name of model attribute to scope unique urls to. There is no default here.
+      # <tt>:only_when_blank</tt>:: If true, the url generation will only happen when <tt>:url_attribute</tt> is 
+      #                             blank. Default is false (meaning url generation will happen always)
       # <tt>:sync_url</tt>:: If set to true, the url field will be updated when changes are made to the
       #                      attribute it is based on. Default is false.
       def acts_as_url(attribute, options = {})
         cattr_accessor :attribute_to_urlify
         cattr_accessor :scope_for_url
         cattr_accessor :url_attribute # The attribute on the DB
+        cattr_accessor :only_when_blank
         
         if options[:sync_url]
           before_validation :ensure_unique_url
@@ -37,6 +40,7 @@ module LuckySneaks
         self.attribute_to_urlify = attribute
         self.scope_for_url = options[:scope]
         self.url_attribute = options[:url_attribute] || "url"
+        self.only_when_blank = options[:only_when_blank] || false
       end
 
       # Initialize the url fields for the records that need it. Designed for people who add
@@ -57,7 +61,8 @@ module LuckySneaks
   private
     def ensure_unique_url
       url_attribute = self.class.url_attribute
-      base_url = self.send(self.class.attribute_to_urlify).to_s.to_url
+      base_url = self.send(url_attribute)
+      base_url = self.send(self.class.attribute_to_urlify).to_s.to_url if base_url.blank? || !self.only_when_blank
       conditions = ["#{url_attribute} LIKE ?", base_url+'%']
       unless new_record?
         conditions.first << " and id != ?"
