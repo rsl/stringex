@@ -6,7 +6,7 @@ include CodepointTestHelper
 
 class BasicLatinTest < Test::Unit::TestCase
   # This test suite is just regression test and debugging
-  # to better transliterate the Basic Latin unicode codepoints
+  # to better transliterate the Basic Latin Unicode codepoints
   # 
   # http://unicode.org/charts/
   # http://unicode.org/charts/PDF/U0000.pdf
