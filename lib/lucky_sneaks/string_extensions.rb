@@ -132,6 +132,7 @@ module LuckySneaks
         /(\S|^)\.(\S)/ => '\1 dot \2',
         /(\s|^)\$(\d*)(\s|$)/ => '\2 dollars',
         /(\s|^)£(\d*)(\s|$)/u => '\2 pounds',
+        /(\s|^)¥(\d*)(\s|$)/u => '\2 yen',
         /\s*\*\s*/ => "star",
         /\s*%\s*/ => "percent",
         /\s*(\\|\/)\s*/ => "slash",
