@@ -16,6 +16,7 @@ class BasicLatinTest < Test::Unit::TestCase
   def test_control_characters
     characters = 0..31
     assert_equal_encoded "", characters.map{|character| "%04x" % character.to_i}
+    assert_equal_encoded "", "007f"
   end
   
   def test_spaces
