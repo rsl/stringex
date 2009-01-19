@@ -107,7 +107,9 @@ class StringExtensionsTest < Test::Unit::TestCase
       "Foo & bar make foobar" => "Foo and bar make foobar",
       "Breakdown #9" => "Breakdown number 9",
       "foo@bar.com" => "foo at bar dot com",
-      "100% of yr love" => "100 percent of yr love"
+      "100% of yr love" => "100 percent of yr love",
+      "Kisses are $3.25 each" => "Kisses are 3 dollars 25 cents each",
+      "That CD is £3.25 plus tax" => "That CD is 3 pounds 25 pence plus tax"
     }.each do |misc, plain|
       assert_equal plain, misc.convert_misc_characters
     end

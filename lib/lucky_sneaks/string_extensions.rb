@@ -39,7 +39,7 @@ module LuckySneaks
     # Performs multiple text manipulations. Essentially a shortcut for typing them all. View source
     # below to see which methods are run.
     def remove_formatting
-      to_ascii.strip_html_tags.convert_accented_entities.convert_misc_entities.convert_misc_characters.collapse
+      strip_html_tags.convert_accented_entities.convert_misc_entities.convert_misc_characters.to_ascii.collapse
     end
 
     # Removes HTML tags from text. This code is simplified from Tobias Luettke's regular expression
@@ -116,12 +116,22 @@ module LuckySneaks
     # before running this method.
     def convert_misc_characters
       dummy = dup.gsub(/\.{3,}/, " dot dot dot ") # Catch ellipses before single dot rule!
+      # Special rules for money
+      {
+        /(\s|^)\$(\d+)\.(\d+)(\s|$)/ => '\2 dollars \3 cents',
+        /(\s|^)£(\d+)\.(\d+)(\s|$)/u => '\2 pounds \3 pence',
+      }.each do |found, replaced|
+        replaced = " #{replaced} " unless replaced =~ /\\1/
+        dummy.gsub!(found, replaced)
+      end
+      # Back to normal rules
       {
         /\s*&\s*/ => "and",
         /\s*#/ => "number",
         /\s*@\s*/ => "at",
         /(\S|^)\.(\S)/ => '\1 dot \2',
         /(\s|^)\$(\d*)(\s|$)/ => '\2 dollars',
+        /(\s|^)£(\d*)(\s|$)/u => '\2 pounds',
         /\s*\*\s*/ => "star",
         /\s*%\s*/ => "percent",
         /\s*(\\|\/)\s*/ => "slash",
