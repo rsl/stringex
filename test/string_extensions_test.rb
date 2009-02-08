@@ -44,7 +44,9 @@ class StringExtensionsTest < Test::Unit::TestCase
       "How to use attr_accessible and attr_protected" =>
         "how-to-use-attr-accessible-and-attr-protected",
       "I'm just making sure there's nothing wrong with things!" =>
-        "im-just-making-sure-theres-nothing-wrong-with-things"
+        "im-just-making-sure-theres-nothing-wrong-with-things",
+      "Umlaute hätten wir außerdem gern deutsch übersetzt." =>
+        "umlaute-haetten-wir-ausserdem-gern-deutsch-uebersetzt"
     }.each do |html, plain|
       assert_equal plain, html.to_url
     end
@@ -86,6 +88,20 @@ class StringExtensionsTest < Test::Unit::TestCase
       "&ccedil;" => "c"
     }.each do |entitied, plain|
       assert_equal plain, entitied.convert_accented_entities
+    end
+  end
+  
+  def test_convert_german_umlauts
+    {
+      "Ä" => "ae",
+      "Ö" => "oe",
+      "Ü" => "ue",
+      "ä" => "ae",
+      "ö" => "oe",
+      "ü" => "ue",
+      "ß" => "ss"
+    }.each do |entitied, plain|
+      assert_equal plain, entitied.convert_german_umlauts
     end
   end
   
