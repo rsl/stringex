@@ -1,5 +1,6 @@
 require "test/unit"
 
+$: << File.join(File.dirname(__FILE__), '../lib')
 require File.join(File.dirname(__FILE__), "../init")
 
 class UnidecoderTest < Test::Unit::TestCase
@@ -45,7 +46,7 @@ class UnidecoderTest < Test::Unit::TestCase
     "我能吞下玻璃而不伤身体。" => # Chinese
       "Wo Neng Tun Xia Bo Li Er Bu Shang Shen Ti . ",
     "私はガラスを食べられます。それは私を傷つけません。" => # Japanese
-      "Si hagarasuwoShi beraremasu. sorehaSi woShang tukemasen. ",
+      "Si hagarasuwoShi beraremasu. sorehaSi woShang tukemasen. "
   }
   
   def test_unidecoder_decode

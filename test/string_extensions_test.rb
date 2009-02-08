@@ -1,5 +1,6 @@
 require "test/unit"
 
+$: << File.join(File.dirname(__FILE__), '../lib')
 require File.join(File.dirname(__FILE__), "../init")
 
 class StringExtensionsTest < Test::Unit::TestCase
@@ -15,7 +16,7 @@ class StringExtensionsTest < Test::Unit::TestCase
     }.each do |plain, html|
       assert_equal html, plain.to_html
     end
-  rescue MissingSourceFile
+  rescue LoadError
     puts "\n>> Could not load RedCloth. String#to_html was not tested.\n>> Please gem install RedCloth if you'd like to use this functionality."
   end
   
@@ -28,7 +29,7 @@ class StringExtensionsTest < Test::Unit::TestCase
     }.each do |plain, html|
       assert_equal html, plain.to_html(:lite)
     end
-  rescue MissingSourceFile
+  rescue LoadError
     puts "\n>> Could not load RedCloth. String#to_html (with :lite argument) was not tested.\n>> Please gem install RedCloth if you'd like to use this functionality."
   end
   
