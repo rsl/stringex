@@ -74,6 +74,7 @@ module LuckySneaks
       end
       url_owners = self.class.find(:all, :conditions => conditions)
       if url_owners.size > 0
+        return unless url_owners.map { |o| o.send(url_attribute) }.include?(base_url)
         n = 1
         while url_owners.detect{|u| u.send(url_attribute) == "#{base_url}-#{n}"}
           n = n.succ
