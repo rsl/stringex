@@ -20,7 +20,11 @@ ActiveRecord::Schema.define(:version => 1) do
   create_table :documents, :force => true do |t|
     t.string :title, :url, :other
   end
-  
+
+  create_table :updateuments, :force => true do |t|
+    t.string :title, :url, :other
+  end
+
   create_table :mocuments, :force => true do |t|
     t.string :title, :url, :other
   end
@@ -28,7 +32,7 @@ ActiveRecord::Schema.define(:version => 1) do
   create_table :permuments, :force => true do |t|
     t.string :title, :permalink, :other
   end
-  
+
   create_table :procuments, :force => true do |t|
     t.string :title, :url, :other
   end
@@ -41,6 +45,10 @@ ActiveRecord::Migration.verbose = true
 
 class Document < ActiveRecord::Base
   acts_as_url :title
+end
+
+class Updateument < ActiveRecord::Base
+  acts_as_url :title, :sync_url => true
 end
 
 class Mocument < ActiveRecord::Base
@@ -74,13 +82,31 @@ class ActsAsUrlTest < Test::Unit::TestCase
     @other_doc = Document.create!(:title => "Unique")
     assert_equal "unique-1", @other_doc.url
   end
-  
+
   def test_should_not_succ_on_repeated_saves
     @doc = Document.new(:title => "Continuous or Constant")
     5.times do
       @doc.save!
       assert_equal "continuous-or-constant", @doc.url
     end
+  end
+
+  def test_should_create_unique_url_and_not_clobber_if_another_exists
+    @doc = Updateument.create!(:title => "Unique")
+    @other_doc = Updateument.create!(:title => "Unique")
+    @doc.update_attributes :other => "foo"
+
+    @doc2 = Document.create!(:title => "twonique")
+    @other_doc2 = Document.create!(:title => "twonique")
+    @doc2.update_attributes(:other => "foo")
+
+    assert_equal "unique", @doc.url
+    assert_equal "foo", @doc.other
+    assert_equal "unique-1", @other_doc.url
+
+    assert_equal "twonique", @doc2.url
+    assert_equal "foo", @doc2.other
+    assert_equal "twonique-1", @other_doc2.url
   end
   
   def test_should_scope_uniqueness
