@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{stringex}
-  s.version = "0.9.4"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Russell Norris"]
@@ -201,7 +201,8 @@ Gem::Specification.new do |s|
      "lib/lucky_sneaks/unidecoder_data/xfd.yml",
      "lib/lucky_sneaks/unidecoder_data/xfe.yml",
      "lib/lucky_sneaks/unidecoder_data/xff.yml",
-     "lib/stringex.rb"
+     "lib/stringex.rb",
+     "stringex.gemspec"
   ]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/rsl/stringex}
