@@ -9,6 +9,7 @@ begin
     gem.authors     = ["Russell Norris"]
     gem.email       = "rsl@luckysneaks.com"
     gem.homepage    = "http://github.com/rsl/stringex"
+    gem.rubyforge_project = "Stringex"
     gem.summary     = "Some [hopefully] useful extensions to Ruby’s String class"
     gem.description = "Some [hopefully] useful extensions to Ruby’s String class. Stringex is made up of three libraries: ActsAsUrl [permalink solution with better character translation], Unidecoder [Unicode to Ascii transliteration], and StringExtensions [miscellaneous helper methods for the String class]."
     gem.has_rdoc    = true
