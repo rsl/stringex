@@ -5,8 +5,8 @@ module LuckySneaks
       base.extend(ClassMethods)
     end
     
-    # Returns the string converted (via Textile/RedCloth) to HTML format or
-    # self if Redcloth is not available.
+    # Returns the string converted (via Textile/RedCloth) to HTML format
+    # or self [with a friendly warning] if Redcloth is not available.
     # 
     # Using <tt>:lite</tt> argument will cause RedCloth to not wrap the HTML in a container
     # P element, which is useful behavior for generating header element text, etc.
@@ -25,6 +25,7 @@ module LuckySneaks
           end
         end
       else
+        warn "String#to_html was called without RedCloth being successfully required"
         self
       end
     end
