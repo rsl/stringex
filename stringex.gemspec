@@ -208,7 +208,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/rsl/stringex}
   s.rdoc_options = ["--main", "README.rdoc", "--charset", "utf-8", "--line-numbers"]
   s.require_paths = ["lib"]
-  s.rubyforge_project = %q{Stringex}
+  s.rubyforge_project = %q{stringex}
   s.rubygems_version = %q{1.3.2}
   s.summary = %q{Some [hopefully] useful extensions to Ruby’s String class}
   s.test_files = [
