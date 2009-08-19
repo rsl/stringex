@@ -42,7 +42,12 @@ module LuckySneaks
     # Performs multiple text manipulations. Essentially a shortcut for typing them all. View source
     # below to see which methods are run.
     def remove_formatting
-      strip_html_tags.convert_accented_entities.convert_misc_entities.convert_misc_characters.to_ascii.collapse
+      strip_html_tags.
+      convert_german_umlauts.
+      convert_accented_entities.
+      convert_misc_entities.
+      convert_misc_characters.
+      to_ascii.collapse
     end
 
     # Removes HTML tags from text. This code is simplified from Tobias Luettke's regular expression
@@ -68,6 +73,20 @@ module LuckySneaks
     # functionality please use <tt>to_ascii</tt>.
     def convert_accented_entities
       gsub(/&([A-Za-z])(grave|acute|circ|tilde|uml|ring|cedil|slash);/, '\1')
+    end
+
+    # Converts German Umlauts to their transliteration according to German conventions.
+    def convert_german_umlauts
+      map = {
+        "Ä" => "ae",
+        "Ö" => "oe",
+        "Ü" => "ue",
+        "ä" => "ae",
+        "ö" => "oe",
+        "ü" => "ue",
+        "ß" => "ss"
+      }
+      gsub(/#{map.keys.join('|')}/) { |match| map[match] }
     end
 
     # Converts HTML entities (taken from common Textile/RedCloth formattings) into plain text formats.
