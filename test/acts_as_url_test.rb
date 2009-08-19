@@ -109,6 +109,18 @@ class ActsAsUrlTest < Test::Unit::TestCase
     assert_equal "twonique-1", @other_doc2.url
   end
   
+  def test_should_create_unique_url_when_partial_url_already_exists
+    # for example if we already have "House Farms" and url house-farms
+    # we should successfully create "House Farm" and url house-farm
+    # and vice-versa
+
+    @doc = Updateument.create!(:title => "House Farms")
+    @other_doc = Updateument.create!(:title => "House Farm")
+
+    assert_equal "house-farms", @doc.url
+    assert_equal "house-farm", @other_doc.url
+  end
+  
   def test_should_scope_uniqueness
     @moc = Mocument.create!(:title => "Mocumentary", :other => "I dunno why but I don't care if I'm unique")
     @other_moc = Mocument.create!(:title => "Mocumentary")
