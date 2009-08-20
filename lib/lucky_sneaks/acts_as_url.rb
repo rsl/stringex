@@ -30,6 +30,7 @@ module LuckySneaks
         cattr_accessor :scope_for_url
         cattr_accessor :url_attribute # The attribute on the DB
         cattr_accessor :only_when_blank
+        cattr_accessor :duplicate_count_separator
         
         if options[:sync_url]
           before_validation :ensure_unique_url
@@ -41,6 +42,7 @@ module LuckySneaks
         self.scope_for_url = options[:scope]
         self.url_attribute = options[:url_attribute] || "url"
         self.only_when_blank = options[:only_when_blank] || false
+        self.duplicate_count_separator = options[:duplicate_count_separator] || "-"
       end
 
       # Initialize the url fields for the records that need it. Designed for people who add
@@ -61,6 +63,7 @@ module LuckySneaks
   private
     def ensure_unique_url
       url_attribute = self.class.url_attribute
+      separator = self.class.duplicate_count_separator
       base_url = self.send(url_attribute)
       base_url = self.send(self.class.attribute_to_urlify).to_s.to_url if base_url.blank? || !self.only_when_blank
       conditions = ["#{url_attribute} LIKE ?", base_url+'%']
@@ -76,10 +79,10 @@ module LuckySneaks
       write_attribute url_attribute, base_url
       if url_owners.any?{|owner| owner.send(url_attribute) == base_url}
         n = 1
-        while url_owners.any?{|owner| owner.send(url_attribute) == "#{base_url}-#{n}"}
+        while url_owners.any?{|owner| owner.send(url_attribute) == "#{base_url}#{separator}#{n}"}
           n = n.succ
         end
-        write_attribute url_attribute, "#{base_url}-#{n}"
+        write_attribute url_attribute, "#{base_url}#{separator}#{n}"
       end
     end
   end

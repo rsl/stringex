@@ -40,6 +40,10 @@ ActiveRecord::Schema.define(:version => 1) do
   create_table :blankuments, :force => true do |t|
     t.string :title, :url, :other
   end
+
+  create_table :duplicateuments, :force => true do |t|
+    t.string :title, :url, :other
+  end
 end
 ActiveRecord::Migration.verbose = true
 
@@ -69,6 +73,10 @@ end
 
 class Blankument < ActiveRecord::Base
   acts_as_url :title, :only_when_blank => true
+end
+
+class Duplicateument < ActiveRecord::Base
+  acts_as_url :title, :duplicate_count_separator => "---"
 end
 
 class ActsAsUrlTest < Test::Unit::TestCase
@@ -187,5 +195,12 @@ class ActsAsUrlTest < Test::Unit::TestCase
   def test_should_utilize_block_if_given
     @doc = Procument.create!(:title => "Title String")
     assert_equal "title-string-got-massaged", @doc.url
+  end
+
+  def test_should_create_unique_with_custom_duplicate_count_separator
+    @doc = Duplicateument.create!(:title => "Unique")
+    @other_doc = Duplicateument.create!(:title => "Unique")
+    assert_equal "unique", @doc.url
+    assert_equal "unique---1", @other_doc.url
   end
 end
