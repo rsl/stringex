@@ -73,15 +73,13 @@ module LuckySneaks
         conditions << send(self.class.scope_for_url)
       end
       url_owners = self.class.find(:all, :conditions => conditions)
-      if url_owners.size > 0
-        return unless url_owners.map { |o| o.send(url_attribute) }.include?(base_url)
+      write_attribute url_attribute, base_url
+      if url_owners.any?{|owner| owner.send(url_attribute) == base_url}
         n = 1
-        while url_owners.detect{|u| u.send(url_attribute) == "#{base_url}-#{n}"}
+        while url_owners.any?{|owner| owner.send(url_attribute) == "#{base_url}-#{n}"}
           n = n.succ
         end
         write_attribute url_attribute, "#{base_url}-#{n}"
-      else
-        write_attribute url_attribute, base_url
       end
     end
   end

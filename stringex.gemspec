@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{stringex}
-  s.version = "1.0.1"
+  s.version = "1.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Russell Norris"]
-  s.date = %q{2009-07-20}
+  s.date = %q{2009-08-19}
   s.description = %q{Some [hopefully] useful extensions to Ruby’s String class. Stringex is made up of three libraries: ActsAsUrl [permalink solution with better character translation], Unidecoder [Unicode to Ascii transliteration], and StringExtensions [miscellaneous helper methods for the String class].}
   s.email = %q{rsl@luckysneaks.com}
   s.extra_rdoc_files = [
@@ -204,12 +204,11 @@ Gem::Specification.new do |s|
      "lib/stringex.rb",
      "stringex.gemspec"
   ]
-  s.has_rdoc = true
   s.homepage = %q{http://github.com/rsl/stringex}
   s.rdoc_options = ["--main", "README.rdoc", "--charset", "utf-8", "--line-numbers"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{stringex}
-  s.rubygems_version = %q{1.3.2}
+  s.rubygems_version = %q{1.3.5}
   s.summary = %q{Some [hopefully] useful extensions to Ruby’s String class}
   s.test_files = [
     "test/acts_as_url_test.rb",
