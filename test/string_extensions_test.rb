@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require "test/unit"
 
 $: << File.join(File.dirname(__FILE__), '../lib')
