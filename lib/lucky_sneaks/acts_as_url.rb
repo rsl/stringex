@@ -35,7 +35,8 @@ module LuckySneaks
         if options[:sync_url]
           before_validation :ensure_unique_url
         else
-          before_validation_on_create :ensure_unique_url
+	  Rails.version < "3.0" ? before_validation_on_create :ensure_unique_url :
+	                          before_validation :ensure_unique_url, :on => :create
         end
 
         self.attribute_to_urlify = attribute
