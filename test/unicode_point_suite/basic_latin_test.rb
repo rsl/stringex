@@ -47,7 +47,23 @@ class BasicLatinTest < Test::Unit::TestCase
   end
   
   def test_hyphens
-    assert_equal_encoded "-", %w{002d 2010 2011 2012 2013 2212}
+    assert_equal_encoded "-", %w{002d 2010 2011 2012 2212}
+  end
+  
+  def test_endash
+    assert_equal_encoded "--", %w{2013 2015}
+  end
+  
+  def test_emdash
+    assert_equal_encoded "---", %w{2014}
+  end
+  
+  def test_dotleader
+    assert_equal_encoded "..", %w{2025}
+  end
+  
+  def test_ellipsis
+    assert_equal_encoded "...", %w{2026}
   end
   
   def test_slashes
