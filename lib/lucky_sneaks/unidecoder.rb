@@ -13,8 +13,8 @@ module LuckySneaks
       # You're probably better off just using the added String#to_ascii
       def decode(string)
         string.gsub(/[^\x00-\x7f]/u) do |codepoint|
-          unpacked = codepoint.unpack("U")[0]
           begin
+            unpacked = codepoint.unpack("U")[0]
             CODEPOINTS[code_group(unpacked)][grouped_point(unpacked)]
           rescue
             # Hopefully this won't come up much
