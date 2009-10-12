@@ -35,7 +35,7 @@ module LuckySneaks
         if options[:sync_url]
           before_validation :ensure_unique_url
         else
-          defined?(ActiveSupport::Callbacks) ? before_validation(:ensure_unique_url, :on => :create) :
+          # defined?(ActiveSupport::Callbacks) ? before_validation(:ensure_unique_url, :on => :create) :
                                                before_validation_on_create(:ensure_unique_url)
         end
 
