@@ -13,7 +13,7 @@ end
 
 require File.join(File.dirname(__FILE__), '../init')
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :dbfile => "acts_as_url.sqlite3")
+ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => "acts_as_url.sqlite3")
 
 ActiveRecord::Migration.verbose = false
 ActiveRecord::Schema.define(:version => 1) do
