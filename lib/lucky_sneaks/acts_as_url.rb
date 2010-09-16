@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module LuckySneaks
   module ActsAsUrl # :nodoc:
     def self.included(base)

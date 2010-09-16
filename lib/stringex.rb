@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'lucky_sneaks/string_extensions'
 require 'lucky_sneaks/unidecoder'
 

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # 100% shorthand
 module CodepointTestHelper
   def assert_equal_encoded(expected, encode_mes)
