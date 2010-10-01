@@ -21,7 +21,7 @@ class StringExtensionsTest < Test::Unit::TestCase
   rescue LoadError
     puts "\n>> Could not load RedCloth. String#to_html was not tested.\n>> Please gem install RedCloth if you'd like to use this functionality."
   end
-  
+
   def test_to_html_lite
     require "rubygems"
     require "RedCloth"
@@ -34,12 +34,12 @@ class StringExtensionsTest < Test::Unit::TestCase
   rescue LoadError
     puts "\n>> Could not load RedCloth. String#to_html (with :lite argument) was not tested.\n>> Please gem install RedCloth if you'd like to use this functionality."
   end
-  
+
   def test_to_url
     {
       "<p>This has 100% too much    <em>formatting</em></p>" =>
         "this-has-100-percent-too-much-formatting",
-      "Tea   &amp; crumpets &amp; <strong>cr&ecirc;pes</strong> for me!" => 
+      "Tea   &amp; crumpets &amp; <strong>cr&ecirc;pes</strong> for me!" =>
         "tea-and-crumpets-and-crepes-for-me",
       "The Suspense... Is... Killing Me" =>
         "the-suspense-dot-dot-dot-is-dot-dot-dot-killing-me",
@@ -53,18 +53,18 @@ class StringExtensionsTest < Test::Unit::TestCase
       assert_equal plain, html.to_url
     end
   end
-  
+
   def test_remove_formatting
     {
       "<p>This has 100% too much    <em>formatting</em></p>" =>
         "This has 100 percent too much formatting",
-      "Tea   &amp; crumpets &amp; <strong>cr&ecirc;pes</strong> for me!" => 
+      "Tea   &amp; crumpets &amp; <strong>cr&ecirc;pes</strong> for me!" =>
         "Tea and crumpets and crepes for me"
     }.each do |html, plain|
       assert_equal plain, html.remove_formatting
     end
   end
-  
+
   def test_strip_html_tags
     {
       "<h1><em>This</em> is good but <strong>that</strong> is better</h1>" =>
@@ -78,7 +78,7 @@ class StringExtensionsTest < Test::Unit::TestCase
       assert_equal plain, html.strip_html_tags
     end
   end
-  
+
   def test_convert_accented_entities
     {
       "&aring;"  => "a",
@@ -92,7 +92,7 @@ class StringExtensionsTest < Test::Unit::TestCase
       assert_equal plain, entitied.convert_accented_entities
     end
   end
-  
+
   def test_convert_german_umlauts
     {
       "Ä" => "ae",
@@ -106,7 +106,7 @@ class StringExtensionsTest < Test::Unit::TestCase
       assert_equal plain, entitied.convert_german_umlauts
     end
   end
-  
+
   def test_convert_misc_entities
     {
       "America&#8482;" => "America(tm)",
@@ -120,7 +120,17 @@ class StringExtensionsTest < Test::Unit::TestCase
       assert_equal plain, entitied.convert_misc_entities
     end
   end
-  
+
+  def test_convert_smart_punctuation
+    {
+      "“smart quotes”" => '"smart quotes"',
+      "‘dumb quotes’" => "'dumb quotes'",
+      "I love you, but…" => "I love you, but...",
+    }.each do |smart, plain|
+      assert_equal plain, smart.convert_smart_punctuation
+    end
+  end
+
   def test_convert_misc_characters
     {
       "Foo & bar make foobar" => "Foo and bar make foobar",
@@ -134,7 +144,7 @@ class StringExtensionsTest < Test::Unit::TestCase
       assert_equal plain, misc.convert_misc_characters
     end
   end
-  
+
   def test_replace_whitespace
     {
       "this has     too much space" => "this has too much space",
@@ -143,10 +153,10 @@ class StringExtensionsTest < Test::Unit::TestCase
     }.each do |whitespaced, plain|
       assert_equal plain, whitespaced.replace_whitespace
     end
-    
+
     assert_equal "now-with-more-hyphens", "now with more hyphens".replace_whitespace("-")
   end
-  
+
   def test_collapse
     {
       "too      much space" => "too much space",
@@ -154,7 +164,7 @@ class StringExtensionsTest < Test::Unit::TestCase
     }.each do |uncollapsed, plain|
       assert_equal plain, uncollapsed.collapse
     end
-    
+
     assert_equal "now-with-hyphens", "----now---------with-hyphens--------".collapse("-")
   end
 end
