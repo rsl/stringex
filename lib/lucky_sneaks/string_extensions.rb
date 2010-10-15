@@ -127,8 +127,8 @@ module LuckySneaks
       dummy = dup
       {
 
-        "(“|”)" => '"',
-        "(‘|’)" => "'",
+        "(“|”|\302\223|\302\224)" => '"',
+        "(‘|’|\302\221|\302\222)" => "'",
         "…" => "...",
       }.each do |smart, normal|
         dummy.gsub!(/#{smart}/, normal)
