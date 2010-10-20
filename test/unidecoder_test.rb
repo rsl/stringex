@@ -2,8 +2,8 @@
 
 require "test/unit"
 
-$: << File.join(File.dirname(__FILE__), '../lib')
-require File.join(File.dirname(__FILE__), "../init")
+$: << File.join(File.expand_path(File.dirname(__FILE__)), '../lib')
+require File.join(File.expand_path(File.dirname(__FILE__)), "../init.rb")
 
 class UnidecoderTest < Test::Unit::TestCase
   # Silly phrases courtesy of Frank da Cruz
@@ -50,7 +50,7 @@ class UnidecoderTest < Test::Unit::TestCase
     "私はガラスを食べられます。それは私を傷つけません。" => # Japanese
       "Si hagarasuwoShi beraremasu. sorehaSi woShang tukemasen. "
   }
-  
+
   def test_unidecoder_decode
     DONT_CONVERT.each do |ascii|
       assert_equal ascii, LuckySneaks::Unidecoder.decode(ascii)
@@ -59,7 +59,7 @@ class UnidecoderTest < Test::Unit::TestCase
       assert_equal ascii, LuckySneaks::Unidecoder.decode(unicode)
     end
   end
-  
+
   def test_to_ascii
     DONT_CONVERT.each do |ascii|
       assert_equal ascii, ascii.to_ascii
@@ -68,7 +68,7 @@ class UnidecoderTest < Test::Unit::TestCase
       assert_equal ascii, unicode.to_ascii
     end
   end
-  
+
   def test_unidecoder_encode
     {
       # Strings
@@ -79,7 +79,7 @@ class UnidecoderTest < Test::Unit::TestCase
       assert_equal unicode, LuckySneaks::Unidecoder.encode(codepoint)
     end
   end
-  
+
   def test_unidecoder_in_yaml_file
     {
       "A" => "x00.yml (line 67)",
