@@ -46,7 +46,9 @@ class StringExtensionsTest < Test::Unit::TestCase
       "How to use attr_accessible and attr_protected" =>
         "how-to-use-attr-accessible-and-attr-protected",
       "I'm just making sure there's nothing wrong with things!" =>
-        "im-just-making-sure-theres-nothing-wrong-with-things"
+        "im-just-making-sure-theres-nothing-wrong-with-things",
+      "foo = bar and bar=foo" =>
+        "foo-equals-bar-and-bar-equals-foo"
     }.each do |html, plain|
       assert_equal plain, html.to_url
     end
