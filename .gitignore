@@ -2,4 +2,5 @@
 doc
 github-test.rb
 pkg
-test/*.sqlite3
+*.sqlite3
+*.gem
