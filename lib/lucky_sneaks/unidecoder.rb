@@ -1,5 +1,4 @@
-# coding: utf-8
-
+# encoding: UTF-8
 require "yaml"
 
 module LuckySneaks

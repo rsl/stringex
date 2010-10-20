@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require "test/unit"
 
 require File.join(File.dirname(__FILE__), "../../init")
