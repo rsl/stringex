@@ -5,7 +5,7 @@ module LuckySneaks
   module Unidecoder
     # Contains Unicode codepoints, loading as needed from YAML files
     CODEPOINTS = Hash.new { |h, k|
-      h[k] = YAML::load_file(File.join(File.dirname(__FILE__), "unidecoder_data", "#{k}.yml"))
+      h[k] = YAML::load_file(File.join(File.expand_path(File.dirname(__FILE__)), "unidecoder_data", "#{k}.yml"))
     } unless defined?(CODEPOINTS)
 
     class << self
