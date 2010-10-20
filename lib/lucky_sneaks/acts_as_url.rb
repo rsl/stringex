@@ -36,8 +36,11 @@ module LuckySneaks
         if options[:sync_url]
           before_validation :ensure_unique_url
         else
-          defined?(ActiveSupport::Callbacks) ? before_validation(:ensure_unique_url, :on => :create) :
-                                               before_validation_on_create(:ensure_unique_url)
+          if defined?(ActiveModel::Callbacks)
+            before_validation(:ensure_unique_url, :on => :create)
+          else
+            before_validation_on_create(:ensure_unique_url)
+          end
         end
 
         self.attribute_to_urlify = attribute
