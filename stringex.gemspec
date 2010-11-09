@@ -212,7 +212,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{stringex}
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Some [hopefully] useful extensions to Ruby’s String class}
+  s.summary = %q{Some [hopefully] useful extensions to Ruby's String class}
   s.test_files = [
     "test/acts_as_url_test.rb",
      "test/string_extensions_test.rb",
