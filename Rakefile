@@ -11,7 +11,6 @@ begin
     gem.authors     = ["Russell Norris"]
     gem.email       = "rsl@luckysneaks.com"
     gem.homepage    = "http://github.com/rsl/stringex"
-    gem.rubyforge_project = "stringex"
     gem.summary     = "Some [hopefully] useful extensions to Ruby’s String class"
     gem.description = "Some [hopefully] useful extensions to Ruby’s String class. Stringex is made up of three libraries: ActsAsUrl [permalink solution with better character translation], Unidecoder [Unicode to Ascii transliteration], and StringExtensions [miscellaneous helper methods for the String class]."
     gem.has_rdoc    = true
@@ -214,11 +213,7 @@ begin
     gem.rdoc_options     = %w{--main README.rdoc --charset utf-8 --line-numbers}
     gem.extra_rdoc_files =  %w{MIT-LICENSE README.rdoc}
   end
-  
-  Jeweler::RubyforgeTasks.new do |rubyforge|
-    rubyforge.doc_task = "rdoc"
-  end
-  
+
   Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
@@ -247,7 +242,7 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   else
     version = ""
   end
-  
+
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'Stringex: A String Extension Pack [#{version}]'
   rdoc.options << '--line-numbers' << '--inline-source'
