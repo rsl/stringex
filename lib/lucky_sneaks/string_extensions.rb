@@ -42,7 +42,7 @@ module LuckySneaks
     # Performs multiple text manipulations. Essentially a shortcut for typing them all. View source
     # below to see which methods are run.
     def remove_formatting
-      strip_html_tags.convert_accented_entities.convert_misc_entities.convert_misc_characters.to_ascii.collapse
+      strip_html_tags.convert_smart_punctuation.convert_accented_entities.convert_misc_entities.convert_misc_characters.to_ascii.collapse
     end
 
     # Removes HTML tags from text. This code is simplified from Tobias Luettke's regular expression
