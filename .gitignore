@@ -1,5 +1,6 @@
 .DS_Store
 doc
+rdoc
 github-test.rb
 pkg
 *.sqlite3
