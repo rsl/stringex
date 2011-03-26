@@ -153,7 +153,6 @@ module LuckySneaks
         /(\s|^)¥(\d*)(\s|$)/u => '\2 yen',
         /\s*\*\s*/ => "star",
         /\s*%\s*/ => "percent",
-        /\s*(\\|\/)\s*/ => "slash",
         /(\s*=\s*)/ => " equals "
       }.each do |found, replaced|
         replaced = " #{replaced} " unless replaced =~ /\\1/
