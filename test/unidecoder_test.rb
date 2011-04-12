@@ -29,6 +29,8 @@ class UnidecoderTest < Test::Unit::TestCase
       "Moge jesc szklo i mi nie szkodzi.",
     "Я могу есть стекло, оно мне не вредит." => # Russian
       "Ia moghu iest' stieklo, ono mnie nie vriedit.",
+    "äöüÄÖÜß" => # German special characters
+      "aeoeueAeOeUess",
     "Мога да ям стъкло, то не ми вреди." => # Bulgarian
       "Mogha da iam stklo, to nie mi vriedi.",
     "ᛁᚳ᛫ᛗᚨᚷ᛫ᚷᛚᚨᛋ᛫ᛖᚩᛏᚪᚾ᛫ᚩᚾᛞ᛫ᚻᛁᛏ᛫ᚾᛖ᛫ᚻᛖᚪᚱᛗᛁᚪᚧ᛫ᛗᛖ᛬" => # Anglo-Saxon
