@@ -89,4 +89,13 @@ class UnidecoderTest < Test::Unit::TestCase
       assert_equal output, LuckySneaks::Unidecoder.in_yaml_file(character)
     end
   end
+  
+  def test_code_point_of_minus
+    assert_equal "-", [0x02c9].pack("U").to_ascii
+  end
+  
+  def test_code_point_of_equals
+    assert_equal "=", [0x283f].pack("U").to_ascii
+  end
+  
 end
