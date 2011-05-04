@@ -6,6 +6,7 @@ Some [hopefully] useful extensions to Ruby's String class. It is made up of thre
 
 This library is designed to create URI-friendly representations of an attribute, for use in generating urls from your attributes. Basic usage is just calling the method:
 
+  # Inside your model
   acts_as_url :title
 
 which will populate the <tt>url</tt> attribute on the object with the converted contents of the <tt>title</tt> attribute. This behavior can be customized by adding the following options to the arguments of the <tt>acts_as_url</tt> method:
@@ -20,6 +21,7 @@ which will populate the <tt>url</tt> attribute on the object with the converted 
                      
 In order to use the generated url attribute, you will probably want to override <tt>to_param</tt> like so, in your Model:
 
+  # Inside your model
   def to_param
     url # or whatever you set :url_attribute to
   end
@@ -68,6 +70,12 @@ You probably won't ever need to run Unidecoder by itself. StringExtensions adds 
 == StringExtensions
 
 A collection of extensions on Ruby's String class. Please see the documentation for string_extensions module for more information. There's not much to explain about them really.
+
+== Note to users of Devise
+
+You'll need to add a <tt>:find_by => :url</tt> to your <tt>load_and_authorize_resource</tt>.  Here's an example:
+
+  load_and_authorize_resource :class => "Whatever", :message => "Not authorized", :find_by => :url
 
 == Thanks & Acknowledgements
 
