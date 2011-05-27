@@ -51,7 +51,7 @@ module LuckySneaks
 
         class_eval <<-"END"
           def #{url_attribute}
-            if !new_record? && errors.has_key?(attribute_to_urlify)
+            if !new_record? && errors[attribute_to_urlify].present?
               self.class.find(id).send(url_attribute)
             else
               read_attribute(url_attribute)
