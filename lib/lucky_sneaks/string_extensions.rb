@@ -154,7 +154,8 @@ module LuckySneaks
         /\s*\*\s*/ => "star",
         /\s*%\s*/ => "percent",
         /\s*(\\|\/)\s*/ => "slash",
-        /(\s*=\s*)/ => " equals "
+        /(\s*=\s*)/ => " equals ",
+        /\s*\+\s*/ => "plus"
       }.each do |found, replaced|
         replaced = " #{replaced} " unless replaced =~ /\\1/
         dummy.gsub!(found, replaced)
