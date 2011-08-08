@@ -210,13 +210,9 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/rsl/stringex}
   s.rdoc_options = ["--main", "README.rdoc", "--charset", "utf-8", "--line-numbers"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.2}
+  s.rubygems_version = %q{1.4.2}
   s.summary = %q{Some [hopefully] useful extensions to Ruby's String class}
-  s.test_files = [
-    "test/acts_as_url_test.rb",
-    "test/string_extensions_test.rb",
-    "test/unidecoder_test.rb"
-  ]
+  s.test_files = ["test/acts_as_url_test.rb", "test/string_extensions_test.rb", "test/unidecoder_test.rb"]
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
