@@ -34,7 +34,7 @@ module LuckySneaks
         cattr_accessor :duplicate_count_separator
 
         if options[:sync_url]
-          before_validation :ensure_unique_url
+          before_validation(:ensure_unique_url)
         else
           if defined?(ActiveModel::Callbacks)
             before_validation(:ensure_unique_url, :on => :create)
@@ -48,6 +48,16 @@ module LuckySneaks
         self.url_attribute = options[:url_attribute] || "url"
         self.only_when_blank = options[:only_when_blank] || false
         self.duplicate_count_separator = options[:duplicate_count_separator] || "-"
+
+        class_eval <<-"END"
+          def #{url_attribute}
+            if !new_record? && errors[attribute_to_urlify].present?
+              self.class.find(id).send(url_attribute)
+            else
+              read_attribute(url_attribute)
+            end
+          end
+        END
       end
 
       # Initialize the url fields for the records that need it. Designed for people who add
@@ -66,6 +76,7 @@ module LuckySneaks
     end
 
   private
+
     def ensure_unique_url
       url_attribute = self.class.url_attribute
       separator = self.class.duplicate_count_separator
