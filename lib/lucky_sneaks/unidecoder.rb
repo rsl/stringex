@@ -1,5 +1,6 @@
 # encoding: UTF-8
 require "yaml"
+YAML::ENGINE.yamler= 'syck'
 
 module LuckySneaks
   module Unidecoder
