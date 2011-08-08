@@ -45,6 +45,10 @@ ActiveRecord::Schema.define(:version => 1) do
   create_table :duplicateuments, :force => true do |t|
     t.string :title, :url, :other
   end
+
+  create_table :validatuments, :force => true do |t|
+    t.string :title, :url, :other
+  end
 end
 ActiveRecord::Migration.verbose = true
 
@@ -78,6 +82,11 @@ end
 
 class Duplicateument < ActiveRecord::Base
   acts_as_url :title, :duplicate_count_separator => "---"
+end
+
+class Validatument < ActiveRecord::Base
+  acts_as_url :title, :sync_url => true
+  validates_presence_of :title
 end
 
 class ActsAsUrlTest < Test::Unit::TestCase
@@ -203,5 +212,12 @@ class ActsAsUrlTest < Test::Unit::TestCase
     @other_doc = Duplicateument.create!(:title => "Unique")
     assert_equal "unique", @doc.url
     assert_equal "unique---1", @other_doc.url
+  end
+
+  def test_should_only_update_url_if_model_is_valid
+    @doc = Validatument.create!(:title => "Initial")
+    @doc.title = nil
+    assert !@doc.valid?
+    assert_equal "initial", @doc.url
   end
 end
