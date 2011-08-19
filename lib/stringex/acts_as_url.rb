@@ -1,5 +1,5 @@
 # encoding: UTF-8
-module LuckySneaks
+module Stringex
   module ActsAsUrl # :nodoc:
     def self.included(base)
       base.extend ClassMethods
