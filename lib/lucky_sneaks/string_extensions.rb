@@ -64,7 +64,7 @@ module LuckySneaks
     #   "&oslash;".convert_accented_entities # => "o"
     #   "&uuml;".convert_accented_entities # => "u"
     #
-    # Note: This does not do any conversion of Unicode/Ascii accented-characters. For that
+    # Note: This does not do any conversion of Unicode/ASCII accented-characters. For that
     # functionality please use <tt>to_ascii</tt>.
     def convert_accented_entities
       gsub(/&([A-Za-z])(grave|acute|circ|tilde|uml|ring|cedil|slash);/, '\1')

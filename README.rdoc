@@ -63,7 +63,7 @@ Note: No offense is intended to the author[s] of whatever plugins might produce 
 
 == Unidecoder
 
-This library converts Unicode [and accented Ascii] characters to their plain-text Ascii equivalents. This is a port of Perl's Unidecode and provides eminently superior and more reliable results than Iconv. (Seriously, Iconv... A plague on both your houses! [sic])
+This library converts Unicode [and accented ASCII] characters to their plain-text ASCII equivalents. This is a port of Perl's Unidecode and provides eminently superior and more reliable results than Iconv. (Seriously, Iconv... A plague on both your houses! [sic])
 
 You probably won't ever need to run Unidecoder by itself. StringExtensions adds String#to_ascii which wraps all of Unidecoder's functionality. For anyone interested, details of the implementation can be read about in the original implementation of Text::Unidecode[http://interglacial.com/~sburke/tpj/as_html/tpj22.html]. Extensive examples can be found in the tests.
 
@@ -75,7 +75,7 @@ You <em>may</em> however want to use Unidecoder to load localized codepoint tran
   # Loading from a file. NOTE: The path to file should be absolute.
   LuckySneaks::Unidecoder::localize_from "/path/to/yaml_file"
 
-In both the Yaml and pure Hash implementation, the end result should be a Hash with keys representing the locale and values being another Hash with those keys being the UTF character and the values the transliterated Ascii values. (I hope that made sense.) You can check the documentation for the Unidecoder module for more information about setting locales.
+In both the Yaml and pure Hash implementation, the end result should be a Hash with keys representing the locale and values being another Hash with those keys being the UTF character and the values the transliterated ASCII values. (I hope that made sense.) You can check the documentation for the Unidecoder module for more information about setting locales.
 
 == StringExtensions
 

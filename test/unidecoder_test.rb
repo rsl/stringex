@@ -52,20 +52,20 @@ class UnidecoderTest < Test::Unit::TestCase
   }
 
   def test_unidecoder_decode
-    DONT_CONVERT.each do |ascii|
-      assert_equal ascii, LuckySneaks::Unidecoder.decode(ascii)
+    DONT_CONVERT.each do |ASCII|
+      assert_equal ASCII, LuckySneaks::Unidecoder.decode(ASCII)
     end
-    CONVERT_PAIRS.each do |unicode, ascii|
-      assert_equal ascii, LuckySneaks::Unidecoder.decode(unicode)
+    CONVERT_PAIRS.each do |unicode, ASCII|
+      assert_equal ASCII, LuckySneaks::Unidecoder.decode(unicode)
     end
   end
 
   def test_to_ascii
-    DONT_CONVERT.each do |ascii|
-      assert_equal ascii, ascii.to_ascii
+    DONT_CONVERT.each do |ASCII|
+      assert_equal ASCII, ASCII.to_ascii
     end
-    CONVERT_PAIRS.each do |unicode, ascii|
-      assert_equal ascii, unicode.to_ascii
+    CONVERT_PAIRS.each do |unicode, ASCII|
+      assert_equal ASCII, unicode.to_ascii
     end
   end
 
