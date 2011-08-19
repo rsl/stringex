@@ -1,10 +1,10 @@
 # encoding: UTF-8
-require 'lucky_sneaks/string_extensions'
-require 'lucky_sneaks/unidecoder'
+require 'stringex/string_extensions'
+require 'stringex/unidecoder'
 
-String.send :include, LuckySneaks::StringExtensions
+String.send :include, Stringex::StringExtensions
 
 if defined?(ActiveRecord)
-  require 'lucky_sneaks/acts_as_url'
-  ActiveRecord::Base.send :include, LuckySneaks::ActsAsUrl
+  require 'stringex/acts_as_url'
+  ActiveRecord::Base.send :include, Stringex::ActsAsUrl
 end
