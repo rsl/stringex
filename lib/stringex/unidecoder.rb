@@ -5,7 +5,7 @@ module Stringex
   module Unidecoder
     # Contains Unicode codepoints, loading as needed from YAML files
     CODEPOINTS = Hash.new{|h, k|
-      h[k] = YAML::load_file(File.join(File.expand_path(File.dirname(__FILE__)), "unidecoder_data", "#{k}.yml"))
+      h[k] = YAML.load_file(File.join(File.expand_path(File.dirname(__FILE__)), "unidecoder_data", "#{k}.yml"))
     } unless defined?(CODEPOINTS)
     LOCAL_CODEPOINTS = Hash.new unless defined?(LOCAL_CODEPOINTS)
 
@@ -47,7 +47,7 @@ module Stringex
         hash = if hash_or_path_to_file.is_a?(Hash)
           hash_or_path_to_file
         else
-          YAML::load_file(hash_or_path_to_file)
+          YAML.load_file(hash_or_path_to_file)
         end
         verify_local_codepoints hash
       end
@@ -57,7 +57,7 @@ module Stringex
         if @locale
           @locale
         elsif defined?(I18n)
-          I18n::locale
+          I18n.locale
         else
           default_locale
         end
