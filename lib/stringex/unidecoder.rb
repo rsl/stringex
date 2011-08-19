@@ -130,6 +130,21 @@ module Stringex
       end
     end
   end
+
+  # Provide a simpler interface for localization implementations
+  class << self
+    %w{
+      localize_from
+      locale locale=
+      default_locale default_locale=
+      local_codepoint
+      with_locale with_default_locale
+    }.each do |name|
+      define_method name do |*args, &block|
+        Unidecoder.send name, *args, &block
+      end
+    end
+  end
 end
 
 module Stringex
