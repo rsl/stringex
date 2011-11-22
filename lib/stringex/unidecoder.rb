@@ -115,7 +115,7 @@ module Stringex
       # Checks LOCAL_CODEPOINTS's Hash is in the format we expect before assigning it and raises
       # instructive exception if not
       def verify_local_codepoints(hash)
-        pass_check = hash.all?{|key, value|
+        pass_check = hash.is_a?(Hash) && hash.all?{|key, value|
           # Fuck a duck, eh?
           [Symbol, String].include?(key.class) && value.is_a?(Hash) &&
             value.keys.all?{|k| k.is_a?(String)} && value.values.all?{|v| v.is_a?(String)}
