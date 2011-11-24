@@ -185,7 +185,7 @@ module Stringex
         replaced = " #{replaced} " unless replaced =~ /\\1/
         dummy.gsub!(found, replaced)
       end
-      dummy = dummy.gsub(/(^|\w)'(\w|$)/, '\1\2').gsub(/[\.,:;()\[\]\?!\^'"_]/, " ")
+      dummy = dummy.gsub(/(^|[[:alpha:]])'([[:alpha:]]|$)/, '\1\2').gsub(/[\.,:;()\[\]\/\?!\^'ʼ"_]/, " ")
     end
 
     # Replace runs of whitespace in string. Defaults to a single space but any replacement
