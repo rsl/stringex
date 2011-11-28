@@ -155,7 +155,8 @@ module Stringex
         /\s*%\s*/ => "percent",
         /\s*(\\|\/)\s*/ => "slash",
         /(\s*=\s*)/ => " equals ",
-        /\s*\+\s*/ => "plus"
+        /\s*\+\s*/ => "plus",
+        /\s*°\s*/ => "deg",
       }.each do |found, replaced|
         replaced = " #{replaced} " unless replaced =~ /\\1/
         dummy.gsub!(found, replaced)
