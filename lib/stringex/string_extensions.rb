@@ -157,7 +157,7 @@ module Stringex
         /(\s*=\s*)/ => " equals ",
         /\s*\+\s*/ => "plus"
       }
-      misc_characters[/\s*(\\|\/)\s*/] = 'slash' unless options[:skip_slash]
+      misc_characters[/\s*(\\|\/)\s*/] = 'slash' unless options[:allow_slash]
       misc_characters.each do |found, replaced|
         replaced = " #{replaced} " unless replaced =~ /\\1/
         dummy.gsub!(found, replaced)
