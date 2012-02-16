@@ -32,6 +32,7 @@ module Stringex
         cattr_accessor :url_attribute # The attribute on the DB
         cattr_accessor :only_when_blank
         cattr_accessor :duplicate_count_separator
+        cattr_accessor :allow_slash
 
         if options[:sync_url]
           before_validation(:ensure_unique_url)
@@ -48,6 +49,7 @@ module Stringex
         self.url_attribute = options[:url_attribute] || "url"
         self.only_when_blank = options[:only_when_blank] || false
         self.duplicate_count_separator = options[:duplicate_count_separator] || "-"
+        self.allow_slash = options[:allow_slash] || false
 
         class_eval <<-"END"
           def #{url_attribute}
@@ -81,7 +83,7 @@ module Stringex
       url_attribute = self.class.url_attribute
       separator = self.class.duplicate_count_separator
       base_url = self.send(url_attribute)
-      base_url = self.send(self.class.attribute_to_urlify).to_s.to_url if base_url.blank? || !self.only_when_blank
+      base_url = self.send(self.class.attribute_to_urlify).to_s.to_url(:allow_slash => self.allow_slash) if base_url.blank? || !self.only_when_blank
       conditions = ["#{url_attribute} LIKE ?", base_url+'%']
       unless new_record?
         conditions.first << " and id != ?"
