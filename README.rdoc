@@ -18,6 +18,7 @@ which will populate the <tt>url</tt> attribute on the object with the converted 
                             blank. Default is false (meaning url generation will happen always)
 <tt>:sync_url</tt>:: If set to true, the url field will be updated when changes are made to the
                      attribute it is based on. Default is false.
+<tt>:allow_slash</tt>:: If set to true, the url field will not convert slashes. Default is false.
 
 In order to use the generated url attribute, you will probably want to override <tt>to_param</tt> like so, in your Model:
 
