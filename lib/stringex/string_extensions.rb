@@ -35,14 +35,14 @@ module Stringex
     # Create a URI-friendly representation of the string. This is used internally by
     # acts_as_url[link:classes/Stringex/ActsAsUrl/ClassMethods.html#M000012]
     # but can be called manually in order to generate an URI-friendly version of any string.
-    def to_url
-      remove_formatting.downcase.replace_whitespace("-").collapse("-")
+    def to_url(options = {})
+      remove_formatting(options).downcase.replace_whitespace("-").collapse("-")
     end
 
     # Performs multiple text manipulations. Essentially a shortcut for typing them all. View source
     # below to see which methods are run.
-    def remove_formatting
-      strip_html_tags.convert_smart_punctuation.convert_accented_entities.convert_misc_entities.convert_misc_characters.to_ascii.collapse
+    def remove_formatting(options = {})
+      strip_html_tags.convert_smart_punctuation.convert_accented_entities.convert_misc_entities.convert_misc_characters(options).to_ascii.collapse
     end
 
     # Removes HTML tags from text. This code is simplified from Tobias Luettke's regular expression
@@ -132,7 +132,7 @@ module Stringex
     # Note: Because this method will convert any & symbols to the string "and",
     # you should run any methods which convert HTML entities (convert_html_entities and convert_misc_entities)
     # before running this method.
-    def convert_misc_characters
+    def convert_misc_characters(options = {})
       dummy = dup.gsub(/\.{3,}/, " dot dot dot ") # Catch ellipses before single dot rule!
       # Special rules for money
       {
@@ -143,6 +143,7 @@ module Stringex
         dummy.gsub!(found, replaced)
       end
       # Back to normal rules
+      misc_characters = 
       {
         /\s*&\s*/ => "and",
         /\s*#/ => "number",
@@ -153,14 +154,15 @@ module Stringex
         /(\s|^)¥(\d*)(\s|$)/u => '\2 yen',
         /\s*\*\s*/ => "star",
         /\s*%\s*/ => "percent",
-        /\s*(\\|\/)\s*/ => "slash",
         /(\s*=\s*)/ => " equals ",
         /\s*\+\s*/ => "plus"
-      }.each do |found, replaced|
+      }
+      misc_characters[/\s*(\\|\/)\s*/] = 'slash' unless options[:skip_slash]
+      misc_characters.each do |found, replaced|
         replaced = " #{replaced} " unless replaced =~ /\\1/
         dummy.gsub!(found, replaced)
       end
-      dummy = dummy.gsub(/(^|\w)'(\w|$)/, '\1\2').gsub(/[\.,:;()\[\]\/\?!\^'"_]/, " ")
+      dummy = dummy.gsub(/(^|\w)'(\w|$)/, '\1\2').gsub(/[\.,:;()\[\]\?!\^'"_]/, " ")
     end
 
     # Replace runs of whitespace in string. Defaults to a single space but any replacement
