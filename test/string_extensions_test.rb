@@ -50,7 +50,9 @@ class StringExtensionsTest < Test::Unit::TestCase
       "foo = bar and bar=foo" =>
         "foo-equals-bar-and-bar-equals-foo",
       "Will…This Work?" =>
-        "will-dot-dot-dot-this-work"
+        "will-dot-dot-dot-this-work",
+      "with a | pipe" =>
+        "with-a-pipe"
     }.each do |html, plain|
       assert_equal plain, html.to_url
     end
