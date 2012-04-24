@@ -50,7 +50,9 @@ class StringExtensionsTest < Test::Unit::TestCase
       "foo = bar and bar=foo" =>
         "foo-equals-bar-and-bar-equals-foo",
       "Will…This Work?" =>
-        "will-dot-dot-dot-this-work"
+        "will-dot-dot-dot-this-work",
+      "¼ pound with cheese" =>
+        "one-fourth-pound-with-cheese"
     }.each do |html, plain|
       assert_equal plain, html.to_url
     end
@@ -95,6 +97,46 @@ class StringExtensionsTest < Test::Unit::TestCase
     end
   end
 
+  def test_convert_vulgar_fractions
+    {
+      "&frac14;" => "one fourth",
+      "¼" => "one fourth",
+      "&#188;" => "one fourth",
+      "&frac12;" => "half",
+      "½" => "half",
+      "&#189;" => "half",
+      "&frac34;" => "three fourths",
+      "¾" => "three fourths",
+      "&#190;" => "three fourths",
+      "⅓" => "one third",
+      "&#8531;" => "one third",
+      "⅔" => "two thirds",
+      "&#8532;" => "two thirds",
+      "⅕" => "one fifth",
+      "&#8533;" => "one fifth",
+      "⅖" => "two fifths",
+      "&#8534;" => "two fifths",
+      "⅗" => "three fifths",
+      "&#8535;" => "three fifths",
+      "⅘" => "four fifths",
+      "&#8536;" => "four fifths",
+      "⅙" => "one sixth",
+      "&#8537;" => "one sixth",
+      "⅚" => "five sixths",
+      "&#8538;" => "five sixths",
+      "⅛" => "one eighth",
+      "&#8539;" => "one eighth",
+      "⅜" => "three eighths",
+      "&#8540;" => "three eighths",
+      "⅝" => "five eighths",
+      "&#8541;" => "five eighths",
+      "⅞" => "seven eighths",
+      "&#8542;" => "seven eighths"
+    }.each do |entitied, plain|
+      assert_equal plain, entitied.convert_vulgar_fractions
+    end
+  end
+
   def test_convert_misc_entities
     {
       "America&#8482;" => "America(tm)",
@@ -102,7 +144,6 @@ class StringExtensionsTest < Test::Unit::TestCase
       "To be continued&#8230;" => "To be continued...",
       "Foo&nbsp;Bar" => "Foo Bar",
       "100&#163;" => "100 pound",
-      "&frac12; a dollar" => "half a dollar",
       "35&deg;" => "35 degrees"
     }.each do |entitied, plain|
       assert_equal plain, entitied.convert_misc_entities
