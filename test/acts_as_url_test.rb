@@ -49,6 +49,10 @@ ActiveRecord::Schema.define(:version => 1) do
   create_table :validatuments, :force => true do |t|
     t.string :title, :url, :other
   end
+  
+  create_table :ununiquments, :force => true do |t|
+    t.string :title, :url, :other
+  end
 end
 ActiveRecord::Migration.verbose = true
 
@@ -89,6 +93,10 @@ class Validatument < ActiveRecord::Base
   validates_presence_of :title
 end
 
+class Ununiqument < ActiveRecord::Base
+  acts_as_url :title, :allow_duplicates => true
+end
+
 class ActsAsUrlTest < Test::Unit::TestCase
   def test_should_create_url
     @doc = Document.create(:title => "Let's Make a Test Title, <em>Okay</em>?")
@@ -99,6 +107,12 @@ class ActsAsUrlTest < Test::Unit::TestCase
     @doc = Document.create!(:title => "Unique")
     @other_doc = Document.create!(:title => "Unique")
     assert_equal "unique-1", @other_doc.url
+  end
+  
+  def test_should_not_create_unique_url
+    @doc = Ununiqument.create!(:title => "I am not a clone")
+    @other_doc = Ununiqument.create!(:title => "I am not a clone")
+    assert_equal "i-am-not-a-clone", @other_doc.url
   end
 
   def test_should_not_succ_on_repeated_saves

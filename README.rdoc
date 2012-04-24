@@ -19,6 +19,8 @@ which will populate the <tt>url</tt> attribute on the object with the converted 
 <tt>:sync_url</tt>:: If set to true, the url field will be updated when changes are made to the
                      attribute it is based on. Default is false.
 <tt>:allow_slash</tt>:: If set to true, the url field will not convert slashes. Default is false.
+<tt>:allow_duplicates</tt>:: If set to true, unique urls will not be enforced. If false, two records with an attribute of 'Robot' will end up with urls of 'robot' and 'robot-1' (depending on which was created first). If true, both will end up as 'robot'
+                            Default is false.
 
 In order to use the generated url attribute, you will probably want to override <tt>to_param</tt> like so, in your Model:
 
