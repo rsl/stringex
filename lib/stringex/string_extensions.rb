@@ -67,7 +67,7 @@ module Stringex
     # Note: This does not do any conversion of Unicode/ASCII accented-characters. For that
     # functionality please use <tt>to_ascii</tt>.
     def convert_accented_entities
-      gsub(/&([A-Za-z])(grave|acute|circ|tilde|uml|ring|cedil|slash);/, '\1')
+      gsub(/&([A-Za-z])(grave|acute|circ|tilde|uml|ring|cedil|slash);/, '\1').strip
     end
 
     # Converts HTML entities (taken from common Textile/RedCloth formattings) into plain text formats.
@@ -92,11 +92,14 @@ module Stringex
         "nbsp" => " ",
         "(#162|cent)" => " cent",
         "(#163|pound)" => " pound",
-        "(#176|deg)" => " degrees"
+        "(#188|frac14)" => "one fourth",
+        "(#189|frac12)" => "half",
+        "(#190|frac34)" => "three fourths",
+        "(#176|deg)" => " degrees "
       }.each do |textiled, normal|
         dummy.gsub!(/&#{textiled};/, normal)
       end
-      dummy.gsub(/&[^;]+;/, "")
+      dummy.gsub(/&[^;]+;/, "").strip
     end
 
     # Converts vulgar fractions from supported html entities and unicode to
@@ -137,7 +140,7 @@ module Stringex
       }.each do |smart, normal|
         dummy.gsub!(/#{smart}/, normal)
       end
-      dummy
+      dummy.strip
     end
 
     # Converts various common plaintext characters to a more URI-friendly representation.
@@ -178,14 +181,15 @@ module Stringex
         /\s*\*\s*/ => "star",
         /\s*%\s*/ => "percent",
         /(\s*=\s*)/ => " equals ",
-        /\s*\+\s*/ => "plus"
+        /\s*\+\s*/ => "plus",
+        /\s*°\s*/ => "degrees"
       }
       misc_characters[/\s*(\\|\/)\s*/] = 'slash' unless options[:allow_slash]
       misc_characters.each do |found, replaced|
         replaced = " #{replaced} " unless replaced =~ /\\1/
         dummy.gsub!(found, replaced)
       end
-      dummy = dummy.gsub(/(^|[[:alpha:]])'([[:alpha:]]|$)/, '\1\2').gsub(/[\.,:;()\[\]\/\?!\^'ʼ"_]/, " ")
+      dummy = dummy.gsub(/(^|[[:alpha:]])'([[:alpha:]]|$)/, '\1\2').gsub(/[\.,:;()\[\]\/\?!\^'ʼ"_]/, " ").strip
     end
 
     # Replace runs of whitespace in string. Defaults to a single space but any replacement
