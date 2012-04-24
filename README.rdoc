@@ -20,9 +20,9 @@ which will populate the <tt>url</tt> attribute on the object with the converted 
                      attribute it is based on. Default is false.
 <tt>:allow_slash</tt>:: If set to true, the url field will not convert slashes. Default is false.
 <tt>:allow_duplicates</tt>:: If set to true, unique urls will not be enforced.
-                             Default is false. <em>NOTE: This is strongly not recommended
+                             Default is false. <em>*NOTE: This is strongly not recommended
                              if you are routing solely on the generated slug as you will no longer
-                             be guaranteed to lookup the expected record based on a duplicate slug.</em>
+                             be guaranteed to lookup the expected record based on a duplicate slug.*</em>
 
 
 In order to use the generated url attribute, you will probably want to override <tt>to_param</tt> like so, in your Model:
