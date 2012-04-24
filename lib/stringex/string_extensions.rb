@@ -42,7 +42,7 @@ module Stringex
     # Performs multiple text manipulations. Essentially a shortcut for typing them all. View source
     # below to see which methods are run.
     def remove_formatting(options = {})
-      strip_html_tags.convert_smart_punctuation.convert_accented_entities.convert_misc_entities.convert_misc_characters(options).to_ascii.collapse
+      strip_html_tags.convert_smart_punctuation.convert_accented_entities.convert_vulgar_fractions.convert_misc_entities.convert_misc_characters(options).to_ascii.collapse
     end
 
     # Removes HTML tags from text. This code is simplified from Tobias Luettke's regular expression
@@ -92,14 +92,37 @@ module Stringex
         "nbsp" => " ",
         "(#162|cent)" => " cent",
         "(#163|pound)" => " pound",
-        "(#188|frac14)" => "one fourth",
-        "(#189|frac12)" => "half",
-        "(#190|frac34)" => "three fourths",
         "(#176|deg)" => " degrees"
       }.each do |textiled, normal|
         dummy.gsub!(/&#{textiled};/, normal)
       end
       dummy.gsub(/&[^;]+;/, "")
+    end
+
+    # Converts vulgar fractions from supported html entities and unicode to
+    # plain text formats.
+    def convert_vulgar_fractions
+      dummy = dup
+      {
+        "(&#188;|&frac14;|\u00BC)" => "one fourth",
+        "(&#189;|&frac12;|\u00BD)" => "half",
+        "(&#190;|&frac34;|\u00BE)" => "three fourths",
+        "(&#8531;|\u2153)" => "one third",
+        "(&#8532;|\u2154)" => "two thirds",
+        "(&#8533;|\u2155)" => "one fifth",
+        "(&#8534;|\u2156)" => "two fifths",
+        "(&#8535;|\u2157)" => "three fifths",
+        "(&#8536;|\u2158)" => "four fifths",
+        "(&#8537;|\u2159)" => "one sixth",
+        "(&#8538;|\u215A)" => "five sixths",
+        "(&#8539;|\u215B)" => "one eighth",
+        "(&#8540;|\u215C)" => "three eighths",
+        "(&#8541;|\u215D)" => "five eighths",
+        "(&#8542;|\u215E)" => "seven eighths"
+      }.each do |textiled, normal|
+        dummy.gsub!(/#{textiled}/, normal)
+      end
+      dummy
     end
 
     # Converts MS Word 'smart punctuation' to ASCII
