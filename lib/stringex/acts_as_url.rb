@@ -33,6 +33,7 @@ module Stringex
         cattr_accessor :only_when_blank
         cattr_accessor :duplicate_count_separator
         cattr_accessor :allow_slash
+        cattr_accessor :allow_duplicates
 
         if options[:sync_url]
           before_validation(:ensure_unique_url)
@@ -50,6 +51,7 @@ module Stringex
         self.only_when_blank = options[:only_when_blank] || false
         self.duplicate_count_separator = options[:duplicate_count_separator] || "-"
         self.allow_slash = options[:allow_slash] || false
+        self.allow_duplicates = options[:allow_duplicates] || false
 
         class_eval <<-"END"
           def #{url_attribute}
@@ -95,12 +97,14 @@ module Stringex
       end
       url_owners = self.class.find(:all, :conditions => conditions)
       write_attribute url_attribute, base_url
-      if url_owners.any?{|owner| owner.send(url_attribute) == base_url}
-        n = 1
-        while url_owners.any?{|owner| owner.send(url_attribute) == "#{base_url}#{separator}#{n}"}
-          n = n.succ
+      unless self.class.allow_duplicates
+        if url_owners.any?{|owner| owner.send(url_attribute) == base_url}
+          n = 1
+          while url_owners.any?{|owner| owner.send(url_attribute) == "#{base_url}#{separator}#{n}"}
+            n = n.succ
+          end
+          write_attribute url_attribute, "#{base_url}#{separator}#{n}"
         end
-        write_attribute url_attribute, "#{base_url}#{separator}#{n}"
       end
     end
   end
