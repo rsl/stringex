@@ -40,7 +40,7 @@ module Stringex
     end
 
     def limit(lim = nil)
-      lim.is_a?(Integer) ? self[0...lim] : self
+      lim.nil? ? self : self[0...lim] 
     end
 
     # Performs multiple text manipulations. Essentially a shortcut for typing them all. View source
