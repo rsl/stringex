@@ -23,6 +23,7 @@ which will populate the <tt>url</tt> attribute on the object with the converted 
                              Default is false. <em>NOTE: This is strongly not recommended
                              if you are routing solely on the generated slug as you will no longer
                              be guaranteed to lookup the expected record based on a duplicate slug.</em>
+<tt>:limit</tt>:: If set, will limit length of url generated. Default is nil.
 
 
 In order to use the generated url attribute, you will probably want to override <tt>to_param</tt> like so, in your Model:
