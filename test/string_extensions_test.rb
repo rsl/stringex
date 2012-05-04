@@ -57,18 +57,20 @@ class StringExtensionsTest < Test::Unit::TestCase
         "one-fourth-pound-with-cheese",
       "Will's Ferrel" =>
         "wills-ferrel",
-      "Капитал" => 
+      "Капитал" =>
         "kapital",
-      "Ελλάδα" => 
+      "Ελλάδα" =>
         "ellada",
-      "中文" => 
+      "中文" =>
         "zhong-wen",
-      "Paul Cézanne" => 
+      "Paul Cézanne" =>
         "paul-cezanne",
-      "21'17ʼ51" => 
+      "21'17ʼ51" =>
         "21-17-51",
-      "ITCZ 1 (21°17ʼ51.78”N / 89°35ʼ28.18”O / 26-04-08 / 09:00 am)" => 
-        "itcz-1-21-degrees-17-51-dot-78-n-slash-89-degrees-35-28-dot-18-o-slash-26-04-08-slash-09-00-am"
+      "ITCZ 1 (21°17ʼ51.78”N / 89°35ʼ28.18”O / 26-04-08 / 09:00 am)" =>
+        "itcz-1-21-degrees-17-51-dot-78-n-slash-89-degrees-35-28-dot-18-o-slash-26-04-08-slash-09-00-am",
+      "／" =>
+        "slash"
     }.each do |html, plain|
       assert_equal plain, html.to_url
     end
