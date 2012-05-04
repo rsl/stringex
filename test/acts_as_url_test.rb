@@ -53,6 +53,10 @@ ActiveRecord::Schema.define(:version => 1) do
   create_table :ununiquments, :force => true do |t|
     t.string :title, :url, :other
   end
+
+  create_table :limituments, :force => true do |t|
+    t.string :title, :url, :other
+  end
 end
 ActiveRecord::Migration.verbose = true
 
@@ -95,6 +99,10 @@ end
 
 class Ununiqument < ActiveRecord::Base
   acts_as_url :title, :allow_duplicates => true
+end
+
+class Limitument < ActiveRecord::Base
+  acts_as_url :title, :limit => 13
 end
 
 class ActsAsUrlTest < Test::Unit::TestCase
@@ -233,5 +241,10 @@ class ActsAsUrlTest < Test::Unit::TestCase
     @doc.title = nil
     assert !@doc.valid?
     assert_equal "initial", @doc.url
+  end
+
+  def test_should_allow_url_limit
+    @doc = Limitument.create(:title => "I am much too long")
+    assert_equal "i-am-much-too", @doc.url
   end
 end

@@ -213,4 +213,8 @@ class StringExtensionsTest < Test::Unit::TestCase
 
     assert_equal "now-with-hyphens", "----now---------with-hyphens--------".collapse("-")
   end
+
+  def test_to_url_limit
+    assert_equal "I am much too long".to_url(:limit => 13), "i-am-much-too"
+  end
 end
