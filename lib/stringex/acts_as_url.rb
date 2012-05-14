@@ -97,7 +97,7 @@ module Stringex
         conditions.first << " and #{self.class.scope_for_url} = ?"
         conditions << send(self.class.scope_for_url)
       end
-      url_owners = self.class.find(:all, :conditions => conditions)
+      url_owners = self.class.unscoped.find(:all, :conditions => conditions)
       write_attribute url_attribute, base_url
       unless self.class.allow_duplicates
         if url_owners.any?{|owner| owner.send(url_attribute) == base_url}
