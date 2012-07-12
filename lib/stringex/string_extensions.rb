@@ -40,7 +40,7 @@ module Stringex
     end
 
     def limit(lim = nil)
-      lim.nil? ? self : self[0...lim] 
+      lim.nil? ? self : self[0...lim]
     end
 
     # Performs multiple text manipulations. Essentially a shortcut for typing them all. View source
@@ -173,7 +173,7 @@ module Stringex
         dummy.gsub!(found, replaced)
       end
       # Back to normal rules
-      misc_characters = 
+      misc_characters =
       {
         /\s*&\s*/ => "and",
         /\s*#/ => "number",
@@ -188,7 +188,7 @@ module Stringex
         /\s*\+\s*/ => "plus",
         /\s*°\s*/ => "degrees"
       }
-      misc_characters[/\s*(\\|\/)\s*/] = 'slash' unless options[:allow_slash]
+      misc_characters[/\s*(\\|\/|／)\s*/] = 'slash' unless options[:allow_slash]
       misc_characters.each do |found, replaced|
         replaced = " #{replaced} " unless replaced =~ /\\1/
         dummy.gsub!(found, replaced)
