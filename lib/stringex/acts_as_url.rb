@@ -9,7 +9,7 @@ module Stringex
       # Creates a callback to automatically create an url-friendly representation
       # of the <tt>attribute</tt> argument. Example:
       #
-      #   act_as_url :title
+      #   acts_as_url :title
       #
       # will use the string contents of the <tt>title</tt> attribute
       # to create the permalink. <strong>Note:</strong> you can also use a non-database-backed
