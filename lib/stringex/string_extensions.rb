@@ -35,8 +35,11 @@ module Stringex
     # Create a URI-friendly representation of the string. This is used internally by
     # acts_as_url[link:classes/Stringex/ActsAsUrl/ClassMethods.html#M000012]
     # but can be called manually in order to generate an URI-friendly version of any string.
+    # Since the ascii conversion can produce slash characters, we need to post-process the string to strip them.
     def to_url(options = {})
-      remove_formatting(options).downcase.replace_whitespace("-").collapse("-").limit(options[:limit])
+      raw = remove_formatting(options).downcase
+      raw.gsub!(/\s*(\\|\/)\s*/, " ") unless options[:allow_slash]
+      raw.replace_whitespace("-").collapse("-").limit(options[:limit])
     end
 
     def limit(lim = nil)
@@ -181,6 +184,7 @@ module Stringex
         /(\S|^)\.(\S)/ => '\1 dot \2',
         /(\s|^)\$(\d*)(\s|$)/ => '\2 dollars',
         /(\s|^)£(\d*)(\s|$)/u => '\2 pounds',
+        /(\s|^)(\d*)¢(\s|$)/u => '\2 cents',
         /(\s|^)¥(\d*)(\s|$)/u => '\2 yen',
         /\s*\*\s*/ => "star",
         /\s*%\s*/ => "percent",
