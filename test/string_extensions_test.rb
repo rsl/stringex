@@ -53,6 +53,12 @@ class StringExtensionsTest < Test::Unit::TestCase
         "period-dot-period",
       "Will…This Work?" =>
         "will-dot-dot-dot-this-work",
+      "We check the D.N.A for matches" =>
+        "we-check-the-dna-for-matches",
+      "We check the D.N.A. for matches" =>
+        "we-check-the-dna-for-matches",
+      "Go to the Y.M.C.America" =>
+        "go-to-the-y-dot-m-c-dot-america",
       "¼ pound with cheese" =>
         "one-fourth-pound-with-cheese",
       "Will's Ferrel" =>
