@@ -99,6 +99,7 @@ module Stringex
         "(#188|frac14)" => "one fourth",
         "(#189|frac12)" => "half",
         "(#190|frac34)" => "three fourths",
+        "(#247|divide)" => "divide",
         "(#176|deg)" => " degrees "
       }.each do |textiled, normal|
         dummy.gsub!(/&#{textiled};/, normal)
@@ -186,6 +187,7 @@ module Stringex
         /\s*%\s*/ => "percent",
         /(\s*=\s*)/ => " equals ",
         /\s*\+\s*/ => "plus",
+        /\s*÷\s*/ => "divide",
         /\s*°\s*/ => "degrees"
       }
       misc_characters[/\s*(\\|\/|／)\s*/] = 'slash' unless options[:allow_slash]
