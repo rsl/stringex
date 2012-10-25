@@ -219,4 +219,12 @@ class StringExtensionsTest < Test::Unit::TestCase
   def test_to_url_limit
     assert_equal "I am much too long".to_url(:limit => 13), "i-am-much-too"
   end
+
+  def test_to_url_downcase
+    assert_equal "I DO NOT WANT TO BE DOWNCASED".to_url(:downcase => false), "I-DO-NOT-WANT-TO-BE-DOWNCASED"
+  end
+
+  def test_to_url_replace_whitespace_with
+    assert_equal "I like underscores".to_url(:replace_whitespace_with => "_"), "i_like_underscores"
+  end
 end

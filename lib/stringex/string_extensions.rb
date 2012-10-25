@@ -36,7 +36,11 @@ module Stringex
     # acts_as_url[link:classes/Stringex/ActsAsUrl/ClassMethods.html#M000012]
     # but can be called manually in order to generate an URI-friendly version of any string.
     def to_url(options = {})
-      remove_formatting(options).downcase.replace_whitespace("-").collapse("-").limit(options[:limit])
+      whitespace_replacement = options[:replace_whitespace_with] || "-"
+
+      value = remove_formatting(options).replace_whitespace(whitespace_replacement).collapse(whitespace_replacement).limit(options[:limit])
+      value = value.downcase if options[:downcase].nil? || options[:downcase]
+      value
     end
 
     def limit(lim = nil)
