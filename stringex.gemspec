@@ -213,6 +213,10 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.4.2}
   s.summary = %q{Some [hopefully] useful extensions to Ruby's String class}
   s.test_files = ["test/acts_as_url_test.rb", "test/string_extensions_test.rb", "test/unidecoder_test.rb"]
+  s.add_development_dependency 'activerecord'
+  s.add_development_dependency 'jeweler'
+  s.add_development_dependency 'RedCloth' # FWIW I *hate* camelcased gem names, just sayin'
+  s.add_development_dependency 'sqlite3'
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
