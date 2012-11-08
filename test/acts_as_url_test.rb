@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(:version => 1) do
   create_table :validatuments, :force => true do |t|
     t.string :title, :url, :other
   end
-  
+
   create_table :ununiquments, :force => true do |t|
     t.string :title, :url, :other
   end
@@ -116,7 +116,7 @@ class ActsAsUrlTest < Test::Unit::TestCase
     @other_doc = Document.create!(:title => "Unique")
     assert_equal "unique-1", @other_doc.url
   end
-  
+
   def test_should_not_create_unique_url
     @doc = Ununiqument.create!(:title => "I am not a clone")
     @other_doc = Ununiqument.create!(:title => "I am not a clone")
@@ -244,7 +244,14 @@ class ActsAsUrlTest < Test::Unit::TestCase
   end
 
   def test_should_allow_url_limit
-    @doc = Limitument.create(:title => "I am much too long")
+    @doc = Limitument.create!(:title => "I am much too long")
     assert_equal "i-am-much-too", @doc.url
+  end
+
+  def test_should_handle_duplicate_urls_with_limits
+    @doc = Limitument.create!(:title => "I am long but not unique")
+    assert_equal "i-am-long-but", @doc.url
+    @doc_2 = Limitument.create!(:title => "I am long but not unique")
+    assert_equal "i-am-long-but-1", @doc_2.url
   end
 end
