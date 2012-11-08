@@ -27,14 +27,7 @@ module Stringex
       # <tt>:sync_url</tt>:: If set to true, the url field will be updated when changes are made to the
       #                      attribute it is based on. Default is false.
       def acts_as_url(attribute, options = {})
-        cattr_accessor :attribute_to_urlify
-        cattr_accessor :scope_for_url
-        cattr_accessor :url_attribute # The attribute on the DB
-        cattr_accessor :only_when_blank
-        cattr_accessor :duplicate_count_separator
-        cattr_accessor :allow_slash
-        cattr_accessor :allow_duplicates
-        cattr_accessor :url_limit
+        setup_class_accessors
 
         if options[:sync_url]
           before_validation(:ensure_unique_url)
@@ -78,6 +71,19 @@ module Stringex
           instance.send :ensure_unique_url
           instance.save
         end
+      end
+
+    private
+
+      def setup_class_accessors
+        cattr_accessor :attribute_to_urlify
+        cattr_accessor :scope_for_url
+        cattr_accessor :url_attribute # The attribute on the DB
+        cattr_accessor :only_when_blank
+        cattr_accessor :duplicate_count_separator
+        cattr_accessor :allow_slash
+        cattr_accessor :allow_duplicates
+        cattr_accessor :url_limit
       end
     end
 
