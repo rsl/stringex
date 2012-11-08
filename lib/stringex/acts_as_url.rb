@@ -97,7 +97,7 @@ module Stringex
       if base_url.blank? || !only_when_blank
         base_url = send(klass.attribute_to_urlify).to_s.to_url(:allow_slash => allow_slash, :limit => url_limit)
       end
-      conditions = ["#{url_attribute} LIKE ?", base_url+'%']
+      conditions = ["#{url_attribute} LIKE ?", base_url + '%']
       unless new_record?
         conditions.first << " and id != ?"
         conditions << id
