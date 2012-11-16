@@ -27,7 +27,17 @@ module Stringex
       # <tt>:sync_url</tt>:: If set to true, the url field will be updated when changes are made to the
       #                      attribute it is based on. Default is false.
       def acts_as_url(attribute, options = {})
-        setup_class_accessors
+        cattr_accessor :acts_as_url_config
+        self.acts_as_url_config = {
+          :attribute_to_urlify => attribute,
+          :scope_for_url => options[:scope],
+          :url_attribute => options[:url_attribute] || "url",
+          :only_when_blank => options[:only_when_blank],
+          :duplicate_count_separator => options[:duplicate_count_separator] || "-",
+          :allow_slash => options[:allow_slash],
+          :allow_duplicates => options[:allow_duplicates],
+          :url_limit => options[:limit]
+        }
 
         if options[:sync_url]
           before_validation(:ensure_unique_url)
@@ -39,21 +49,12 @@ module Stringex
           end
         end
 
-        self.attribute_to_urlify = attribute
-        self.scope_for_url = options[:scope]
-        self.url_attribute = options[:url_attribute] || "url"
-        self.only_when_blank = options[:only_when_blank] || false
-        self.duplicate_count_separator = options[:duplicate_count_separator] || "-"
-        self.allow_slash = options[:allow_slash] || false
-        self.allow_duplicates = options[:allow_duplicates] || false
-        self.url_limit = options[:limit] || nil
-
         class_eval <<-"END"
-          def #{url_attribute}
-            if !new_record? && errors[attribute_to_urlify].present?
-              self.class.find(id).send(url_attribute)
+          def #{acts_as_url_config[:url_attribute]}
+            if !new_record? && errors[acts_as_url_config[:attribute_to_urlify]].present?
+              self.class.find(id).send(acts_as_url_config[:url_attribute])
             else
-              read_attribute(url_attribute)
+              read_attribute(acts_as_url_config[:url_attribute])
             end
           end
         END
@@ -67,7 +68,7 @@ module Stringex
       # on a large selection, you will get much better results writing your own version with
       # using pagination.
       def initialize_urls
-        find_each(:conditions => {url_attribute => nil}) do |instance|
+        find_each(:conditions => {acts_as_url_config[:url_attribute] => nil}) do |instance|
           instance.send :ensure_unique_url
           instance.save
         end
@@ -75,40 +76,43 @@ module Stringex
 
     private
 
-      def setup_class_accessors
-        cattr_accessor :attribute_to_urlify
-        cattr_accessor :scope_for_url
-        cattr_accessor :url_attribute # The attribute on the DB
-        cattr_accessor :only_when_blank
-        cattr_accessor :duplicate_count_separator
-        cattr_accessor :allow_slash
-        cattr_accessor :allow_duplicates
-        cattr_accessor :url_limit
+      def setup_acts_as_url_class_accessors
+        cattr_accessor :acts_as_url_config
+
+        # cattr_accessor :attribute_to_urlify
+        # cattr_accessor :scope_for_url
+        # cattr_accessor :url_attribute # The attribute on the DB
+        # cattr_accessor :only_when_blank
+        # cattr_accessor :duplicate_count_separator
+        # cattr_accessor :allow_slash
+        # cattr_accessor :allow_duplicates
+        # cattr_accessor :url_limit
       end
     end
 
   private
 
     def ensure_unique_url
-      klass = self.class
-      url_attribute = klass.url_attribute
-      separator = klass.duplicate_count_separator
+      config = acts_as_url_config
+      url_attribute = acts_as_url_config[:url_attribute]
+      separator = acts_as_url_config[:duplicate_count_separator]
       base_url = send(url_attribute)
-      if base_url.blank? || !only_when_blank
-        base_url = send(klass.attribute_to_urlify).to_s.to_url(:allow_slash => allow_slash, :limit => url_limit)
+      if base_url.blank? || !acts_as_url_config[:only_when_blank]
+        base_url = send(acts_as_url_config[:attribute_to_urlify]).to_s
+        base_url = base_url.to_url(:allow_slash => acts_as_url_config[:allow_slash], :limit => acts_as_url_config[:url_limit])
       end
-      conditions = ["#{url_attribute} LIKE ?", base_url + '%']
-      unless new_record?
-        conditions.first << " and id != ?"
-        conditions << id
-      end
-      if klass.scope_for_url
-        conditions.first << " and #{klass.scope_for_url} = ?"
-        conditions << send(klass.scope_for_url)
-      end
-      url_owners = klass.unscoped.find(:all, :conditions => conditions)
       write_attribute url_attribute, base_url
-      unless klass.allow_duplicates
+      unless config[:allow_duplicates]
+        conditions = ["#{url_attribute} LIKE ?", base_url + '%']
+        unless new_record?
+          conditions.first << " and id != ?"
+          conditions << id
+        end
+        if config[:scope_for_url]
+          conditions.first << " and #{config[:scope_for_url]} = ?"
+          conditions << send(config[:scope_for_url])
+        end
+        url_owners = self.class.unscoped.find(:all, :conditions => conditions)
         if url_owners.any?{|owner| owner.send(url_attribute) == base_url}
           n = 1
           while url_owners.any?{|owner| owner.send(url_attribute) == "#{base_url}#{separator}#{n}"}
