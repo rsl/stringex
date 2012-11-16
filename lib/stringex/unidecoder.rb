@@ -35,6 +35,11 @@ module Stringex
         ["0x#{codepoint}".to_i(16)].pack("U")
       end
 
+      # Returns Unicode codepoint for the given character
+      def get_codepoint(character)
+        "%04x" % character.unpack("U")[0]
+      end
+
       # Returns string indicating which file (and line) contains the
       # transliteration value for the character
       def in_yaml_file(character)

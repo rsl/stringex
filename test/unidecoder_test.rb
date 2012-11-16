@@ -80,6 +80,17 @@ class UnidecoderTest < Test::Unit::TestCase
     end
   end
 
+  def test_unidecoder_get_codepoint
+    {
+      # Strings
+      "A" => "0041",
+      "æ" => "00e6",
+      "Я" => "042f"
+    }.each do |unicode, codepoint|
+      assert_equal codepoint, Stringex::Unidecoder.get_codepoint(unicode)
+    end
+  end
+
   def test_unidecoder_in_yaml_file
     {
       "A" => "x00.yml (line 67)",
