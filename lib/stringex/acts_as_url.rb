@@ -93,24 +93,29 @@ module Stringex
   private
 
     def ensure_unique_url
-      config = acts_as_url_config
       url_attribute = acts_as_url_config[:url_attribute]
-      separator = acts_as_url_config[:duplicate_count_separator]
       base_url = send(url_attribute)
       if base_url.blank? || !acts_as_url_config[:only_when_blank]
         base_url = send(acts_as_url_config[:attribute_to_urlify]).to_s
         base_url = base_url.to_url(:allow_slash => acts_as_url_config[:allow_slash], :limit => acts_as_url_config[:url_limit])
       end
       write_attribute url_attribute, base_url
-      unless config[:allow_duplicates]
+      check_url_duplication
+    end
+
+    def check_url_duplication
+      unless acts_as_url_config[:allow_duplicates]
+        url_attribute = acts_as_url_config[:url_attribute]
+        base_url = send(url_attribute)
+        separator = acts_as_url_config[:duplicate_count_separator]
         conditions = ["#{url_attribute} LIKE ?", base_url + '%']
         unless new_record?
           conditions.first << " and id != ?"
           conditions << id
         end
-        if config[:scope_for_url]
-          conditions.first << " and #{config[:scope_for_url]} = ?"
-          conditions << send(config[:scope_for_url])
+        if acts_as_url_config[:scope_for_url]
+          conditions.first << " and #{acts_as_url_config[:scope_for_url]} = ?"
+          conditions << send(acts_as_url_config[:scope_for_url])
         end
         url_owners = self.class.unscoped.find(:all, :conditions => conditions)
         if url_owners.any?{|owner| owner.send(url_attribute) == base_url}
