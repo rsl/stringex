@@ -67,7 +67,7 @@ module Stringex
       # on a large selection, you will get much better results writing your own version with
       # using pagination.
       def initialize_urls
-        find(:all, :conditions => {url_attribute => nil}).each do |instance|
+        find_each(:conditions => {url_attribute => nil}) do |instance|
           instance.send :ensure_unique_url
           instance.save
         end
