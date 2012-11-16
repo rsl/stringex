@@ -217,6 +217,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'jeweler'
   s.add_development_dependency 'RedCloth' # FWIW I *hate* camelcased gem names, just sayin'
   s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'travis-lint'
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
