@@ -115,18 +115,18 @@ module Stringex
       # Checks LOCAL_CODEPOINTS's Hash is in the format we expect before assigning it and raises
       # instructive exception if not
       def verify_local_codepoints(hash)
-        pass_check = hash.is_a?(Hash) && hash.all?{|key, value|
+        if !pass_check(hash)
+          raise ArgumentError, "LOCAL_CODEPOINTS is not correctly defined. Please see the README for more information on how to correctly format this data."
+        end
+        hash.each{|k, v| LOCAL_CODEPOINTS[k] = v}
+      end
+
+      def pass_check(hash)
+        hash.is_a?(Hash) && hash.all?{|key, value|
           # Fuck a duck, eh?
           [Symbol, String].include?(key.class) && value.is_a?(Hash) &&
             value.keys.all?{|k| k.is_a?(String)} && value.values.all?{|v| v.is_a?(String)}
         }
-        if pass_check
-          hash.each do |k, v|
-            LOCAL_CODEPOINTS[k] = v
-          end
-        else
-          raise ArgumentError, "LOCAL_CODEPOINTS is not correctly defined. Please see the README for more information on how to correctly format this data."
-        end
       end
     end
   end
@@ -135,10 +135,13 @@ module Stringex
   class << self
     %w{
       localize_from
-      locale locale=
-      default_locale default_locale=
+      locale
+      locale=
+      default_locale
+      default_locale=
       local_codepoint
-      with_locale with_default_locale
+      with_locale
+      with_default_locale
     }.each do |name|
       define_method name do |*args, &block|
         Unidecoder.send name, *args, &block
