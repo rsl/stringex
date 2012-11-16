@@ -74,13 +74,20 @@ module Stringex
       # The default attribute <tt>acts_as_url</tt> uses to save the permalink is <tt>url</tt>
       # but this can be changed in the options hash. Available options are:
       #
-      # <tt>:url_attribute</tt>:: The name of the attribute to use for storing the generated url string.
-      #                           Default is <tt>:url</tt>
-      # <tt>:scope</tt>:: The name of model attribute to scope unique urls to. There is no default here.
+      # <tt>:allow_slash</tt>:: If true, allow the generated url to contain slashes. Default is false[y].
+      # <tt>:allow_duplicates</tt>:: If true, allow duplicate urls instead of appending numbers to
+      #                              differentiate between urls. Default is false[y].
+      # <tt>:duplicate_count_separator</tt>:: String to use when forcing unique urls from non-unique strings.
+      #                                       Default is "-".
       # <tt>:only_when_blank</tt>:: If true, the url generation will only happen when <tt>:url_attribute</tt> is
-      #                             blank. Default is false (meaning url generation will happen always)
+      #                             blank. Default is false[y] (meaning url generation will happen always).
+      # <tt>:scope</tt>:: The name of model attribute to scope unique urls to. There is no default here.
       # <tt>:sync_url</tt>:: If set to true, the url field will be updated when changes are made to the
-      #                      attribute it is based on. Default is false.
+      #                      attribute it is based on. Default is false[y].
+      # <tt>:url_attribute</tt>:: The name of the attribute to use for storing the generated url string.
+      #                           Default is <tt>:url</tt>.
+      # <tt>:url_limit</tt>:: The maximum size a generated url should be. <strong>Note:</strong> this does not
+      #                       include the characters needed to enforce uniqueness on duplicate urls.
       def acts_as_url(attribute, options = {})
         cattr_accessor :acts_as_url_configuration
 
