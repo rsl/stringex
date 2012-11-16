@@ -122,11 +122,15 @@ module Stringex
       end
 
       def pass_check(hash)
-        hash.is_a?(Hash) && hash.all?{|key, value|
-          # Fuck a duck, eh?
-          [Symbol, String].include?(key.class) && value.is_a?(Hash) &&
-            value.keys.all?{|k| k.is_a?(String)} && value.values.all?{|v| v.is_a?(String)}
-        }
+        return false if !hash.is_a?(Hash)
+        hash.all?{|key, value| pass_check_key_and_value_test(key, value) }
+      end
+
+      def pass_check_key_and_value_test(key, value)
+        # Fuck a duck, eh?
+        return false unless [Symbol, String].include?(key.class)
+        return false unless value.is_a?(Hash)
+        value.all?{|k, v| k.is_a?(String) && v.is_a?(String)}
       end
     end
   end
