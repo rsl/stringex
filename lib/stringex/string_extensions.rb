@@ -36,17 +36,19 @@ module Stringex
     # acts_as_url[link:classes/Stringex/ActsAsUrl/ClassMethods.html#M000012]
     # but can be called manually in order to generate an URI-friendly version of any string.
     def to_url(options = {})
+      return self if options[:exclude] && options[:exclude].include?(self)
       remove_formatting(options).downcase.replace_whitespace("-").collapse("-").limit(options[:limit])
     end
 
-    def limit(lim = nil)
-      lim.nil? ? self : self[0...lim]
+    def limit(limit = nil)
+      limit.nil? ? self : self[0...limit]
     end
 
     # Performs multiple text manipulations. Essentially a shortcut for typing them all. View source
     # below to see which methods are run.
     def remove_formatting(options = {})
-      strip_html_tags.convert_smart_punctuation.convert_accented_entities.convert_vulgar_fractions.convert_misc_entities.convert_misc_characters(options).to_ascii.collapse
+      strip_html_tags.convert_smart_punctuation.convert_accented_entities.convert_vulgar_fractions.
+        convert_misc_entities.convert_misc_characters(options).to_ascii.collapse
     end
 
     # Removes HTML tags from text. This code is simplified from Tobias Luettke's regular expression

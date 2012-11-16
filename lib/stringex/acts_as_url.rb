@@ -7,13 +7,14 @@ module Stringex
 
     class Configuration
       attr_accessor :allow_slash, :allow_duplicates, :attribute_to_urlify, :duplicate_count_separator,
-        :only_when_blank, :scope_for_url, :sync_url, :url_attribute, :url_limit
+        :exclude, :only_when_blank, :scope_for_url, :sync_url, :url_attribute, :url_limit
 
       def initialize(klass, options = {})
         self.allow_slash = options[:allow_slash]
         self.allow_duplicates = options[:allow_duplicates]
         self.attribute_to_urlify = options[:attribute]
         self.duplicate_count_separator = options[:duplicate_count_separator] || "-"
+        self.exclude = options[:exclude] || []
         self.only_when_blank = options[:only_when_blank]
         self.scope_for_url = options[:scope]
         self.sync_url = options[:sync_url]
@@ -24,8 +25,8 @@ module Stringex
       def get_base_url!(instance)
         base_url = instance.send(url_attribute)
         if base_url.blank? || !only_when_blank
-          base_url = instance.send(attribute_to_urlify).to_s
-          base_url = base_url.to_url(:allow_slash => allow_slash, :limit => url_limit)
+          root = instance.send(attribute_to_urlify).to_s
+          base_url = root.to_url(:allow_slash => allow_slash, :limit => url_limit, :exclude => exclude)
         end
         instance.instance_variable_set "@acts_as_url_base_url", base_url
       end
@@ -79,6 +80,8 @@ module Stringex
       #                              differentiate between urls. Default is false[y].
       # <tt>:duplicate_count_separator</tt>:: String to use when forcing unique urls from non-unique strings.
       #                                       Default is "-".
+      # <tt>:exclude_list</tt>:: List of complete strings that should not be transformed by <tt>acts_as_url</tt>.
+      #                          Default is empty.
       # <tt>:only_when_blank</tt>:: If true, the url generation will only happen when <tt>:url_attribute</tt> is
       #                             blank. Default is false[y] (meaning url generation will happen always).
       # <tt>:scope</tt>:: The name of model attribute to scope unique urls to. There is no default here.
@@ -88,6 +91,7 @@ module Stringex
       #                           Default is <tt>:url</tt>.
       # <tt>:url_limit</tt>:: The maximum size a generated url should be. <strong>Note:</strong> this does not
       #                       include the characters needed to enforce uniqueness on duplicate urls.
+      #                       Default is nil.
       def acts_as_url(attribute, options = {})
         cattr_accessor :acts_as_url_configuration
 

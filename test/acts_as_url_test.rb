@@ -57,6 +57,10 @@ ActiveRecord::Schema.define(:version => 1) do
   create_table :limituments, :force => true do |t|
     t.string :title, :url, :other
   end
+
+  create_table :skipuments, :force => true do |t|
+    t.string :title, :url, :other
+  end
 end
 ActiveRecord::Migration.verbose = true
 
@@ -103,6 +107,10 @@ end
 
 class Limitument < ActiveRecord::Base
   acts_as_url :title, :limit => 13
+end
+
+class Skipument < ActiveRecord::Base
+  acts_as_url :title, :exclude => ["_So_Fucking_Special"]
 end
 
 class ActsAsUrlTest < Test::Unit::TestCase
@@ -253,5 +261,12 @@ class ActsAsUrlTest < Test::Unit::TestCase
     assert_equal "i-am-long-but", @doc.url
     @doc_2 = Limitument.create!(:title => "I am long but not unique")
     assert_equal "i-am-long-but-1", @doc_2.url
+  end
+
+  def test_should_allow_exclusions
+    @doc = Skipument.create!(:title => "_So_Fucking_Special")
+    assert_equal "_So_Fucking_Special", @doc.url
+    @doc_2 = Skipument.create!(:title => "But I'm a creep")
+    assert_equal "but-im-a-creep", @doc_2.url
   end
 end

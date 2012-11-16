@@ -76,6 +76,10 @@ class StringExtensionsTest < Test::Unit::TestCase
     end
   end
 
+  def test_to_url_with_excludes
+    assert_equal "So Fucking Special", "So Fucking Special".to_url(:exclude => "So Fucking Special")
+  end
+
   def test_remove_formatting
     {
       "<p>This has 100% too much    <em>formatting</em></p>" =>
