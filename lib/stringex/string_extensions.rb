@@ -47,8 +47,17 @@ module Stringex
     # Performs multiple text manipulations. Essentially a shortcut for typing them all. View source
     # below to see which methods are run.
     def remove_formatting(options = {})
-      strip_html_tags.convert_smart_punctuation.convert_accented_entities.convert_vulgar_fractions.
-        convert_misc_entities.convert_misc_characters(options).to_ascii.collapse
+      strip_html_tags.
+        convert_smart_punctuation.
+        convert_accented_entities.
+        convert_vulgar_fractions.
+        convert_misc_entities.
+        convert_misc_characters(options).
+        to_ascii.
+        # NOTE: String#to_ascii may convert some Unicode characters to ascii we'd already transliterated
+        # so we need to do it again just to be safe
+        convert_misc_characters(options).
+        collapse
     end
 
     # Removes HTML tags from text. This code is simplified from Tobias Luettke's regular expression
