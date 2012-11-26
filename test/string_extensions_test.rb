@@ -73,8 +73,12 @@ class StringExtensionsTest < Test::Unit::TestCase
         "slash",
       "私はガラスを食べられます。それは私を傷つけません。" =>
         "si-hagarasuwoshi-beraremasu-sorehasi-woshang-tukemasen",
+      "カッページ・テラスに日系カフェ＆バー、店内にDJブースも - シンガポール経済新聞" =>
+        "katupeziterasuniri-xi-kahue-and-ba-dian-nei-nidjbusumo-singaporujing-ji-xin-wen",
       "ǝ is a magical string" =>
-        "at-is-a-magical-string"
+        "at-is-a-magical-string",
+      "either | or" =>
+        "either-or"
     }.each do |html, plain|
       assert_equal plain, html.to_url
     end
