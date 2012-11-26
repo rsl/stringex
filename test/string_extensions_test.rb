@@ -58,7 +58,9 @@ class StringExtensionsTest < Test::Unit::TestCase
       "We check the D.N.A. for matches" =>
         "we-check-the-dna-for-matches",
       "Go to the Y.M.C.America" =>
-        "go-to-the-y-dot-m-c-dot-america",
+        "go-to-the-ymcamerica",
+      "He shops at J.C. Penney" =>
+        "he-shops-at-jc-penney",
       "¼ pound with cheese" =>
         "one-fourth-pound-with-cheese",
       "Will's Ferrel" =>

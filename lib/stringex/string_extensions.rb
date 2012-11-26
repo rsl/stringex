@@ -176,7 +176,7 @@ module Stringex
         dummy.gsub!(found, replaced)
       end
       # Special rules for abbreviations
-      dummy.gsub!(/(\s|^)([[:alpha:]](\.[[:alpha:]])+\.?(\s|$))/) do |x|
+      dummy.gsub!(/(\s|^)([[:alpha:]](\.[[:alpha:]])+(\.?)[[:alpha:]]*(\s|$))/) do |x|
         x.gsub(".", "")
       end
       # Back to normal rules
