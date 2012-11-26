@@ -13,7 +13,9 @@ module CodepointTestHelper
       else
         message = "<#{expected.inspect}> expected but was\n<#{actual.inspect}>\n"
         message << "  defined in #{Stringex::Unidecoder.in_yaml_file(encoded)}"
-        raise Test::Unit::AssertionFailedError.new(message)
+        reporting_class = defined?(Test::Unit::AssertionFailedError) ?
+           Test::Unit::AssertionFailedError : ActiveSupport::TestCase::Assertion
+        raise reporting_class.new(message)
       end
     end
   end
