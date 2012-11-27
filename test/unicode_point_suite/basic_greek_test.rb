@@ -107,9 +107,7 @@ class BasicGreekTest < Test::Unit::TestCase
       "ματώσουν απ΄τις φωνές" => "matosoun aptis phones",
       "το πρόσωπό σου θα ματώσει από τις σφαίρες – μα ούτε βήμα πίσω." => "to prosopo sou tha matosei apo tis sphaires -- ma oute bima piso.",
     }.each do |letter, ascii|
-      #puts "Testing #{letter} => '#{ascii}'  my give '#{letter.to_ascii}'"
       assert_equal letter.to_ascii, ascii
     end
   end
-
 end
