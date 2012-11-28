@@ -184,6 +184,10 @@ module Stringex
         replaced = " #{replaced} " unless replaced =~ /\\1/
         dummy.gsub!(found, replaced)
       end
+      # Special rules for abbreviations
+      dummy.gsub!(/(\s|^)([[:alpha:]](\.[[:alpha:]])+(\.?)[[:alpha:]]*(\s|$))/) do |x|
+        x.gsub(".", "")
+      end
       # Back to normal rules
       misc_characters =
       {
