@@ -88,7 +88,11 @@ class StringExtensionsTest < Test::Unit::TestCase
       "either | or" =>
         "either-or",
       "La Maison d`Uliva" =>
-        "la-maison-duliva"
+        "la-maison-duliva",
+      "AVアンプ、ホームシアターシステム、スピーカーシステム等" =>
+        "avanpu-homusiatasisutemu-supikasisutemudeng",
+      "У лукоморья дуб зеленый" =>
+        "u-lukomoria-dub-zielienyi"
     }.each do |html, plain|
       assert_equal plain, html.to_url
     end
