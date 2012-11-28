@@ -78,7 +78,9 @@ class StringExtensionsTest < Test::Unit::TestCase
       "ǝ is a magical string" =>
         "at-is-a-magical-string",
       "either | or" =>
-        "either-or"
+        "either-or",
+      "La Maison d`Uliva" =>
+        "la-maison-duliva"
     }.each do |html, plain|
       assert_equal plain, html.to_url
     end

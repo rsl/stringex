@@ -40,6 +40,7 @@ module Stringex
       remove_formatting(options).downcase.replace_whitespace("-").collapse("-").limit(options[:limit])
     end
 
+    # Returns the string limited in size to the value of limit.
     def limit(limit = nil)
       limit.nil? ? self : self[0...limit]
     end
@@ -69,7 +70,6 @@ module Stringex
       rx = /<[!\/?\[]?(#{name}|--)(\s+(#{attr}(\s+#{attr})*))?\s*([!\/?\]]+|--)?>/
       (leave_whitespace) ?  gsub(rx, "").strip : gsub(rx, "").gsub(/\s+/, " ").strip
     end
-
     # Converts HTML entities into the respective non-accented letters. Examples:
     #
     #   "&aacute;".convert_accented_entities # => "a"
@@ -206,7 +206,7 @@ module Stringex
         replaced = " #{replaced} " unless replaced =~ /\\1/
         dummy.gsub!(found, replaced)
       end
-      dummy = dummy.gsub(/(^|[[:alpha:]])'([[:alpha:]]|$)/, '\1\2').gsub(/[\.,:;()\[\]\/\?!\^'ʼ"_\|]/, " ").strip
+      dummy = dummy.gsub(/(^|[[:alpha:]])'|`([[:alpha:]]|$)/, '\1\2').gsub(/[\.,:;()\[\]\/\?!\^'ʼ"_\|]/, " ").strip
     end
 
     # Replace runs of whitespace in string. Defaults to a single space but any replacement
