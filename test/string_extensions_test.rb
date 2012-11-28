@@ -1,4 +1,5 @@
 # encoding: UTF-8
+$KCODE = "U"
 
 require "test/unit"
 
@@ -87,29 +88,14 @@ class StringExtensionsTest < Test::Unit::TestCase
         "either-or",
       "La Maison d`Uliva" =>
         "la-maison-duliva",
+      "カッページ・テラスに日系カフェ＆バー、店内にDJブースも - シンガポール経済新聞" =>
+        "katupeziterasuniri-xi-kahue-and-ba-dian-nei-nidjbusumo-singaporujing-ji-xin-wen",
+      "AVアンプ、ホームシアターシステム、スピーカーシステム等" =>
+        "avanpu-homusiatasisutemu-supikasisutemudeng",
+      "У лукоморья дуб зеленый" =>
+        "u-lukomoria-dub-zielienyi"
     }.each do |html, plain|
       assert_equal plain, html.to_url
-    end
-  end
-
-  def tests_that_only_pass_on_travis_for_1_9
-    if RUBY_VERSION.include?('1.9')
-      {
-        "カッページ・テラスに日系カフェ＆バー、店内にDJブースも - シンガポール経済新聞" =>
-          "katupeziterasuniri-xi-kahue-and-ba-dian-nei-nidjbusumo-singaporujing-ji-xin-wen",
-        "AVアンプ、ホームシアターシステム、スピーカーシステム等" =>
-          "avanpu-homusiatasisutemu-supikasisutemudeng",
-        "У лукоморья дуб зеленый" =>
-          "u-lukomoria-dub-zielienyi"
-      }.each do |html, plain|
-        assert_equal plain, html.to_url
-      end
-    else
-      message = "\n-----\n"
-      message << "Skipping a few transliteration tests that for some reason fail on Travis-CI for the latest 1.8.7, which I cannot install for some reason on my Mac. "
-      message << "If you can run these tests AND they fail for you AND you care to help debug what the problem is, please let me know at sconds@gmail.com. Thanks."
-      message << "\n-----"
-      puts message
     end
   end
 
