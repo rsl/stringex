@@ -3,6 +3,7 @@
 require 'rake'
 require 'rake/testtask'
 require 'rdoc/task'
+require 'stringex/version'
 
 begin
   require 'jeweler'
@@ -212,7 +213,7 @@ begin
     }
     gem.rdoc_options     = %w{--main README.rdoc --charset utf-8 --line-numbers}
     gem.extra_rdoc_files =  %w{MIT-LICENSE README.rdoc}
-    gem.version = "1.4.0"
+    gem.version = Stringex::Version::STRING
   end
 
   Jeweler::RubygemsDotOrgTasks.new

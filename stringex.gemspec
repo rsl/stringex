@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{stringex}
-  s.version = "1.4.0"
+  s.name = "stringex"
+  s.version = "1.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Russell Norris"]
-  s.date = %q{2012-05-04}
-  s.description = %q{Some [hopefully] useful extensions to Ruby's String class. Stringex is made up of three libraries: ActsAsUrl [permalink solution with better character translation], Unidecoder [Unicode to ASCII transliteration], and StringExtensions [miscellaneous helper methods for the String class].}
-  s.email = %q{rsl@luckysneaks.com}
+  s.date = "2012-11-29"
+  s.description = "Some [hopefully] useful extensions to Ruby's String class. Stringex is made up of three libraries: ActsAsUrl [permalink solution with better character translation], Unidecoder [Unicode to ASCII transliteration], and StringExtensions [miscellaneous helper methods for the String class]."
+  s.email = "rsl@luckysneaks.com"
   s.extra_rdoc_files = [
     "MIT-LICENSE",
     "README.rdoc"
@@ -207,25 +207,38 @@ Gem::Specification.new do |s|
     "lib/stringex/unidecoder_data/xff.yml",
     "stringex.gemspec"
   ]
-  s.homepage = %q{http://github.com/rsl/stringex}
+  s.homepage = "http://github.com/rsl/stringex"
   s.rdoc_options = ["--main", "README.rdoc", "--charset", "utf-8", "--line-numbers"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.4.2}
-  s.summary = %q{Some [hopefully] useful extensions to Ruby's String class}
+  s.rubygems_version = "1.8.24"
+  s.summary = "Some [hopefully] useful extensions to Ruby's String class"
   s.test_files = ["test/acts_as_url_test.rb", "test/string_extensions_test.rb", "test/unidecoder_test.rb"]
-  s.add_development_dependency 'activerecord'
-  s.add_development_dependency 'jeweler'
-  s.add_development_dependency 'RedCloth' # FWIW I *hate* camelcased gem names, just sayin'
-  s.add_development_dependency 'sqlite3'
-  s.add_development_dependency 'travis-lint'
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<stringex>, [">= 0"])
+      s.add_development_dependency(%q<activerecord>, [">= 0"])
+      s.add_development_dependency(%q<jeweler>, [">= 0"])
+      s.add_development_dependency(%q<RedCloth>, [">= 0"])
+      s.add_development_dependency(%q<sqlite3>, [">= 0"])
+      s.add_development_dependency(%q<travis-lint>, [">= 0"])
     else
+      s.add_dependency(%q<stringex>, [">= 0"])
+      s.add_dependency(%q<activerecord>, [">= 0"])
+      s.add_dependency(%q<jeweler>, [">= 0"])
+      s.add_dependency(%q<RedCloth>, [">= 0"])
+      s.add_dependency(%q<sqlite3>, [">= 0"])
+      s.add_dependency(%q<travis-lint>, [">= 0"])
     end
   else
+    s.add_dependency(%q<stringex>, [">= 0"])
+    s.add_dependency(%q<activerecord>, [">= 0"])
+    s.add_dependency(%q<jeweler>, [">= 0"])
+    s.add_dependency(%q<RedCloth>, [">= 0"])
+    s.add_dependency(%q<sqlite3>, [">= 0"])
+    s.add_dependency(%q<travis-lint>, [">= 0"])
   end
 end
 
