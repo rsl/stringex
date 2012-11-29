@@ -45,18 +45,17 @@ module Stringex
       end
 
       def handle_duplicate_urls!(instance)
-        unless allow_duplicates
-          base_url = instance.instance_variable_get("@acts_as_url_base_url")
+        return if allow_duplicates
 
-          url_owners = instance.class.unscoped.find(:all, :conditions => get_conditions!(instance))
-          if url_owners.any?{|owner| owner.send(url_attribute) == base_url}
-            separator = duplicate_count_separator
-            n = 1
-            while url_owners.any?{|owner| owner.send(url_attribute) == "#{base_url}#{separator}#{n}"}
-              n = n.succ
-            end
-            instance.send :write_attribute, url_attribute, "#{base_url}#{separator}#{n}"
+        base_url = instance.instance_variable_get("@acts_as_url_base_url")
+        url_owners = instance.class.unscoped.find(:all, :conditions => get_conditions!(instance))
+        if url_owners.any?{|owner| owner.send(url_attribute) == base_url}
+          separator = duplicate_count_separator
+          n = 1
+          while url_owners.any?{|owner| owner.send(url_attribute) == "#{base_url}#{separator}#{n}"}
+            n = n.succ
           end
+          instance.send :write_attribute, url_attribute, "#{base_url}#{separator}#{n}"
         end
       end
     end
