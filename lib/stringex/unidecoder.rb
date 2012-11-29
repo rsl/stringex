@@ -160,7 +160,7 @@ module Stringex
 end
 
 module Stringex
-  module StringExtensions
+  module StringExtensions::PublicInstanceMethods
     # Returns string with its UTF-8 characters transliterated to ASCII ones. Example:
     #
     #   "⠋⠗⠁⠝⠉⠑".to_ascii #=> "france"

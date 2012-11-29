@@ -128,7 +128,7 @@ class StringExtensionsTest < Test::Unit::TestCase
     end
   end
 
-  def test_convert_accented_entities
+  def test_convert_accented_html_entities
     {
       "&aring;"  => "a",
       "&egrave;" => "e",
@@ -138,7 +138,7 @@ class StringExtensionsTest < Test::Unit::TestCase
       "&Ntilde;" => "N",
       "&ccedil;" => "c"
     }.each do |entitied, plain|
-      assert_equal plain, entitied.convert_accented_entities
+      assert_equal plain, entitied.convert_accented_html_entities
     end
   end
 
@@ -182,7 +182,7 @@ class StringExtensionsTest < Test::Unit::TestCase
     end
   end
 
-  def test_convert_misc_entities
+  def test_convert_miscellaneous_html_entities
     {
       "America&#8482;" => "America(tm)",
       "Tea &amp; Sympathy" => "Tea and Sympathy",
@@ -191,7 +191,7 @@ class StringExtensionsTest < Test::Unit::TestCase
       "100&#163;" => "100 pound",
       "35&deg;" => "35 degrees"
     }.each do |entitied, plain|
-      assert_equal plain, entitied.convert_misc_entities
+      assert_equal plain, entitied.convert_miscellaneous_html_entities
     end
   end
 
@@ -205,7 +205,7 @@ class StringExtensionsTest < Test::Unit::TestCase
     end
   end
 
-  def test_convert_misc_characters
+  def test_convert_miscellaneous_characters
     {
       "Foo & bar make foobar" => "Foo and bar make foobar",
       "Breakdown #9" => "Breakdown number 9",
@@ -216,7 +216,7 @@ class StringExtensionsTest < Test::Unit::TestCase
       "This CD is ¥1000 instead" => "This CD is 1000 yen instead",
       "Food+Drink" => "Food plus Drink"
     }.each do |misc, plain|
-      assert_equal plain, misc.convert_misc_characters
+      assert_equal plain, misc.convert_miscellaneous_characters
     end
   end
 
