@@ -114,6 +114,39 @@ class Skipument < ActiveRecord::Base
 end
 
 class ActsAsUrlTest < Test::Unit::TestCase
+
+  def test_set_global_config
+    Stringex::ActsAsUrl.config do |c|
+      c.allow_duplicates = true
+    end
+    config = Stringex::ActsAsUrl::Configuration.new(Document)
+
+    assert_equal true, config.global_config_value(:allow_duplicates)
+    assert_equal true, config.config_value(:allow_duplicates)
+    assert_equal true, config.allow_duplicates
+  end
+
+  def test_should_have_global_config_value
+    config = Stringex::ActsAsUrl::Configuration.new(Document)
+    assert_equal false, config.global_config_value(:allow_slash)
+  end
+
+  def test_should_select_first_valid_config_value
+    config = Stringex::ActsAsUrl::Configuration.new(Document)
+    assert_equal 'subject', config.config_value(:attribute, :attribute_to_urlify, :attribute => 'subject', :attribute_to_urlify => 'name')
+  end
+
+  def test_should_override_global_config_value
+    config = Stringex::ActsAsUrl::Configuration.new(Document, :allow_slash => true)
+    assert_equal true, config.allow_slash
+  end
+
+  def test_should_use_first_valid_option
+    config = Stringex::ActsAsUrl::Configuration.new(Document, :attribute => 'subject', :attribute_to_urlify => 'name')
+    assert_equal 'subject', config.attribute_to_urlify
+  end
+
+
   def test_should_create_url
     @doc = Document.create(:title => "Let's Make a Test Title, <em>Okay</em>?")
     assert_equal "lets-make-a-test-title-okay", @doc.url

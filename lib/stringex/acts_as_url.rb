@@ -8,6 +8,8 @@ if defined?(ActiveRecord)
   require 'stringex/acts_as_url/active_record_adapter' 
 end
 
+require 'stringex/acts_as_url/global_config'
+
 # encoding: UTF-8
 module Stringex
   module ActsAsUrl # :nodoc:
@@ -25,16 +27,26 @@ module Stringex
       alias_method :only_when_blank?,  :only_when_blank
 
       def initialize(klass, options = {})
-        self.allow_slash = options[:allow_slash]
-        self.allow_duplicates = options[:allow_duplicates]
-        self.attribute_to_urlify = options[:attribute]
-        self.duplicate_count_separator = options[:duplicate_count_separator] || "-"
-        self.exclude = options[:exclude] || []
-        self.only_when_blank = options[:only_when_blank]
-        self.scope_for_url = options[:scope]
-        self.sync_url = options[:sync_url]
-        self.url_attribute = options[:url_attribute] || "url"
-        self.url_limit = options[:limit]
+        self.allow_slash = config_value(:allow_slash, options)
+        self.allow_duplicates = config_value(:allow_duplicates, options)
+        self.attribute_to_urlify = config_value(:attribute, :attribute_to_urlify, options)
+        self.duplicate_count_separator = config_value(:duplicate_count_separator, options)
+        self.exclude = config_value(:exclude, options)
+        self.only_when_blank = config_value(:only_when_blank, options)
+        self.scope_for_url = config_value(:scope, :scope_for_url, options)
+        self.sync_url = config_value(:sync_url, options)
+        self.url_attribute = config_value(:url_attribute, options)
+        self.url_limit = config_value(:limit, :url_limit, options)
+      end
+
+      def config_value *names
+        options = names.extract_options!
+        values = names.map {|name| options[name.to_sym] } + names.map {|name| global_config_value(name) }
+        values.compact.first      
+      end
+
+      def global_config_value name
+        Stringex::ActsAsUrl.send(name) if Stringex::ActsAsUrl.respond_to?(name)
       end
 
       def get_base_url!(instance)

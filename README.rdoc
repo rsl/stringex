@@ -25,6 +25,12 @@ which will populate the <tt>url</tt> attribute on the object with the converted 
                              be guaranteed to lookup the expected record based on a duplicate slug.</em>
 <tt>:limit</tt>:: If set, will limit length of url generated. Default is nil.
 
+You can configure the default values to be used across all models by setting the class variables on Stringex::ActsAsUrl directly, using:
+
+  Stringex::ActsAsUrl.config do |c|
+    c.allow_duplicates = true
+    c.sync_url = true
+  end
 
 In order to use the generated url attribute, you will probably want to override <tt>to_param</tt> like so, in your Model:
 
