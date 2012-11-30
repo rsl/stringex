@@ -212,7 +212,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.24"
   s.summary = "Some [hopefully] useful extensions to Ruby's String class"
-  s.test_files = ["test/acts_as_url_test.rb", "test/string_extensions_test.rb", "test/unidecoder_test.rb"]
+  s.test_files = ["test/acts_as_url_test.rb", "test_mongoid/acts_as_url_mongoid_test.rb", "test/string_extensions_test.rb", "test/unidecoder_test.rb"]
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
@@ -220,6 +220,7 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<stringex>, [">= 0"])
       s.add_development_dependency(%q<activerecord>, [">= 0"])
+      s.add_development_dependency(%q<mongoid>, [">= 3"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<RedCloth>, [">= 0"])
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
@@ -227,6 +228,7 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<stringex>, [">= 0"])
       s.add_dependency(%q<activerecord>, [">= 0"])
+      s.add_development_dependency(%q<mongoid>, [">= 3"])      
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<RedCloth>, [">= 0"])
       s.add_dependency(%q<sqlite3>, [">= 0"])

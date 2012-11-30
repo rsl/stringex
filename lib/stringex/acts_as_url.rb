@@ -1,13 +1,28 @@
+require 'stringex/acts_as_url/base_adapter' 
+
+if defined?(Mongoid)
+  require 'stringex/acts_as_url/mongoid_adapter' 
+end
+
+if defined?(ActiveRecord)
+  require 'stringex/acts_as_url/active_record_adapter' 
+end
+
 # encoding: UTF-8
 module Stringex
   module ActsAsUrl # :nodoc:
-    def self.included(base)
-      base.extend ClassMethods
+    extend ActiveSupport::Concern
+
+    included do
     end
 
     class Configuration
       attr_accessor :allow_slash, :allow_duplicates, :attribute_to_urlify, :duplicate_count_separator,
         :exclude, :only_when_blank, :scope_for_url, :sync_url, :url_attribute, :url_limit
+
+      alias_method :allow_duplicates?, :allow_duplicates
+      alias_method :allow_slash?,      :allow_slash
+      alias_method :only_when_blank?,  :only_when_blank
 
       def initialize(klass, options = {})
         self.allow_slash = options[:allow_slash]
@@ -31,34 +46,25 @@ module Stringex
         instance.instance_variable_set "@acts_as_url_base_url", base_url
       end
 
-      def get_conditions!(instance)
-        conditions = ["#{url_attribute} LIKE ?", instance.instance_variable_get("@acts_as_url_base_url") + '%']
-        unless instance.new_record?
-          conditions.first << " and id != ?"
-          conditions << instance.id
-        end
-        if scope_for_url
-          conditions.first << " and #{scope_for_url} = ?"
-          conditions << instance.send(scope_for_url)
-        end
-        conditions
+      def handle_duplicate_urls! instance
+        adapter(self, instance).handle_duplicate_urls!
       end
 
-      def handle_duplicate_urls!(instance)
-        return if allow_duplicates
-
-        base_url = instance.instance_variable_get("@acts_as_url_base_url")
-        url_owners = instance.class.unscoped.find(:all, :conditions => get_conditions!(instance))
-        if url_owners.any?{|owner| owner.send(url_attribute) == base_url}
-          separator = duplicate_count_separator
-          n = 1
-          while url_owners.any?{|owner| owner.send(url_attribute) == "#{base_url}#{separator}#{n}"}
-            n = n.succ
-          end
-          instance.send :write_attribute, url_attribute, "#{base_url}#{separator}#{n}"
+      # Return adapter that fits the instance type
+      # Currently supported:
+      # - Mongoid models
+      # - SQL based models
+      def adapter config, instance
+        # puts "Find ActsAsUrL model adapter for: #{instance.inspect}"
+        if defined?(Mongoid::Document) && instance.kind_of?(Mongoid::Document)
+          MongoidAdapter.new config, instance
+        elsif defined?(ActiveRecord) && instance.kind_of?(ActiveRecord::Base)
+          ActiveRecordAdapter.new config, instance
+        else
+          raise ArgumentError, "#{instance.class} adapter not yet supported. Please implement your own adapter!"
         end
       end
-    end
+    end        
 
     module ClassMethods # :doc:
       # Creates a callback to automatically create an url-friendly representation
@@ -116,19 +122,13 @@ module Stringex
             end
           end
         END
-      end
 
-      # Initialize the url fields for the records that need it. Designed for people who add
-      # <tt>acts_as_url</tt> support once there's already development/production data they'd
-      # like to keep around.
-      #
-      # Note: This method can get very expensive, very fast. If you're planning on using this
-      # on a large selection, you will get much better results writing your own version with
-      # using pagination.
-      def initialize_urls
-        find_each(:conditions => {acts_as_url_configuration.url_attribute => nil}) do |instance|
-          instance.send :ensure_unique_url
-          instance.save
+        class_eval do
+          if defined?(Mongoid::Document) && self.new.kind_of?(Mongoid::Document)
+            self.extend MongoidAdapter::ClassMethods
+          elsif defined?(ActiveRecord) && self.new.kind_of?(ActiveRecord::Base)
+            self.extend ActiveRecordAdapter::ClassMethods
+          end
         end
       end
     end

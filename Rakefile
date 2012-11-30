@@ -23,6 +23,9 @@ begin
       stringex.gemspec
       lib/stringex.rb
       lib/stringex/acts_as_url.rb
+      lib/stringex/acts_as_url/base_adapter.rb
+      lib/stringex/acts_as_url/active_record_adapter.rb
+      lib/stringex/acts_as_url/mongoid_adapter.rb
       lib/stringex/string_extensions.rb
       lib/stringex/unidecoder.rb
       lib/stringex/unidecoder_data/x00.yml
@@ -229,10 +232,17 @@ task :refresh_db do
   `rm -f #{File.dirname(__FILE__)}/test/acts_as_url.sqlite3`
 end
 
-desc 'Test the stringex plugin.'
+desc 'Test the stringex plugin (Active Record)'
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
   t.pattern = 'test/**/*_test.rb'
+  t.verbose = true
+end
+
+desc 'Test the stringex plugin (Mongoid)'
+Rake::TestTask.new(:test_mongoid) do |t|
+  t.libs << 'lib'
+  t.pattern = 'test_mongoid/*_test.rb'
   t.verbose = true
 end
 
