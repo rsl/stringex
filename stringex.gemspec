@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Russell Norris"]
-  s.date = "2012-11-30"
+  s.date = "2012-12-04"
   s.description = "Some [hopefully] useful extensions to Ruby's String class. Stringex is made up of three libraries: ActsAsUrl [permalink solution with better character translation], Unidecoder [Unicode to ASCII transliteration], and StringExtensions [miscellaneous helper methods for the String class]."
   s.email = "rsl@luckysneaks.com"
   s.extra_rdoc_files = [
@@ -17,12 +17,20 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = [
+    "Gemfile",
     "MIT-LICENSE",
     "README.rdoc",
     "Rakefile",
+    "VERSION",
     "init.rb",
     "lib/stringex.rb",
     "lib/stringex/acts_as_url.rb",
+    "lib/stringex/acts_as_url/adapter.rb",
+    "lib/stringex/acts_as_url/adapter/active_record.rb",
+    "lib/stringex/acts_as_url/adapter/base.rb",
+    "lib/stringex/configuration.rb",
+    "lib/stringex/configuration/acts_as_url.rb",
+    "lib/stringex/configuration/string_extensions.rb",
     "lib/stringex/string_extensions.rb",
     "lib/stringex/unidecoder.rb",
     "lib/stringex/unidecoder_data/x00.yml",
@@ -205,14 +213,24 @@ Gem::Specification.new do |s|
     "lib/stringex/unidecoder_data/xfd.yml",
     "lib/stringex/unidecoder_data/xfe.yml",
     "lib/stringex/unidecoder_data/xff.yml",
-    "stringex.gemspec"
+    "lib/stringex/version.rb",
+    "stringex.gemspec",
+    "test/acts_as_url_test.rb",
+    "test/bad_unidecoder_localization.yml",
+    "test/string_extensions_test.rb",
+    "test/unicode_point_suite/basic_greek_test.rb",
+    "test/unicode_point_suite/basic_latin_test.rb",
+    "test/unicode_point_suite/codepoint_test_helper.rb",
+    "test/unidecoder_localization.yml",
+    "test/unidecoder_localization_alias_test.rb",
+    "test/unidecoder_localization_test.rb",
+    "test/unidecoder_test.rb"
   ]
   s.homepage = "http://github.com/rsl/stringex"
   s.rdoc_options = ["--main", "README.rdoc", "--charset", "utf-8", "--line-numbers"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.24"
   s.summary = "Some [hopefully] useful extensions to Ruby's String class"
-  s.test_files = ["test/acts_as_url_test.rb", "test/string_extensions_test.rb", "test/unidecoder_test.rb"]
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
