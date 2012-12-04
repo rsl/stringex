@@ -14,7 +14,7 @@ module Stringex
         when :active_record
           Stringex::ActsAsUrl::Adapter::ActiveRecord.new self
         else
-          raise ArgumentError, "#{adapter_name} is not a defined ActsAsUrl adapter"
+          raise ArgumentError, "#{adapter_name} is not a defined ActsAsUrl adapter. Please feel free to implement your own and submit it back upstream."
         end
       end
 
