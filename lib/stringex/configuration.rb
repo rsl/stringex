@@ -1,13 +1,14 @@
 module Stringex
   module Configuration
     class Base
-      attr_accessor :adapter, :settings
+      attr_accessor :settings
 
       def initialize(options = {})
         @settings = OpenStruct.new(default_settings.merge(options))
       end
 
-      # NOTE: This does not cache itself so that instance can be cached on the adapter
+      # NOTE: This does not cache itself so that instance and class can be cached on the adapter
+      # without worrying about thread safety or race conditions
       def adapter
         case settings.adapter
         when :active_record

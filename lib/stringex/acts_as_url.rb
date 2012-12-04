@@ -46,25 +46,7 @@ module Stringex
         options[:attribute_to_urlify] = attribute
         self.acts_as_url_configuration = Stringex::Configuration::ActsAsUrl.new(options)
 
-        if acts_as_url_configuration.settings.sync_url
-          before_validation(:ensure_unique_url)
-        else
-          if defined?(ActiveModel::Callbacks)
-            before_validation(:ensure_unique_url, :on => :create)
-          else
-            before_validation_on_create(:ensure_unique_url)
-          end
-        end
-
-        class_eval <<-"END"
-          def #{acts_as_url_configuration.settings.url_attribute}
-            if !new_record? && errors[acts_as_url_configuration.settings.attribute_to_urlify].present?
-              self.class.find(id).send(acts_as_url_configuration.settings.url_attribute)
-            else
-              read_attribute(acts_as_url_configuration.settings.url_attribute)
-            end
-          end
-        END
+        acts_as_url_configuration.adapter.create_callbacks! self
       end
 
       # Initialize the url fields for the records that need it. Designed for people who add
@@ -75,10 +57,7 @@ module Stringex
       # on a large selection, you will get much better results writing your own version with
       # using pagination.
       def initialize_urls
-        find_each(:conditions => {acts_as_url_configuration.settings.url_attribute => nil}) do |instance|
-          instance.send :ensure_unique_url
-          instance.save
-        end
+        acts_as_url_configuration.adapter.initialize_urls! self
       end
     end
 

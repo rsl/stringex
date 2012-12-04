@@ -2,7 +2,7 @@ module Stringex
   module ActsAsUrl
     module Adapter
       class Base
-        attr_accessor :base_url, :configuration, :instance, :settings
+        attr_accessor :base_url, :configuration, :instance, :klass, :settings
 
         def initialize(configuration)
           self.configuration = configuration
@@ -15,6 +15,13 @@ module Stringex
 
           handle_url!
           handle_duplicate_url! unless settings.allow_duplicates
+        end
+
+        def initialize_urls!(klass)
+          self.klass = klass
+          klass_previous_instances do |instance|
+            ensure_unique_url_for! instance
+          end
         end
 
       private
