@@ -1,4 +1,7 @@
 # encoding: UTF-8
+
+require "stringex/acts_as_url/adapter"
+
 module Stringex
   module ActsAsUrl # :nodoc:
     def self.included(base)
@@ -19,6 +22,7 @@ module Stringex
       # The default attribute <tt>acts_as_url</tt> uses to save the permalink is <tt>url</tt>
       # but this can be changed in the options hash. Available options are:
       #
+      # <tt>:adapter</tt>:: If specified, ORM adapter to use. Default is :active_record.
       # <tt>:allow_slash</tt>:: If true, allow the generated url to contain slashes. Default is false[y].
       # <tt>:allow_duplicates</tt>:: If true, allow duplicate urls instead of appending numbers to
       #                              differentiate between urls. Default is false[y].
@@ -81,13 +85,7 @@ module Stringex
   private
 
     def ensure_unique_url
-      # Just to save some typing
-      config = acts_as_url_configuration
-      url_attribute = config.settings.url_attribute
-
-      config.get_base_url! self
-      write_attribute url_attribute, @acts_as_url_base_url
-      config.handle_duplicate_urls!(self) unless config.settings.allow_duplicates
+      acts_as_url_configuration.adapter.ensure_unique_url! self
     end
   end
 end
