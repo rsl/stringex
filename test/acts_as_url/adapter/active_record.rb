@@ -54,6 +54,10 @@ ActiveRecord::Schema.define do
   create_table :skipuments, :force => true do |t|
     t.string :title, :url
   end
+
+  create_table :stiuments, :force => true do |t|
+    t.string :title, :url, :type
+  end
 end
 ActiveRecord::Migration.verbose = true
 
@@ -104,6 +108,17 @@ end
 
 class Skipument < ActiveRecord::Base
   acts_as_url :title, :exclude => ["_So_Fucking_Special"]
+end
+
+class STIument < ActiveRecord::Base
+  self.table_name = 'stiuments'
+  acts_as_url :title, :enforce_uniqueness_on_sti_base_class => true
+end
+
+class STIChildOneument < STIument
+end
+
+class STIChildTwoument < STIument
 end
 
 module AdapterSpecificTestBehaviors

@@ -23,6 +23,9 @@ which will populate the <tt>url</tt> attribute on the object with the converted 
                              Default is false. <em>NOTE: This is strongly not recommended
                              if you are routing solely on the generated slug as you will no longer
                              be guaranteed to lookup the expected record based on a duplicate slug.</em>
+<tt>:enforce_uniqueness_on_sti_base_class</tt>:: If set to true, when using STI, unique urls will be enforced
+                                                 across all child classes. Default is false. <em>NOTE: This option
+                                                 will have no effect if <tt>:allow_duplicates</tt> is set to true.</em>
 <tt>:limit</tt>:: If set, will limit length of url generated. Default is nil.
 
 

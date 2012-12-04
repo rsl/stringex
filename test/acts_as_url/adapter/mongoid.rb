@@ -107,6 +107,22 @@ class Skipument
   acts_as_url :title, :exclude => ["_So_Fucking_Special"]
 end
 
+class STIument
+  include Mongoid::Document
+  field :title, :type => String
+  field :url, :type => String
+  field :type, :type => String
+
+  # self.table_name = 'stiuments'
+  acts_as_url :title, :enforce_uniqueness_on_sti_base_class => true
+end
+
+class STIChildOneument < STIument
+end
+
+class STIChildTwoument < STIument
+end
+
 module AdapterSpecificTestBehaviors
   def setup
     # No setup tasks at present
