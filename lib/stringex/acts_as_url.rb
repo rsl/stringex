@@ -1,19 +1,15 @@
 # encoding: UTF-8
-
 require "stringex/acts_as_url/adapter"
 
 module Stringex
   module ActsAsUrl # :nodoc:
-    ADAPTERS = [
-      Adapter::ActiveRecord
-    ]
-
     def self.included(base)
       base.extend ClassMethods
     end
 
     def self.load_adapters
-      ADAPTERS.each do |adapter|
+      Adapter.constants.each do |name|
+        adapter = Adapter.const_get(name)
         adapter.load if adapter.loadable?
       end
     end

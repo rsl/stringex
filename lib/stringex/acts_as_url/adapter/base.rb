@@ -25,7 +25,7 @@ module Stringex
           end
         end
 
-        def self.available?
+        def self.loadable?
           false
         end
 

@@ -29,7 +29,7 @@ module Stringex
         end
 
         def self.loadable?
-          defined? ActiveRecord
+          defined? ::ActiveRecord
         end
 
         def self.load
