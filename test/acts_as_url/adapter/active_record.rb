@@ -3,9 +3,8 @@ gem 'activerecord'
 require 'active_record'
 
 RAILS_ROOT = File.expand_path(File.dirname(__FILE__))
-$: << File.join(File.expand_path(File.dirname(__FILE__)), '../../../lib')
 
-require File.join(File.expand_path(File.dirname(__FILE__)), '../../../init.rb')
+require "stringex"
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => "acts_as_url.sqlite3")
 

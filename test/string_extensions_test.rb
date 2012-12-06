@@ -1,12 +1,10 @@
 # encoding: UTF-8
+require "test_helper"
+require "stringex"
+
 if RUBY_VERSION.to_f < 1.9
   $KCODE = "U"
 end
-
-require "test/unit"
-
-$: << File.join(File.expand_path(File.dirname(__FILE__)), '../lib')
-require File.join(File.expand_path(File.dirname(__FILE__)), "../init.rb")
 
 class StringExtensionsTest < Test::Unit::TestCase
   def test_to_html

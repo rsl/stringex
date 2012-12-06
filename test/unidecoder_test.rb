@@ -1,9 +1,6 @@
 # encoding: UTF-8
-
-require "test/unit"
-
-$: << File.join(File.expand_path(File.dirname(__FILE__)), '../lib')
-require File.join(File.expand_path(File.dirname(__FILE__)), "../init.rb")
+require "test_helper"
+require "stringex"
 
 class UnidecoderTest < Test::Unit::TestCase
   # Silly phrases courtesy of Frank da Cruz

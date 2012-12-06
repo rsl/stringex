@@ -35,7 +35,7 @@ end
 desc 'Test Stringex using ActiveRecord ORM'
 Rake::TestTask.new(:test_active_record) do |t|
   ENV['ADAPTER'] = 'active_record'
-  t.libs << 'lib'
+  t.libs << 'lib' << 'test'
   t.pattern   = 'test/**/*_test.rb'
   t.verbose   = true
 end
