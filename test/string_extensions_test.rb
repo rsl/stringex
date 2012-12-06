@@ -1,5 +1,7 @@
 # encoding: UTF-8
-$KCODE = "U"
+if RUBY_VERSION.to_f < 1.9
+  $KCODE = "U"
+end
 
 require "test/unit"
 
