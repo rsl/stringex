@@ -43,6 +43,15 @@ namespace :test do
   task :active_record => [:setup_active_record_suite, :test]
 end
 
+task :setup_mongoid_suite do
+  ENV['ADAPTER'] = 'mongoid'
+end
+
+desc 'Run Stringex test suite using Mongoid as the ORM'
+namespace :test do
+  task :mongoid => [:setup_mongoid_suite, :test]
+end
+
 desc 'Generate RDoc for Stringex'
 Rake::RDocTask.new(:rdoc) do |rdoc|
   version       = File.read('VERSION')
