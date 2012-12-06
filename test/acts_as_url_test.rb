@@ -1,6 +1,6 @@
 # encoding: UTF-8
 require 'test_helper'
-# NOTE: Stringex gets required inside the adapter
+
 adapter = ENV['ADAPTER'] || 'active_record'
 require File.join(File.expand_path(File.dirname(__FILE__)), "acts_as_url/adapter/#{adapter}.rb")
 
