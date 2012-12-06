@@ -1,117 +1,8 @@
 # encoding: UTF-8
 require 'test/unit'
 
-begin
-  require File.expand_path(File.dirname(__FILE__)) + '/../../../config/environment'
-rescue LoadError
-  require 'rubygems'
-  gem 'activerecord'
-  require 'active_record'
-
-  RAILS_ROOT = File.expand_path(File.dirname(__FILE__))
-  $: << File.join(File.expand_path(File.dirname(__FILE__)), '../lib')
-end
-
-require File.join(File.expand_path(File.dirname(__FILE__)), '../init.rb')
-
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => "acts_as_url.sqlite3")
-
-ActiveRecord::Migration.verbose = false
-ActiveRecord::Schema.define(:version => 1) do
-  create_table :documents, :force => true do |t|
-    t.string :title, :url, :other
-  end
-
-  create_table :updateuments, :force => true do |t|
-    t.string :title, :url, :other
-  end
-
-  create_table :mocuments, :force => true do |t|
-    t.string :title, :url, :other
-  end
-
-  create_table :permuments, :force => true do |t|
-    t.string :title, :permalink, :other
-  end
-
-  create_table :procuments, :force => true do |t|
-    t.string :title, :url, :other
-  end
-
-  create_table :blankuments, :force => true do |t|
-    t.string :title, :url, :other
-  end
-
-  create_table :duplicateuments, :force => true do |t|
-    t.string :title, :url, :other
-  end
-
-  create_table :validatuments, :force => true do |t|
-    t.string :title, :url, :other
-  end
-
-  create_table :ununiquments, :force => true do |t|
-    t.string :title, :url, :other
-  end
-
-  create_table :limituments, :force => true do |t|
-    t.string :title, :url, :other
-  end
-
-  create_table :skipuments, :force => true do |t|
-    t.string :title, :url, :other
-  end
-end
-ActiveRecord::Migration.verbose = true
-
-class Document < ActiveRecord::Base
-  acts_as_url :title
-end
-
-class Updateument < ActiveRecord::Base
-  acts_as_url :title, :sync_url => true
-end
-
-class Mocument < ActiveRecord::Base
-  acts_as_url :title, :scope => :other, :sync_url => true
-end
-
-class Permument < ActiveRecord::Base
-  acts_as_url :title, :url_attribute => :permalink
-end
-
-class Procument < ActiveRecord::Base
-  acts_as_url :non_attribute_method
-
-  def non_attribute_method
-    "#{title} got massaged"
-  end
-end
-
-class Blankument < ActiveRecord::Base
-  acts_as_url :title, :only_when_blank => true
-end
-
-class Duplicateument < ActiveRecord::Base
-  acts_as_url :title, :duplicate_count_separator => "---"
-end
-
-class Validatument < ActiveRecord::Base
-  acts_as_url :title, :sync_url => true
-  validates_presence_of :title
-end
-
-class Ununiqument < ActiveRecord::Base
-  acts_as_url :title, :allow_duplicates => true
-end
-
-class Limitument < ActiveRecord::Base
-  acts_as_url :title, :limit => 13
-end
-
-class Skipument < ActiveRecord::Base
-  acts_as_url :title, :exclude => ["_So_Fucking_Special"]
-end
+adapter = ENV['ADAPTER'] || 'active_record'
+require File.join(File.expand_path(File.dirname(__FILE__)), "acts_as_url/adapter/#{adapter}.rb")
 
 class ActsAsUrlTest < Test::Unit::TestCase
   def test_should_create_url
@@ -140,8 +31,8 @@ class ActsAsUrlTest < Test::Unit::TestCase
   end
 
   def test_should_create_unique_url_and_not_clobber_if_another_exists
-    @doc = Updateument.create!(:title => "Unique")
-    @other_doc = Updateument.create!(:title => "Unique")
+    @doc = Updatument.create!(:title => "Unique")
+    @other_doc = Updatument.create!(:title => "Unique")
     @doc.update_attributes :other => "foo"
 
     @doc2 = Document.create!(:title => "twonique")
@@ -238,8 +129,8 @@ class ActsAsUrlTest < Test::Unit::TestCase
   end
 
   def test_should_create_unique_with_custom_duplicate_count_separator
-    @doc = Duplicateument.create!(:title => "Unique")
-    @other_doc = Duplicateument.create!(:title => "Unique")
+    @doc = Duplicatument.create!(:title => "Unique")
+    @other_doc = Duplicatument.create!(:title => "Unique")
     assert_equal "unique", @doc.url
     assert_equal "unique---1", @other_doc.url
   end

@@ -24,32 +24,27 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end
 
-desc 'Default: run unit tests.'
-task :default => [:refresh_db, :test]
+desc 'Default: run unit tests using ActiveRecord ORM'
+task :default => [:refresh_active_record_db, :test_active_record]
 
-desc 'Remove old sqlite file.'
-task :refresh_db do
+desc 'Remove old Sqlite file for ActiveRecord tests'
+task :refresh_active_record_db do
   `rm -f #{File.dirname(__FILE__)}/test/acts_as_url.sqlite3`
 end
 
-desc 'Test the stringex plugin.'
-Rake::TestTask.new(:test) do |t|
+desc 'Test Stringex using ActiveRecord ORM'
+Rake::TestTask.new(:test_active_record) do |t|
+  ENV['ADAPTER'] = 'active_record'
   t.libs << 'lib'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = true
+  t.pattern   = 'test/**/*_test.rb'
+  t.verbose   = true
 end
 
-desc 'Generate documentation for the stringex plugin.'
+desc 'Generate RDoc for Stringex'
 Rake::RDocTask.new(:rdoc) do |rdoc|
-  if File.exist?('VERSION.yml')
-    config = YAML.load(File.read('VERSION.yml'))
-    version = "#{config[:major]}.#{config[:minor]}.#{config[:patch]}"
-  else
-    version = ""
-  end
-
+  version       = File.read('VERSION')
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'Stringex: A String Extension Pack [#{version}]'
+  rdoc.title    = "Stringex: A String Extension Pack [Version #{version}]"
   rdoc.options << '--line-numbers' << '--inline-source'
   rdoc.options << '--charset' << 'utf-8'
   rdoc.rdoc_files.include('README.rdoc')

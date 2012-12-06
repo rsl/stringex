@@ -42,7 +42,7 @@ class UnidecoderLocalizationTest < Test::Unit::TestCase
   end
 
   def test_localize_from_file
-    path_to_file = File.join(File.expand_path(File.dirname(__FILE__)), "unidecoder_localization.yml")
+    path_to_file = File.join(File.expand_path(File.dirname(__FILE__)), "unidecoder/localization.yml")
     Stringex::Unidecoder.localize_from path_to_file
     assert_equal "ee", "é".to_ascii
     Stringex::Unidecoder.locale = "xx"
@@ -55,7 +55,7 @@ class UnidecoderLocalizationTest < Test::Unit::TestCase
   end
 
   def test_bad_localize_from_file
-    path_to_file = File.join(File.expand_path(File.dirname(__FILE__)), "bad_unidecoder_localization.yml")
+    path_to_file = File.join(File.expand_path(File.dirname(__FILE__)), "unidecoder/bad_localization.yml")
     assert_raise(ArgumentError){Stringex::Unidecoder.localize_from path_to_file}
   end
 
