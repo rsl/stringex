@@ -28,6 +28,15 @@ module Stringex
           end
         end
 
+        def self.loadable?
+          defined? ActiveRecord
+        end
+
+        def self.load
+          ensure_loadable
+          ::ActiveRecord::Base.send :include, Stringex::ActsAsUrl
+        end
+
       private
 
         def add_new_record_url_owner_conditions

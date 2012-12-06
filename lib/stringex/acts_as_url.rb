@@ -4,8 +4,18 @@ require "stringex/acts_as_url/adapter"
 
 module Stringex
   module ActsAsUrl # :nodoc:
+    ADAPTERS = [
+      Adapter::ActiveRecord
+    ]
+
     def self.included(base)
       base.extend ClassMethods
+    end
+
+    def self.load_adapters
+      ADAPTERS.each do |adapter|
+        adapter.load if adapter.loadable?
+      end
     end
 
     module ClassMethods # :doc:

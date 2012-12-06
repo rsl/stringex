@@ -5,6 +5,7 @@ module Stringex
         attr_accessor :base_url, :configuration, :instance, :klass, :settings
 
         def initialize(configuration)
+          ensure_loadable
           self.configuration = configuration
           self.settings = configuration.settings
         end
@@ -24,12 +25,22 @@ module Stringex
           end
         end
 
-      private
+        def self.available?
+          false
+        end
 
-        # Override any of these you need within your adapter
+        def self.ensure_loadable
+          raise "#{self} is not an loadable adapter" unless loadable?
+        end
+
+      private
 
         def duplicate_for_base_url(n)
           "#{base_url}#{settings.duplicate_count_separator}#{n}"
+        end
+
+        def ensure_loadable
+          self.class.ensure_loadable
         end
 
         def handle_duplicate_url!
@@ -45,6 +56,10 @@ module Stringex
           self.base_url = instance.send(settings.url_attribute)
           modify_base_url if base_url.blank? || !settings.only_when_blank
           write_url_attribute base_url
+        end
+
+        def loadable?
+          self.class.loadable?
         end
 
         def modify_base_url
