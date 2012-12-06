@@ -11,7 +11,6 @@ module Stringex
 
       def default_settings
         Stringex::Configuration::StringExtensions.new.default_settings.merge({
-          :adapter => :active_record,
           :allow_duplicates => false,
           :duplicate_count_separator => "-",
           :only_when_blank => false,

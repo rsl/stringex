@@ -29,12 +29,12 @@ module Stringex
         end
 
         def self.loadable?
-          defined? ::ActiveRecord
+          defined?(::ActiveRecord) && defined?(::ActiveRecord::Base)
         end
 
         def self.load
           ensure_loadable
-          ::ActiveRecord::Base.send :include, Stringex::ActsAsUrl
+          Stringex::ActsAsUrl.mix_into ::ActiveRecord::Base
         end
 
       private

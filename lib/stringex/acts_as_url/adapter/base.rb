@@ -25,12 +25,13 @@ module Stringex
           end
         end
 
-        def self.loadable?
-          false
+        def self.ensure_loadable
+          raise "The #{self} adapter cannot be loaded" unless loadable?
+          Stringex::ActsAsUrl::Adapter.add_loaded_adapter self
         end
 
-        def self.ensure_loadable
-          raise "#{self} is not an loadable adapter" unless loadable?
+        def self.loadable?
+          false
         end
 
       private

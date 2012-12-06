@@ -24,21 +24,23 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end
 
+Rake::TestTask.new do |t|
+  t.libs << 'lib' << 'test'
+  t.pattern   = 'test/**/*_test.rb'
+  t.verbose   = true
+end
+
 desc 'Default: Run Stringex test suite using ActiveRecord as the ORM'
-task :default => %w{setup_active_record_suite test:active_record}
+task :default => [:setup_active_record_suite, :test]
 
 task :setup_active_record_suite do
   `rm -f #{File.dirname(__FILE__)}/test/acts_as_url.sqlite3`
   ENV['ADAPTER'] = 'active_record'
 end
 
-Rake::TestTask.new('test:active_record') do |t|
-  t.libs << 'lib' << 'test'
-  t.pattern   = 'test/**/*_test.rb'
-  t.verbose   = true
-end
-if task('test:active_record').full_comment
-  task('test:active_record').full_comment.replace 'Run Stringex test suite using ActiveRecord as the ORM'
+desc 'Run Stringex test suite using ActiveRecord as the ORM'
+namespace :test do
+  task :active_record => [:setup_active_record_suite, :test]
 end
 
 desc 'Generate RDoc for Stringex'

@@ -3,18 +3,12 @@ require "stringex/acts_as_url/adapter"
 
 module Stringex
   module ActsAsUrl # :nodoc:
-    def self.included(base)
-      base.extend ClassMethods
+    def self.mix_into(klass)
+      klass.send :include, ActsAsUrlInstanceMethods
+      klass.send :extend, ActsAsUrlClassMethods
     end
 
-    def self.load_adapters
-      Adapter.constants.each do |name|
-        adapter = Adapter.const_get(name)
-        adapter.load if adapter.loadable?
-      end
-    end
-
-    module ClassMethods # :doc:
+    module ActsAsUrlClassMethods # :doc:
       # Creates a callback to automatically create an url-friendly representation
       # of the <tt>attribute</tt> argument. Example:
       #
@@ -28,7 +22,9 @@ module Stringex
       # The default attribute <tt>acts_as_url</tt> uses to save the permalink is <tt>url</tt>
       # but this can be changed in the options hash. Available options are:
       #
-      # <tt>:adapter</tt>:: If specified, ORM adapter to use. Default is :active_record.
+      # <tt>:adapter</tt>:: If specified, will indicate what ORM adapter to use. Default functionality
+      #                     is to use the first available adapter. This should work for most cases
+      #                     unless you are using multiple ORMs in a single project.
       # <tt>:allow_slash</tt>:: If true, allow the generated url to contain slashes. Default is false[y].
       # <tt>:allow_duplicates</tt>:: If true, allow duplicate urls instead of appending numbers to
       #                              differentiate between urls. Default is false[y].
@@ -67,10 +63,10 @@ module Stringex
       end
     end
 
-  private
-
-    def ensure_unique_url
-      acts_as_url_configuration.adapter.ensure_unique_url! self
+    module ActsAsUrlInstanceMethods
+      def ensure_unique_url
+        acts_as_url_configuration.adapter.ensure_unique_url! self
+      end
     end
   end
 end

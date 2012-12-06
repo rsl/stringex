@@ -8,4 +8,4 @@ require 'stringex/acts_as_url'
 String.send :include, Stringex::StringExtensions::PublicInstanceMethods
 String.send :extend, Stringex::StringExtensions::PublicClassMethods
 
-Stringex::ActsAsUrl.load_adapters
+Stringex::ActsAsUrl::Adapter.load_available

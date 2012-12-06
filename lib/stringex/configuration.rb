@@ -10,7 +10,10 @@ module Stringex
       # NOTE: This does not cache itself so that instance and class can be cached on the adapter
       # without worrying about thread safety or race conditions
       def adapter
-        case settings.adapter
+        adapter_name = settings.adapter || Stringex::ActsAsUrl::Adapter.first_available
+        case adapter_name
+        when Class
+          adapter_name.send :new, self
         when :active_record
           Stringex::ActsAsUrl::Adapter::ActiveRecord.new self
         else
