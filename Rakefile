@@ -25,15 +25,14 @@ rescue LoadError
 end
 
 desc 'Default: Run Stringex test suite using ActiveRecord as the ORM'
-task :default => %w{refresh_active_record_db test:active_record}
+task :default => %w{setup_active_record_suite test:active_record}
 
-desc 'Refresh Sqlite file for ActiveRecord tests'
-task :refresh_active_record_db do
+task :setup_active_record_suite do
   `rm -f #{File.dirname(__FILE__)}/test/acts_as_url.sqlite3`
+  ENV['ADAPTER'] = 'active_record'
 end
 
 Rake::TestTask.new('test:active_record') do |t|
-  ENV['ADAPTER'] = 'active_record'
   t.libs << 'lib' << 'test'
   t.pattern   = 'test/**/*_test.rb'
   t.verbose   = true
