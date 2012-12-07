@@ -10,6 +10,24 @@ module Stringex
           self.settings = configuration.settings
         end
 
+        def create_callbacks!(klass)
+          if settings.sync_url
+            klass.before_validation :ensure_unique_url
+          else
+            if defined?(ActiveModel::Callbacks)
+              klass.before_validation :ensure_unique_url, :on => :create
+            else
+              klass.before_validation_on_create :ensure_unique_url
+            end
+          end
+
+          klass.class_eval <<-"END"
+            def #{settings.url_attribute}
+              acts_as_url_configuration.adapter.url_attribute self
+            end
+          END
+        end
+
         def ensure_unique_url!(instance)
           @url_owners = nil
           self.instance = instance
@@ -22,6 +40,15 @@ module Stringex
           self.klass = klass
           klass_previous_instances do |instance|
             ensure_unique_url_for! instance
+          end
+        end
+
+
+        def url_attribute(instance)
+          if !instance.new_record? && instance.errors[settings.attribute_to_urlify].present?
+            instance.class.find(instance.id).send settings.url_attribute
+          else
+            instance.read_attribute settings.url_attribute
           end
         end
 
