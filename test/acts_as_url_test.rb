@@ -5,6 +5,8 @@ adapter = ENV['ADAPTER'] || 'active_record'
 require File.join(File.expand_path(File.dirname(__FILE__)), "acts_as_url/adapter/#{adapter}.rb")
 
 class ActsAsUrlTest < Test::Unit::TestCase
+  include AdapterSpecificTestBehaviors
+
   def test_should_create_url
     @doc = Document.create(:title => "Let's Make a Test Title, <em>Okay</em>?")
     assert_equal "lets-make-a-test-title-okay", @doc.url

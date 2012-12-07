@@ -105,3 +105,13 @@ end
 class Skipument < ActiveRecord::Base
   acts_as_url :title, :exclude => ["_So_Fucking_Special"]
 end
+
+module AdapterSpecificTestBehaviors
+  def setup
+    # No setup tasks at present
+  end
+
+  def teardown
+    # No teardown tasks at present
+  end
+end

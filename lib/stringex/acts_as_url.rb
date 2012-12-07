@@ -3,11 +3,6 @@ require "stringex/acts_as_url/adapter"
 
 module Stringex
   module ActsAsUrl # :nodoc:
-    def self.mix_into(klass)
-      klass.send :include, ActsAsUrlInstanceMethods
-      klass.send :extend, ActsAsUrlClassMethods
-    end
-
     module ActsAsUrlClassMethods # :doc:
       # Creates a callback to automatically create an url-friendly representation
       # of the <tt>attribute</tt> argument. Example:
@@ -49,6 +44,16 @@ module Stringex
         self.acts_as_url_configuration = Stringex::Configuration::ActsAsUrl.new(options)
 
         acts_as_url_configuration.adapter.create_callbacks! self
+      end
+
+
+      # Some ORMs function as mixins not base classes and need to have a hook to reinclude
+      # and re-extend ActsAsUrl methods
+      def included(base)
+        super
+
+        base.send :include, Stringex::ActsAsUrl::ActsAsUrlInstanceMethods
+        base.send :extend, Stringex::ActsAsUrl::ActsAsUrlClassMethods
       end
 
       # Initialize the url fields for the records that need it. Designed for people who add

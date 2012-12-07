@@ -34,7 +34,8 @@ module Stringex
 
         def self.load
           ensure_loadable
-          Stringex::ActsAsUrl.mix_into ::ActiveRecord::Base
+          ::ActiveRecord::Base.send :include, ActsAsUrlInstanceMethods
+          ::ActiveRecord::Base.send :extend, ActsAsUrlClassMethods
         end
 
       private
