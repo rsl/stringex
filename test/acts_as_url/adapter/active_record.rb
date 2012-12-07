@@ -24,35 +24,35 @@ ActiveRecord::Schema.define do
   end
 
   create_table :permuments, :force => true do |t|
-    t.string :title, :permalink, :other
+    t.string :title, :permalink
   end
 
   create_table :procuments, :force => true do |t|
-    t.string :title, :url, :other
+    t.string :title, :url
   end
 
   create_table :blankuments, :force => true do |t|
-    t.string :title, :url, :other
+    t.string :title, :url
   end
 
   create_table :duplicatuments, :force => true do |t|
-    t.string :title, :url, :other
+    t.string :title, :url
   end
 
   create_table :validatuments, :force => true do |t|
-    t.string :title, :url, :other
+    t.string :title, :url
   end
 
   create_table :ununiquments, :force => true do |t|
-    t.string :title, :url, :other
+    t.string :title, :url
   end
 
   create_table :limituments, :force => true do |t|
-    t.string :title, :url, :other
+    t.string :title, :url
   end
 
   create_table :skipuments, :force => true do |t|
-    t.string :title, :url, :other
+    t.string :title, :url
   end
 end
 ActiveRecord::Migration.verbose = true
