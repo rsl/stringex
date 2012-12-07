@@ -37,7 +37,7 @@ class UnidecoderTest < Test::Unit::TestCase
     "من می توانم بدونِ احساس درد شيشه بخورم" => # Persian
       "mn my twnm bdwni Hss drd shyshh bkhwrm",
     "أنا قادر على أكل الزجاج و هذا لا يؤلمن" => # Arabic
-      "'n qdr `l~ 'kl lzjj w hdh l yw'lmn",
+      "'n qdr 'l~ 'kl lzjj w hdh l yw'lmn",
     "אני יכול לאכול זכוכית וזה לא מזיק לי" => # Hebrew
       "ny ykvl lkvl zkvkyt vzh l mzyq ly",
     "ฉันกินกระจกได้ แต่มันไม่ทำให้ฉันเจ็บ" => # Thai

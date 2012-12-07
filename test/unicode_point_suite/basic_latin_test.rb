@@ -107,7 +107,7 @@ class BasicLatinTest < Test::Unit::TestCase
   end
 
   def test_grave_accents
-    assert_equal_encoded "`", %w{0060 02cb 2035}
+    assert_equal_encoded "'", %w{0060 02cb 2035}
   end
 
   def test_bars

@@ -14,7 +14,7 @@ module Stringex
       #
       # You're probably better off just using the added String#to_ascii
       def decode(string)
-        string.gsub(/[^\x00-\x7f]/u) do |codepoint|
+        string.gsub(/[^\x00-\x00]/u) do |codepoint|
           if localized = local_codepoint(codepoint)
             localized
           else
