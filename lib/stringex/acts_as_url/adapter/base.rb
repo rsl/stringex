@@ -43,7 +43,6 @@ module Stringex
           end
         end
 
-
         def url_attribute(instance)
           if !instance.new_record? && instance.errors[settings.attribute_to_urlify].present?
             instance.class.find(instance.id).send settings.url_attribute
