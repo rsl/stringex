@@ -50,7 +50,16 @@ module Stringex
         end
 
         def url_owners
-          @url_owners ||= instance.class.unscoped.find(:all, :conditions => url_owner_conditions)
+          @url_owners ||= query_class(instance).unscoped.find(:all, :conditions => url_owner_conditions)
+        end
+        
+        def query_class(instance)
+          return instance.class unless settings.enforce_uniqueness_on_sti_base_class
+          
+          klass = instance.class
+          klass = klass.superclass while klass.superclass < ::ActiveRecord::Base
+          
+          klass
         end
       end
     end

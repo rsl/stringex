@@ -48,7 +48,16 @@ module Stringex
         end
 
         def url_owners
-          @url_owners ||= instance.class.unscoped.where(url_owner_conditions).to_a
+          @url_owners ||= query_class(instance).unscoped.where(url_owner_conditions).to_a
+        end
+        
+        def query_class(instance)
+          return instance.class unless settings.enforce_uniqueness_on_sti_base_class
+          
+          klass = instance.class
+          klass = klass.superclass while klass.superclass < ::Mongoid::Document
+          
+          klass
         end
       end
     end

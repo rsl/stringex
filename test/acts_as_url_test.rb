@@ -162,4 +162,10 @@ class ActsAsUrlTest < Test::Unit::TestCase
     @doc_2 = Skipument.create!(:title => "But I'm a creep")
     assert_equal "but-im-a-creep", @doc_2.url
   end
+  
+  def test_should_enforce_uniqueness_on_sti_base_class
+    child_1 = STIChildOneument.create!(:title => 'Unique')
+    child_2 = STIChildTwoument.create!(:title => 'Unique')
+    assert_equal 'unique-1', child_2.url
+  end
 end
