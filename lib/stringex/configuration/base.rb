@@ -35,6 +35,10 @@ module Stringex
         @system_wide_customizations ||= {}
       end
 
+      def self.unconfigure!
+        @system_wide_customizations = {}
+      end
+
     private
 
       def default_settings

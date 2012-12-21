@@ -7,6 +7,10 @@ module Stringex
       Stringex::Configuration::ActsAsUrl.configure &block
     end
 
+    def self.unconfigure!
+      Stringex::Configuration::ActsAsUrl.unconfigure!
+    end
+
     module ActsAsUrlClassMethods # :doc:
       # Creates a callback to automatically create an url-friendly representation
       # of the <tt>attribute</tt> argument. Example:

@@ -3,6 +3,10 @@ require 'test_helper'
 require 'stringex'
 
 class ActsAsUrlConfigurationTest < Test::Unit::TestCase
+  def teardown
+    Stringex::ActsAsUrl.unconfigure!
+  end
+
   def test_can_set_base_settings
     default_configuration = Stringex::Configuration::ActsAsUrl.new(:url_attribute => "original")
     assert_equal "original", default_configuration.settings.url_attribute
