@@ -7,11 +7,11 @@ module Stringex
         @klass = klass
 
         self.klass.valid_configuration_details.each do |name|
-          define_instance_method name
+          define_instance_method_for_configuration_wrapper name
         end
       end
 
-      def define_instance_method(name)
+      def define_instance_method_for_configuration_wrapper(name)
         (class << self; self; end).instance_eval do
           define_method("#{name}=") do |value|
             customizations = klass.send(:system_wide_customizations)
