@@ -26,6 +26,14 @@ module Stringex
           @url_owner_conditions << instance.send(settings.scope_for_url)
         end
 
+        def create_callback
+          if settings.sync_url
+            klass.before_validation :ensure_unique_url
+          else
+            klass.before_validation :ensure_unique_url, :on => :create
+          end
+        end
+
         # NOTE: The <tt>instance</tt> here is not the cached instance but a block variable
         # passed from <tt>klass_previous_instances</tt>, just to be clear
         def ensure_unique_url_for!(instance)

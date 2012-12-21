@@ -11,21 +11,9 @@ module Stringex
         end
 
         def create_callbacks!(klass)
-          if settings.sync_url
-            klass.before_validation :ensure_unique_url
-          else
-            if defined?(ActiveModel::Callbacks)
-              klass.before_validation :ensure_unique_url, :on => :create
-            else
-              klass.before_validation_on_create :ensure_unique_url
-            end
-          end
-
-          klass.class_eval <<-"END"
-            def #{settings.url_attribute}
-              acts_as_url_configuration.adapter.url_attribute self
-            end
-          END
+          self.klass = klass
+          create_method_to_callback
+          create_callback
         end
 
         def ensure_unique_url!(instance)
@@ -44,6 +32,7 @@ module Stringex
         end
 
         def url_attribute(instance)
+          # Retrieve from database record if there are errors on attribute_to_urlify
           if !instance.new_record? && instance.errors[settings.attribute_to_urlify].present?
             instance.class.find(instance.id).send settings.url_attribute
           else
@@ -61,6 +50,14 @@ module Stringex
         end
 
       private
+
+        def create_method_to_callback
+          klass.class_eval <<-"END"
+            def #{settings.url_attribute}
+              acts_as_url_configuration.adapter.url_attribute self
+            end
+          END
+        end
 
         def duplicate_for_base_url(n)
           "#{base_url}#{settings.duplicate_count_separator}#{n}"

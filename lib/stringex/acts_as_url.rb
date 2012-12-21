@@ -30,7 +30,7 @@ module Stringex
       #                     unless you are using multiple ORMs in a single project.
       # <tt>:allow_slash</tt>:: If true, allow the generated url to contain slashes. Default is false[y].
       # <tt>:allow_duplicates</tt>:: If true, allow duplicate urls instead of appending numbers to
-      #                              differentiate between urls. Default is false[y].
+      #                              differentiate between urls. Default is false[y]. See note on <tt>:scope</tt>.
       # <tt>:duplicate_count_separator</tt>:: String to use when forcing unique urls from non-unique strings.
       #                                       Default is "-".
       # <tt>:exclude_list</tt>:: List of complete strings that should not be transformed by <tt>acts_as_url</tt>.
@@ -38,6 +38,8 @@ module Stringex
       # <tt>:only_when_blank</tt>:: If true, the url generation will only happen when <tt>:url_attribute</tt> is
       #                             blank. Default is false[y] (meaning url generation will happen always).
       # <tt>:scope</tt>:: The name of model attribute to scope unique urls to. There is no default here.
+      #                   <strong>Note:</strong> this will automatically act as if <tt>:allow_duplicates</tt>
+      #                   is set to true.
       # <tt>:sync_url</tt>:: If set to true, the url field will be updated when changes are made to the
       #                      attribute it is based on. Default is false[y].
       # <tt>:url_attribute</tt>:: The name of the attribute to use for storing the generated url string.
