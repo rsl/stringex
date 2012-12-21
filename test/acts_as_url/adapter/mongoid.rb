@@ -2,6 +2,8 @@ require 'rubygems'
 gem 'mongoid'
 require 'mongoid'
 require 'stringex'
+# Reload adapters to make sure ActsAsUrl sees the ORM
+Stringex::ActsAsUrl::Adapter.load_available
 
 puts "-------------------------------------------------"
 puts "Running ActsAsUrl tests with Mongoid adapter"

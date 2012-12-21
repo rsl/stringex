@@ -9,19 +9,33 @@ module Stringex
         super
       end
 
+      def string_extensions_settings
+        [:allow_slash, :exclude, :limit].inject(Hash.new){|m, x| m[x] = settings.send(x); m}
+      end
+
+      def self.settings
+        @settings
+      end
+
+    private
+
       def default_settings
-        Stringex::Configuration::StringExtensions.new.default_settings.merge({
+        Stringex::Configuration::StringExtensions.new.default_settings.merge(default_settings)
+      end
+
+      def default_settings
+        self.class.default_settings
+      end
+
+      def self.default_settings
+        @default_settings ||= {
           :allow_duplicates => false,
           :duplicate_count_separator => "-",
           :only_when_blank => false,
           :scope_for_url => nil,
           :sync_url => false,
           :url_attribute => "url",
-        })
-      end
-
-      def string_extensions_settings
-        [:allow_slash, :exclude, :limit].inject(Hash.new){|m, x| m[x] = settings.send(x); m}
+        }
       end
     end
   end

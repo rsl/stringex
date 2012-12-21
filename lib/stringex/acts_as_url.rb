@@ -3,6 +3,10 @@ require "stringex/acts_as_url/adapter"
 
 module Stringex
   module ActsAsUrl # :nodoc:
+    def self.configure(&block)
+      Stringex::Configuration::ActsAsUrl.configure &block
+    end
+
     module ActsAsUrlClassMethods # :doc:
       # Creates a callback to automatically create an url-friendly representation
       # of the <tt>attribute</tt> argument. Example:
