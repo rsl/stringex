@@ -28,11 +28,12 @@ module Stringex
       # <tt>:adapter</tt>:: If specified, will indicate what ORM adapter to use. Default functionality
       #                     is to use the first available adapter. This should work for most cases
       #                     unless you are using multiple ORMs in a single project.
-      # <tt>:allow_slash</tt>:: If true, allow the generated url to contain slashes. Default is false[y].
-      # <tt>:allow_duplicates</tt>:: If true, allow duplicate urls instead of appending numbers to
+      # <tt>:allow_slash</tt>:: If true, allows the generated url to contain slashes. Default is false[y].
+      # <tt>:allow_duplicates</tt>:: If true, allows duplicate urls instead of appending numbers to
       #                              differentiate between urls. Default is false[y]. See note on <tt>:scope</tt>.
       # <tt>:duplicate_count_separator</tt>:: String to use when forcing unique urls from non-unique strings.
       #                                       Default is "-".
+      # <tt>:force_downcase</tt>:: If false, allows generated url to contain uppercased letters. Default is false.
       # <tt>:exclude_list</tt>:: List of complete strings that should not be transformed by <tt>acts_as_url</tt>.
       #                          Default is empty.
       # <tt>:only_when_blank</tt>:: If true, the url generation will only happen when <tt>:url_attribute</tt> is
@@ -41,7 +42,7 @@ module Stringex
       #                   <strong>Note:</strong> this will automatically act as if <tt>:allow_duplicates</tt>
       #                   is set to true.
       # <tt>:sync_url</tt>:: If set to true, the url field will be updated when changes are made to the
-      #                      attribute it is based on. Default is false[y].
+      #                      attribute it is based on. Default is false.
       # <tt>:url_attribute</tt>:: The name of the attribute to use for storing the generated url string.
       #                           Default is <tt>:url</tt>.
       # <tt>:limit</tt>:: The maximum size a generated url should be. <strong>Note:</strong> this does not

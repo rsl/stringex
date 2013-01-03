@@ -224,7 +224,9 @@ module Stringex
       # but can be called manually in order to generate an URI-friendly version of any string.
       def to_url(options = {})
         return self if options[:exclude] && options[:exclude].include?(self)
-        remove_formatting(options).downcase.replace_whitespace("-").collapse("-").limit(options[:limit])
+        dummy = remove_formatting(options).replace_whitespace("-").collapse("-").limit(options[:limit])
+        dummy.downcase! unless options[:force_downcase] == false
+        dummy
       end
     end
 

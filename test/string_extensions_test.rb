@@ -103,6 +103,10 @@ class StringExtensionsTest < Test::Unit::TestCase
     assert_equal "So Fucking Special", "So Fucking Special".to_url(:exclude => "So Fucking Special")
   end
 
+  def test_to_url_with_not_forcing_downcase
+    assert_equal "I-have-CAPS", "I have CAPS".to_url(:force_downcase => false)
+  end
+
   def test_remove_formatting
     {
       "<p>This has 100% too much    <em>formatting</em></p>" =>

@@ -9,7 +9,8 @@ module Stringex
         @default_settings ||= {
           :allow_slash => false,
           :exclude => [],
-          :limit => nil
+          :limit => nil,
+          :force_downcase => true
         }
       end
     end

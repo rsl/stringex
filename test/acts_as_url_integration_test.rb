@@ -237,4 +237,13 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
     @doc_2 = Document.create!(:title => "But I'm a creep")
     assert_equal "but-im-a-creep", @doc_2.url
   end
+
+  def test_should_allow_not_forcing_downcasing
+    Document.class_eval do
+      acts_as_url :title, :force_downcase => false
+    end
+
+    @doc = Document.create!(:title => "I have CAPS!")
+    assert_equal "I-have-CAPS", @doc.url
+  end
 end

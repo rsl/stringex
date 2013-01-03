@@ -10,7 +10,7 @@ module Stringex
       end
 
       def string_extensions_settings
-        [:allow_slash, :exclude, :limit].inject(Hash.new){|m, x| m[x] = settings.send(x); m}
+        [:allow_slash, :exclude, :force_downcase, :limit].inject(Hash.new){|m, x| m[x] = settings.send(x); m}
       end
 
       def self.settings
