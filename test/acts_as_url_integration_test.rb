@@ -12,247 +12,247 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
     assert_equal "lets-make-a-test-title-okay", @doc.url
   end
 
-  # def test_should_create_unique_url
-  #   @doc = Document.create!(:title => "Unique")
-  #   @other_doc = Document.create!(:title => "Unique")
-  #   assert_equal "unique", @doc.url
-  #   assert_equal "unique-1", @other_doc.url
-  # end
+  def test_should_create_unique_url
+    @doc = Document.create!(:title => "Unique")
+    @other_doc = Document.create!(:title => "Unique")
+    assert_equal "unique", @doc.url
+    assert_equal "unique-1", @other_doc.url
+  end
 
-  # def test_should_create_unique_url_when_partial_url_already_exists
-  #   @doc = Document.create!(:title => "House Farms")
-  #   @other_doc = Document.create!(:title => "House Farm")
+  def test_should_create_unique_url_when_partial_url_already_exists
+    @doc = Document.create!(:title => "House Farms")
+    @other_doc = Document.create!(:title => "House Farm")
 
-  #   assert_equal "house-farms", @doc.url
-  #   assert_equal "house-farm", @other_doc.url
-  # end
+    assert_equal "house-farms", @doc.url
+    assert_equal "house-farm", @other_doc.url
+  end
 
-  # def test_should_not_sync_url_by_default
-  #   @doc = Document.create!(:title => "Stable as Stone")
-  #   @original_url = @doc.url
-  #   @doc.update_attributes! :title => "New Unstable Madness"
-  #   assert_equal @original_url, @doc.url
-  # end
+  def test_should_not_sync_url_by_default
+    @doc = Document.create!(:title => "Stable as Stone")
+    @original_url = @doc.url
+    @doc.update_attributes! :title => "New Unstable Madness"
+    assert_equal @original_url, @doc.url
+  end
 
-  # def test_should_allow_syncing_url
-  #   Document.class_eval do
-  #     acts_as_url :title, :sync_url => true
-  #   end
+  def test_should_allow_syncing_url
+    Document.class_eval do
+      acts_as_url :title, :sync_url => true
+    end
 
-  #   @doc = Document.create!(:title => "Original")
-  #   @original_url = @doc.url
-  #   @doc.update_attributes! :title => "New and Improved"
-  #   assert_not_equal @original_url, @doc.url
-  # end
+    @doc = Document.create!(:title => "Original")
+    @original_url = @doc.url
+    @doc.update_attributes! :title => "New and Improved"
+    assert_not_equal @original_url, @doc.url
+  end
 
-  # def test_should_not_increment_count_on_repeated_saves
-  #   Document.class_eval do
-  #     acts_as_url :title, :sync_url => true
-  #   end
+  def test_should_not_increment_count_on_repeated_saves
+    Document.class_eval do
+      acts_as_url :title, :sync_url => true
+    end
 
-  #   @doc = Document.new(:title => "Continuous or Constant")
-  #   5.times do
-  #     @doc.save!
-  #     assert_equal "continuous-or-constant", @doc.url
-  #   end
-  # end
+    @doc = Document.new(:title => "Continuous or Constant")
+    5.times do
+      @doc.save!
+      assert_equal "continuous-or-constant", @doc.url
+    end
+  end
 
-  # def test_should_allow_allowing_duplicate_url
-  #   Document.class_eval do
-  #     acts_as_url :title, :allow_duplicates => true
-  #   end
+  def test_should_allow_allowing_duplicate_url
+    Document.class_eval do
+      acts_as_url :title, :allow_duplicates => true
+    end
 
-  #   @doc = Document.create!(:title => "I am not a clone")
-  #   @other_doc = Document.create!(:title => "I am not a clone")
-  #   assert_equal @doc.url, @other_doc.url
-  # end
+    @doc = Document.create!(:title => "I am not a clone")
+    @other_doc = Document.create!(:title => "I am not a clone")
+    assert_equal @doc.url, @other_doc.url
+  end
 
-  # def test_should_allow_scoping_url_uniqueness
-  #   Document.class_eval do
-  #     acts_as_url :title, :scope => :other
-  #   end
+  def test_should_allow_scoping_url_uniqueness
+    Document.class_eval do
+      acts_as_url :title, :scope => :other
+    end
 
-  #   @doc = Document.create!(:title => "Mocumentary", :other => "I don't care if I'm unique for some reason")
-  #   @other_doc = Document.create!(:title => "Mocumentary", :other => "Me either")
-  #   assert_equal @doc.url, @other_doc.url
-  # end
+    @doc = Document.create!(:title => "Mocumentary", :other => "I don't care if I'm unique for some reason")
+    @other_doc = Document.create!(:title => "Mocumentary", :other => "Me either")
+    assert_equal @doc.url, @other_doc.url
+  end
 
-  # def test_should_still_create_unique_urls_if_scoped_attribute_is_the_same
-  #   Document.class_eval do
-  #     acts_as_url :title, :scope => :other
-  #   end
+  def test_should_still_create_unique_urls_if_scoped_attribute_is_the_same
+    Document.class_eval do
+      acts_as_url :title, :scope => :other
+    end
 
-  #   @doc = Document.create!(:title => "Mocumentary", :other => "Suddenly, I care if I'm unique")
-  #   @other_doc = Document.create!(:title => "Mocumentary", :other => "Suddenly, I care if I'm unique")
-  #   assert_not_equal @doc.url, @other_doc.url
-  # end
+    @doc = Document.create!(:title => "Mocumentary", :other => "Suddenly, I care if I'm unique")
+    @other_doc = Document.create!(:title => "Mocumentary", :other => "Suddenly, I care if I'm unique")
+    assert_not_equal @doc.url, @other_doc.url
+  end
 
-  # def test_should_allow_setting_url_attribute
-  #   Document.class_eval do
-  #     # Manually undefining the url method on Document which, in a real class not reused for tests,
-  #     # would never have been defined to begin with.
-  #     remove_method :url
-  #     acts_as_url :title, :url_attribute => :other
-  #   end
+  def test_should_allow_setting_url_attribute
+    Document.class_eval do
+      # Manually undefining the url method on Document which, in a real class not reused for tests,
+      # would never have been defined to begin with.
+      remove_method :url
+      acts_as_url :title, :url_attribute => :other
+    end
 
-  #   @doc = Document.create!(:title => "Anything at This Point")
-  #   assert_equal "anything-at-this-point", @doc.other
-  #   assert_nil @doc.url
-  # ensure
-  #   Document.class_eval do
-  #     # Manually undefining the other method on Document for the same reasons as before
-  #     remove_method :other
-  #   end
-  # end
+    @doc = Document.create!(:title => "Anything at This Point")
+    assert_equal "anything-at-this-point", @doc.other
+    assert_nil @doc.url
+  ensure
+    Document.class_eval do
+      # Manually undefining the other method on Document for the same reasons as before
+      remove_method :other
+    end
+  end
 
-  # def test_should_allow_updating_url_only_when_blank
-  #   Document.class_eval do
-  #     acts_as_url :title, :only_when_blank => true
-  #   end
+  def test_should_allow_updating_url_only_when_blank
+    Document.class_eval do
+      acts_as_url :title, :only_when_blank => true
+    end
 
-  #   @string = 'the-url-of-concrete'
-  #   @doc = Document.create!(:title => "Stable as Stone", :url => @string)
-  #   assert_equal @string, @doc.url
-  #   @other_doc = Document.create!(:title => "Stable as Stone")
-  #   assert_equal 'stable-as-stone', @other_doc.url
-  # end
+    @string = 'the-url-of-concrete'
+    @doc = Document.create!(:title => "Stable as Stone", :url => @string)
+    assert_equal @string, @doc.url
+    @other_doc = Document.create!(:title => "Stable as Stone")
+    assert_equal 'stable-as-stone', @other_doc.url
+  end
 
-  # def test_should_mass_initialize_urls
-  #   @doc = Document.create!(:title => "Initial")
-  #   @other_doc = Document.create!(:title => "Subsequent")
-  #   @doc.update_attributes! :url => nil
-  #   @other_doc.update_attributes! :url => nil
-  #   # Just making sure this got unset before the real test
-  #   assert_nil @doc.url
-  #   assert_nil @other_doc.url
+  def test_should_mass_initialize_urls
+    @doc = Document.create!(:title => "Initial")
+    @other_doc = Document.create!(:title => "Subsequent")
+    @doc.update_attributes! :url => nil
+    @other_doc.update_attributes! :url => nil
+    # Just making sure this got unset before the real test
+    assert_nil @doc.url
+    assert_nil @other_doc.url
 
-  #   Document.initialize_urls
+    Document.initialize_urls
 
-  #   @doc.reload
-  #   @other_doc.reload
-  #   assert_equal "initial", @doc.url
-  #   assert_equal "subsequent", @other_doc.url
-  # end
+    @doc.reload
+    @other_doc.reload
+    assert_equal "initial", @doc.url
+    assert_equal "subsequent", @other_doc.url
+  end
 
-  # def test_should_mass_initialize_urls_with_custom_url_attribute
-  #   Document.class_eval do
-  #     # Manually undefining the url method on Document which, in a real class not reused for tests,
-  #     # would never have been defined to begin with.
-  #     remove_method :url
-  #     acts_as_url :title, :url_attribute => :other
-  #   end
+  def test_should_mass_initialize_urls_with_custom_url_attribute
+    Document.class_eval do
+      # Manually undefining the url method on Document which, in a real class not reused for tests,
+      # would never have been defined to begin with.
+      remove_method :url
+      acts_as_url :title, :url_attribute => :other
+    end
 
-  #   @doc = Document.create!(:title => "Initial")
-  #   @other_doc = Document.create!(:title => "Subsequent")
-  #   @doc.update_attributes! :other => nil
-  #   @other_doc.update_attributes! :other => nil
-  #   # Just making sure this got unset before the real test
-  #   assert_nil @doc.other
-  #   assert_nil @other_doc.other
+    @doc = Document.create!(:title => "Initial")
+    @other_doc = Document.create!(:title => "Subsequent")
+    @doc.update_attributes! :other => nil
+    @other_doc.update_attributes! :other => nil
+    # Just making sure this got unset before the real test
+    assert_nil @doc.other
+    assert_nil @other_doc.other
 
-  #   Document.initialize_urls
+    Document.initialize_urls
 
-  #   @doc.reload
-  #   @other_doc.reload
-  #   assert_equal "initial", @doc.other
-  #   assert_equal "subsequent", @other_doc.other
-  # ensure
-  #   Document.class_eval do
-  #     # Manually undefining the other method on Document for the same reasons as before
-  #     remove_method :other
-  #   end
-  # end
+    @doc.reload
+    @other_doc.reload
+    assert_equal "initial", @doc.other
+    assert_equal "subsequent", @other_doc.other
+  ensure
+    Document.class_eval do
+      # Manually undefining the other method on Document for the same reasons as before
+      remove_method :other
+    end
+  end
 
-  # def test_should_allow_using_custom_method_for_generating_url
-  #   Document.class_eval do
-  #     acts_as_url :non_attribute_method
+  def test_should_allow_using_custom_method_for_generating_url
+    Document.class_eval do
+      acts_as_url :non_attribute_method
 
-  #     def non_attribute_method
-  #       "#{title} got massaged"
-  #     end
-  #   end
+      def non_attribute_method
+        "#{title} got massaged"
+      end
+    end
 
-  #   @doc = Document.create!(:title => "Title String")
-  #   assert_equal "title-string-got-massaged", @doc.url
-  # ensure
-  #   Document.class_eval do
-  #     # Manually undefining method that isn't defined on Document by default
-  #     remove_method :non_attribute_method
-  #   end
-  # end
+    @doc = Document.create!(:title => "Title String")
+    assert_equal "title-string-got-massaged", @doc.url
+  ensure
+    Document.class_eval do
+      # Manually undefining method that isn't defined on Document by default
+      remove_method :non_attribute_method
+    end
+  end
 
-  # def test_should_allow_customizing_duplicate_count_separator
-  #   Document.class_eval do
-  #     acts_as_url :title, :duplicate_count_separator => "---"
-  #   end
+  def test_should_allow_customizing_duplicate_count_separator
+    Document.class_eval do
+      acts_as_url :title, :duplicate_count_separator => "---"
+    end
 
-  #   @doc = Document.create!(:title => "Unique")
-  #   @other_doc = Document.create!(:title => "Unique")
-  #   assert_equal "unique", @doc.url
-  #   assert_equal "unique---1", @other_doc.url
-  # end
+    @doc = Document.create!(:title => "Unique")
+    @other_doc = Document.create!(:title => "Unique")
+    assert_equal "unique", @doc.url
+    assert_equal "unique---1", @other_doc.url
+  end
 
-  # def test_should_only_update_url_if_url_attribute_is_valid
-  #   Document.class_eval do
-  #     acts_as_url :title, :sync_url => true
-  #   end
-  #   add_validation_on_document_title
+  def test_should_only_update_url_if_url_attribute_is_valid
+    Document.class_eval do
+      acts_as_url :title, :sync_url => true
+    end
+    add_validation_on_document_title
 
-  #   @doc = Document.create!(:title => "Valid Record", :other => "Present")
-  #   assert_equal "valid-record", @doc.url
-  #   @doc.title = nil
-  #   assert_equal false, @doc.valid?
-  #   assert_equal "valid-record", @doc.url
-  # ensure
-  #   remove_validation_on_document_title
-  # end
+    @doc = Document.create!(:title => "Valid Record", :other => "Present")
+    assert_equal "valid-record", @doc.url
+    @doc.title = nil
+    assert_equal false, @doc.valid?
+    assert_equal "valid-record", @doc.url
+  ensure
+    remove_validation_on_document_title
+  end
 
-  # def test_should_allow_customizing_url_limit
-  #   Document.class_eval do
-  #     acts_as_url :title, :limit => 13
-  #   end
+  def test_should_allow_customizing_url_limit
+    Document.class_eval do
+      acts_as_url :title, :limit => 13
+    end
 
-  #   @doc = Document.create!(:title => "I am much too long")
-  #   assert_equal "i-am-much-too", @doc.url
-  # end
+    @doc = Document.create!(:title => "I am much too long")
+    assert_equal "i-am-much-too", @doc.url
+  end
 
-  # def test_handling_duplicate_urls_with_limits
-  #   Document.class_eval do
-  #     acts_as_url :title, :limit => 13
-  #   end
+  def test_handling_duplicate_urls_with_limits
+    Document.class_eval do
+      acts_as_url :title, :limit => 13
+    end
 
-  #   @doc = Document.create!(:title => "I am much too long and also duplicated")
-  #   assert_equal "i-am-much-too", @doc.url
-  #   @other_doc = Document.create!(:title => "I am much too long and also duplicated")
-  #   assert_equal "i-am-much-too-1", @other_doc.url
-  # end
+    @doc = Document.create!(:title => "I am much too long and also duplicated")
+    assert_equal "i-am-much-too", @doc.url
+    @other_doc = Document.create!(:title => "I am much too long and also duplicated")
+    assert_equal "i-am-much-too-1", @other_doc.url
+  end
 
-  # def test_should_allow_excluding_specific_values_from_being_run_through_to_url
-  #   Document.class_eval do
-  #     acts_as_url :title, :exclude => ["_So_Fucking_Special"]
-  #   end
+  def test_should_allow_excluding_specific_values_from_being_run_through_to_url
+    Document.class_eval do
+      acts_as_url :title, :exclude => ["_So_Fucking_Special"]
+    end
 
-  #   @doc = Document.create!(:title => "_So_Fucking_Special")
-  #   assert_equal "_So_Fucking_Special", @doc.url
-  #   @doc_2 = Document.create!(:title => "But I'm a creep")
-  #   assert_equal "but-im-a-creep", @doc_2.url
-  # end
+    @doc = Document.create!(:title => "_So_Fucking_Special")
+    assert_equal "_So_Fucking_Special", @doc.url
+    @doc_2 = Document.create!(:title => "But I'm a creep")
+    assert_equal "but-im-a-creep", @doc_2.url
+  end
 
-  # def test_should_allow_not_forcing_downcasing
-  #   Document.class_eval do
-  #     acts_as_url :title, :force_downcase => false
-  #   end
+  def test_should_allow_not_forcing_downcasing
+    Document.class_eval do
+      acts_as_url :title, :force_downcase => false
+    end
 
-  #   @doc = Document.create!(:title => "I have CAPS!")
-  #   assert_equal "I-have-CAPS", @doc.url
-  # end
+    @doc = Document.create!(:title => "I have CAPS!")
+    assert_equal "I-have-CAPS", @doc.url
+  end
 
-  # def test_should_allow_alternate_whitespace_replacements
-  #   Document.class_eval do
-  #     acts_as_url :title, :replace_whitespace_with => "~"
-  #   end
+  def test_should_allow_alternate_whitespace_replacements
+    Document.class_eval do
+      acts_as_url :title, :replace_whitespace_with => "~"
+    end
 
-  #   @doc = Document.create!(:title => "now with tildes")
-  #   assert_equal "now~with~tildes", @doc.url
-  # end
+    @doc = Document.create!(:title => "now with tildes")
+    assert_equal "now~with~tildes", @doc.url
+  end
 end
