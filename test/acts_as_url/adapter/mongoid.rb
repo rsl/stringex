@@ -22,6 +22,24 @@ class Document
   acts_as_url :title
 end
 
+class STIBaseDocument
+  include Mongoid::Document
+  field :title, :type => String
+  field :other, :type => String
+  field :url,   :type => String
+  field :type,  :type => String
+
+  # This gets redefined in the only test that uses it but I want to be uniform
+  # in setting configuration details in the tests themselves
+  acts_as_url :title
+end
+
+class STIChildDocument < STIBaseDocument
+end
+
+class AnotherSTIChildDocument < STIBaseDocument
+end
+
 module AdapterSpecificTestBehaviors
   def setup
     # No setup tasks at present

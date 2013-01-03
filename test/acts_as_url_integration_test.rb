@@ -255,4 +255,15 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
     @doc = Document.create!(:title => "now with tildes")
     assert_equal "now~with~tildes", @doc.url
   end
+
+  def test_should_allow_enforcing_uniqueness_on_sti_base_class
+    STIBaseDocument.class_eval do
+      acts_as_url :title, :enforce_uniqueness_on_sti_base_class => true
+    end
+
+    @doc = STIChildDocument.create!(:title => "Unique")
+    assert_equal "unique", @doc.url
+    @doc_2 = AnotherSTIChildDocument.create!(:title => "Unique")
+    assert_equal "unique-1", @doc_2.url
+  end
 end

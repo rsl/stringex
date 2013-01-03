@@ -2,14 +2,10 @@ module Stringex
   module ActsAsUrl
     module Adapter
       class ActiveRecord < Base
-        def self.loadable?
-          defined?(::ActiveRecord) && defined?(::ActiveRecord::Base)
-        end
-
         def self.load
           ensure_loadable
-          ::ActiveRecord::Base.send :include, ActsAsUrlInstanceMethods
-          ::ActiveRecord::Base.send :extend, ActsAsUrlClassMethods
+          orm_class.send :include, ActsAsUrlInstanceMethods
+          orm_class.send :extend, ActsAsUrlClassMethods
         end
 
       private
@@ -24,6 +20,10 @@ module Stringex
           return unless settings.scope_for_url
           @url_owner_conditions.first << " and #{settings.scope_for_url} = ?"
           @url_owner_conditions << instance.send(settings.scope_for_url)
+        end
+
+        def orm_class
+          self.class.orm_class
         end
 
         def create_callback
@@ -58,7 +58,11 @@ module Stringex
         end
 
         def url_owners
-          @url_owners ||= instance.class.unscoped.find(:all, :conditions => url_owner_conditions)
+          @url_owners ||= url_owners_class.unscoped.find(:all, :conditions => url_owner_conditions)
+        end
+
+        def self.orm_class
+          ::ActiveRecord::Base
         end
       end
     end

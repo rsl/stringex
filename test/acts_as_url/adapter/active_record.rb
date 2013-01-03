@@ -17,9 +17,9 @@ ActiveRecord::Schema.define do
     t.string :title, :other, :url
   end
 
-  # create_table :permuments, :force => true do |t|
-  #   t.string :title, :permalink
-  # end
+  create_table :sti_base_documents, :force => true do |t|
+    t.string :title, :other, :url, :type
+  end
 end
 ActiveRecord::Migration.verbose = true
 
@@ -27,50 +27,17 @@ class Document < ActiveRecord::Base
   acts_as_url :title
 end
 
-# class Updatument < ActiveRecord::Base
-#   acts_as_url :title, :sync_url => true
-# end
+class STIBaseDocument < ActiveRecord::Base
+  # This gets redefined in the only test that uses it but I want to be uniform
+  # in setting configuration details in the tests themselves
+  acts_as_url :title
+end
 
-# class Mocument < ActiveRecord::Base
-#   acts_as_url :title, :scope => :other, :sync_url => true
-# end
+class STIChildDocument < STIBaseDocument
+end
 
-# class Permument < ActiveRecord::Base
-#   acts_as_url :title, :url_attribute => :permalink
-# end
-
-# class Procument < ActiveRecord::Base
-#   acts_as_url :non_attribute_method
-
-#   def non_attribute_method
-#     "#{title} got massaged"
-#   end
-# end
-
-# class Blankument < ActiveRecord::Base
-#   acts_as_url :title, :only_when_blank => true
-# end
-
-# class Duplicatument < ActiveRecord::Base
-#   acts_as_url :title, :duplicate_count_separator => "---"
-# end
-
-# class Validatument < ActiveRecord::Base
-#   acts_as_url :title, :sync_url => true
-#   validates_presence_of :title
-# end
-
-# class Ununiqument < ActiveRecord::Base
-#   acts_as_url :title, :allow_duplicates => true
-# end
-
-# class Limitument < ActiveRecord::Base
-#   acts_as_url :title, :limit => 13
-# end
-
-# class Skipument < ActiveRecord::Base
-#   acts_as_url :title, :exclude => ["_So_Fucking_Special"]
-# end
+class AnotherSTIChildDocument < STIBaseDocument
+end
 
 module AdapterSpecificTestBehaviors
   def setup

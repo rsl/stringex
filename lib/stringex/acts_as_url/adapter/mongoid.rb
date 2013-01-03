@@ -2,14 +2,9 @@ module Stringex
   module ActsAsUrl
     module Adapter
       class Mongoid < Base
-
-        def self.loadable?
-          defined?(::Mongoid) && defined?(::Mongoid::Document)
-        end
-
         def self.load
           ensure_loadable
-          ::Mongoid::Document.send :extend, Stringex::ActsAsUrl::ActsAsUrlClassMethods
+          orm_class.send :extend, Stringex::ActsAsUrl::ActsAsUrlClassMethods
         end
 
       private
@@ -22,6 +17,10 @@ module Stringex
         def add_scoped_url_owner_conditions
           return unless settings.scope_for_url
           @url_owner_conditions.merge! settings.scope_for_url => instance.send(settings.scope_for_url)
+        end
+
+        def orm_class
+          self.class.orm_class
         end
 
         def create_callback
@@ -56,7 +55,11 @@ module Stringex
         end
 
         def url_owners
-          @url_owners ||= instance.class.unscoped.where(url_owner_conditions).to_a
+          @url_owners ||= url_owners_class.unscoped.where(url_owner_conditions).to_a
+        end
+
+        def self.orm_class
+          ::Mongoid::Document
         end
       end
     end

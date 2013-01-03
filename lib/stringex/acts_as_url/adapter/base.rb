@@ -46,6 +46,8 @@ module Stringex
         end
 
         def self.loadable?
+          orm_class
+        rescue NameError
           false
         end
 
@@ -93,6 +95,16 @@ module Stringex
 
         def url_attribute_for(object)
           object.send settings.url_attribute
+        end
+
+        def url_owners_class
+          return instance.class unless settings.enforce_uniqueness_on_sti_base_class
+
+          klass = instance.class
+          while klass.superclass < orm_class
+            klass = klass.superclass
+          end
+          klass
         end
 
         def write_url_attribute(value)
