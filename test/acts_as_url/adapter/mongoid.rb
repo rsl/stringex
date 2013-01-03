@@ -46,10 +46,12 @@ module AdapterSpecificTestBehaviors
   end
 
   def teardown
-    Document.delete_all
-    # Reset behavior to default
-    Document.class_eval do
-      acts_as_url :title
+    [Document, STIBaseDocument].each do |klass|
+      klass.delete_all
+      # Reset behavior to default
+      klass.class_eval do
+        acts_as_url :title
+      end
     end
   end
 
