@@ -49,7 +49,19 @@ module Stringex
       #                   include the characters needed to enforce uniqueness on duplicate urls.
       #                   Default is nil.
       def acts_as_url(attribute, options = {})
-        cattr_accessor :acts_as_url_configuration
+        class_eval do
+          class << self
+            attr_accessor :acts_as_url_configuration
+          end
+
+          define_method :acts_as_url_configuration do
+            klass = self.class
+            while klass.acts_as_url_configuration.nil?
+              klass = klass.superclass
+            end
+            klass.acts_as_url_configuration
+          end
+        end
 
         options[:attribute_to_urlify] = attribute
         self.acts_as_url_configuration = Stringex::Configuration::ActsAsUrl.new(options)
