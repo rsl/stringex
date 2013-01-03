@@ -9,7 +9,7 @@ puts "-------------------------------------------------"
 puts "Running ActsAsUrl tests with ActiveRecord adapter"
 puts "-------------------------------------------------"
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => "acts_as_url.sqlite3")
+ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 
 ActiveRecord::Migration.verbose = false
 ActiveRecord::Schema.define do
