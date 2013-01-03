@@ -43,6 +43,7 @@ module Stringex
       # you should run any methods which convert HTML entities (convert_accented_html_entities and convert_miscellaneous_html_entities)
       # before running this method.
       def convert_miscellaneous_characters(options = {})
+        options = stringex_default_options.merge(options)
         dummy = dup.gsub(/\.{3,}/, " dot dot dot ") # Catch ellipses before single dot rule!
         # Special rules for money
         {
@@ -224,9 +225,20 @@ module Stringex
       # but can be called manually in order to generate an URI-friendly version of any string.
       def to_url(options = {})
         return self if options[:exclude] && options[:exclude].include?(self)
-        dummy = remove_formatting(options).replace_whitespace("-").collapse("-").limit(options[:limit])
+        options = stringex_default_options.merge(options)
+        whitespace_replacement_token = options[:replace_whitespace_with]
+        dummy = remove_formatting(options).
+                  replace_whitespace(whitespace_replacement_token).
+                  collapse("-").
+                  limit(options[:limit])
         dummy.downcase! unless options[:force_downcase] == false
         dummy
+      end
+
+    private
+
+      def stringex_default_options
+        Stringex::Configuration::StringExtensions.default_settings
       end
     end
 

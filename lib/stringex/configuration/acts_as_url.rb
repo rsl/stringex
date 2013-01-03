@@ -5,12 +5,19 @@ module Stringex
         if options[:scope]
           options[:scope_for_url] = options.delete(:scope)
         end
+        options = Stringex::Configuration::StringExtensions.new.default_settings.merge(options)
 
         super
       end
 
       def string_extensions_settings
-        [:allow_slash, :exclude, :force_downcase, :limit].inject(Hash.new){|m, x| m[x] = settings.send(x); m}
+        [
+          :allow_slash,
+          :exclude,
+          :force_downcase,
+          :limit,
+          :replace_whitespace_with
+        ].inject(Hash.new){|m, x| m[x] = settings.send(x); m}
       end
 
       def self.settings
@@ -19,9 +26,9 @@ module Stringex
 
     private
 
-      def default_settings
-        Stringex::Configuration::StringExtensions.new.default_settings.merge(default_settings)
-      end
+      # def default_settings
+      #   Stringex::Configuration::StringExtensions.new.default_settings.merge(default_settings)
+      # end
 
       def default_settings
         self.class.default_settings

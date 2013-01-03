@@ -9,8 +9,9 @@ module Stringex
         @default_settings ||= {
           :allow_slash => false,
           :exclude => [],
+          :force_downcase => true,
           :limit => nil,
-          :force_downcase => true
+          :replace_whitespace_with => "-"
         }
       end
     end

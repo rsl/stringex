@@ -103,8 +103,16 @@ class StringExtensionsTest < Test::Unit::TestCase
     assert_equal "So Fucking Special", "So Fucking Special".to_url(:exclude => "So Fucking Special")
   end
 
-  def test_to_url_with_not_forcing_downcase
+  def test_to_url_without_forcing_downcase
     assert_equal "I-have-CAPS", "I have CAPS".to_url(:force_downcase => false)
+  end
+
+  def test_to_url_with_limit
+    assert_equal "I am much too long".to_url(:limit => 13), "i-am-much-too"
+  end
+
+  def test_to_url_with_alternate_whitespace_replacement
+    assert_equal "under_scores", "Under Scores".to_url(:replace_whitespace_with => "_")
   end
 
   def test_remove_formatting
@@ -245,9 +253,5 @@ class StringExtensionsTest < Test::Unit::TestCase
     end
 
     assert_equal "now-with-hyphens", "----now---------with-hyphens--------".collapse("-")
-  end
-
-  def test_to_url_limit
-    assert_equal "I am much too long".to_url(:limit => 13), "i-am-much-too"
   end
 end

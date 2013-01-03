@@ -28,4 +28,13 @@ class ActsAsUrlConfigurationTest < Test::Unit::TestCase
     local_configuration = Stringex::Configuration::ActsAsUrl.new(:url_attribute => "local")
     assert_equal "local", local_configuration.settings.url_attribute
   end
+
+  def test_inherits_settings_from_string_extensions
+    string_extensions_settings = Stringex::Configuration::StringExtensions.new
+    acts_as_url_settings = Stringex::Configuration::ActsAsUrl.new
+
+    acts_as_url_settings.string_extensions_settings.keys.each do |key|
+      assert_equal acts_as_url_settings.settings.send(key), string_extensions_settings.settings.send(key)
+    end
+  end
 end
