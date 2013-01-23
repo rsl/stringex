@@ -13,24 +13,24 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
   end
 
   def test_should_create_unique_url
-    @doc = Document.create!(:title => "Unique")
-    @other_doc = Document.create!(:title => "Unique")
+    @doc = Document.create(:title => "Unique")
+    @other_doc = Document.create(:title => "Unique")
     assert_equal "unique", @doc.url
     assert_equal "unique-1", @other_doc.url
   end
 
   def test_should_create_unique_url_when_partial_url_already_exists
-    @doc = Document.create!(:title => "House Farms")
-    @other_doc = Document.create!(:title => "House Farm")
+    @doc = Document.create(:title => "House Farms")
+    @other_doc = Document.create(:title => "House Farm")
 
     assert_equal "house-farms", @doc.url
     assert_equal "house-farm", @other_doc.url
   end
 
   def test_should_not_sync_url_by_default
-    @doc = Document.create!(:title => "Stable as Stone")
+    @doc = Document.create(:title => "Stable as Stone")
     @original_url = @doc.url
-    @doc.update_attributes! :title => "New Unstable Madness"
+    adapter_specific_update @doc, :title => "New Unstable Madness"
     assert_equal @original_url, @doc.url
   end
 
@@ -39,9 +39,9 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
       acts_as_url :title, :sync_url => true
     end
 
-    @doc = Document.create!(:title => "Original")
+    @doc = Document.create(:title => "Original")
     @original_url = @doc.url
-    @doc.update_attributes! :title => "New and Improved"
+    adapter_specific_update @doc, :title => "New and Improved"
     assert_not_equal @original_url, @doc.url
   end
 
@@ -62,8 +62,8 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
       acts_as_url :title, :allow_duplicates => true
     end
 
-    @doc = Document.create!(:title => "I am not a clone")
-    @other_doc = Document.create!(:title => "I am not a clone")
+    @doc = Document.create(:title => "I am not a clone")
+    @other_doc = Document.create(:title => "I am not a clone")
     assert_equal @doc.url, @other_doc.url
   end
 
@@ -72,8 +72,8 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
       acts_as_url :title, :scope => :other
     end
 
-    @doc = Document.create!(:title => "Mocumentary", :other => "I don't care if I'm unique for some reason")
-    @other_doc = Document.create!(:title => "Mocumentary", :other => "Me either")
+    @doc = Document.create(:title => "Mocumentary", :other => "I don't care if I'm unique for some reason")
+    @other_doc = Document.create(:title => "Mocumentary", :other => "Me either")
     assert_equal @doc.url, @other_doc.url
   end
 
@@ -82,8 +82,8 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
       acts_as_url :title, :scope => :other
     end
 
-    @doc = Document.create!(:title => "Mocumentary", :other => "Suddenly, I care if I'm unique")
-    @other_doc = Document.create!(:title => "Mocumentary", :other => "Suddenly, I care if I'm unique")
+    @doc = Document.create(:title => "Mocumentary", :other => "Suddenly, I care if I'm unique")
+    @other_doc = Document.create(:title => "Mocumentary", :other => "Suddenly, I care if I'm unique")
     assert_not_equal @doc.url, @other_doc.url
   end
 
@@ -95,7 +95,7 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
       acts_as_url :title, :url_attribute => :other
     end
 
-    @doc = Document.create!(:title => "Anything at This Point")
+    @doc = Document.create(:title => "Anything at This Point")
     assert_equal "anything-at-this-point", @doc.other
     assert_nil @doc.url
   ensure
@@ -111,17 +111,17 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
     end
 
     @string = 'the-url-of-concrete'
-    @doc = Document.create!(:title => "Stable as Stone", :url => @string)
+    @doc = Document.create(:title => "Stable as Stone", :url => @string)
     assert_equal @string, @doc.url
-    @other_doc = Document.create!(:title => "Stable as Stone")
+    @other_doc = Document.create(:title => "Stable as Stone")
     assert_equal 'stable-as-stone', @other_doc.url
   end
 
   def test_should_mass_initialize_urls
-    @doc = Document.create!(:title => "Initial")
-    @other_doc = Document.create!(:title => "Subsequent")
-    @doc.update_attributes! :url => nil
-    @other_doc.update_attributes! :url => nil
+    @doc = Document.create(:title => "Initial")
+    @other_doc = Document.create(:title => "Subsequent")
+    adapter_specific_update @doc, :url => nil
+    adapter_specific_update @other_doc, :url => nil
     # Just making sure this got unset before the real test
     assert_nil @doc.url
     assert_nil @other_doc.url
@@ -142,10 +142,10 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
       acts_as_url :title, :url_attribute => :other
     end
 
-    @doc = Document.create!(:title => "Initial")
-    @other_doc = Document.create!(:title => "Subsequent")
-    @doc.update_attributes! :other => nil
-    @other_doc.update_attributes! :other => nil
+    @doc = Document.create(:title => "Initial")
+    @other_doc = Document.create(:title => "Subsequent")
+    adapter_specific_update @doc, :other => nil
+    adapter_specific_update @other_doc, :other => nil
     # Just making sure this got unset before the real test
     assert_nil @doc.other
     assert_nil @other_doc.other
@@ -172,7 +172,7 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
       end
     end
 
-    @doc = Document.create!(:title => "Title String")
+    @doc = Document.create(:title => "Title String")
     assert_equal "title-string-got-massaged", @doc.url
   ensure
     Document.class_eval do
@@ -186,8 +186,8 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
       acts_as_url :title, :duplicate_count_separator => "---"
     end
 
-    @doc = Document.create!(:title => "Unique")
-    @other_doc = Document.create!(:title => "Unique")
+    @doc = Document.create(:title => "Unique")
+    @other_doc = Document.create(:title => "Unique")
     assert_equal "unique", @doc.url
     assert_equal "unique---1", @other_doc.url
   end
@@ -198,7 +198,7 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
     end
     add_validation_on_document_title
 
-    @doc = Document.create!(:title => "Valid Record", :other => "Present")
+    @doc = Document.create(:title => "Valid Record", :other => "Present")
     assert_equal "valid-record", @doc.url
     @doc.title = nil
     assert_equal false, @doc.valid?
@@ -212,7 +212,7 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
       acts_as_url :title, :limit => 13
     end
 
-    @doc = Document.create!(:title => "I am much too long")
+    @doc = Document.create(:title => "I am much too long")
     assert_equal "i-am-much-too", @doc.url
   end
 
@@ -221,9 +221,9 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
       acts_as_url :title, :limit => 13
     end
 
-    @doc = Document.create!(:title => "I am much too long and also duplicated")
+    @doc = Document.create(:title => "I am much too long and also duplicated")
     assert_equal "i-am-much-too", @doc.url
-    @other_doc = Document.create!(:title => "I am much too long and also duplicated")
+    @other_doc = Document.create(:title => "I am much too long and also duplicated")
     assert_equal "i-am-much-too-1", @other_doc.url
   end
 
@@ -232,9 +232,9 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
       acts_as_url :title, :exclude => ["_So_Fucking_Special"]
     end
 
-    @doc = Document.create!(:title => "_So_Fucking_Special")
+    @doc = Document.create(:title => "_So_Fucking_Special")
     assert_equal "_So_Fucking_Special", @doc.url
-    @doc_2 = Document.create!(:title => "But I'm a creep")
+    @doc_2 = Document.create(:title => "But I'm a creep")
     assert_equal "but-im-a-creep", @doc_2.url
   end
 
@@ -243,7 +243,7 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
       acts_as_url :title, :force_downcase => false
     end
 
-    @doc = Document.create!(:title => "I have CAPS!")
+    @doc = Document.create(:title => "I have CAPS!")
     assert_equal "I-have-CAPS", @doc.url
   end
 
@@ -252,7 +252,7 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
       acts_as_url :title, :replace_whitespace_with => "~"
     end
 
-    @doc = Document.create!(:title => "now with tildes")
+    @doc = Document.create(:title => "now with tildes")
     assert_equal "now~with~tildes", @doc.url
   end
 
@@ -261,9 +261,9 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
       acts_as_url :title, :enforce_uniqueness_on_sti_base_class => true
     end
 
-    @doc = STIChildDocument.create!(:title => "Unique")
+    @doc = STIChildDocument.create(:title => "Unique")
     assert_equal "unique", @doc.url
-    @doc_2 = AnotherSTIChildDocument.create!(:title => "Unique")
+    @doc_2 = AnotherSTIChildDocument.create(:title => "Unique")
     assert_equal "unique-1", @doc_2.url
   end
 end

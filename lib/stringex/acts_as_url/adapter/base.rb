@@ -33,10 +33,11 @@ module Stringex
 
         def url_attribute(instance)
           # Retrieve from database record if there are errors on attribute_to_urlify
-          if !instance.new_record? && instance.errors[settings.attribute_to_urlify].present?
-            instance.class.find(instance.id).send settings.url_attribute
+          if !is_new?(instance) && is_present?(instance.errors[settings.attribute_to_urlify])
+            self.instance = instance
+            read_attribute instance_from_db, settings.url_attribute
           else
-            instance.read_attribute settings.url_attribute
+            read_attribute instance, settings.url_attribute
           end
         end
 
@@ -80,8 +81,24 @@ module Stringex
 
         def handle_url!
           self.base_url = instance.send(settings.url_attribute)
-          modify_base_url if base_url.blank? || !settings.only_when_blank
+          modify_base_url if is_blank?(base_url) || !settings.only_when_blank
           write_url_attribute base_url
+        end
+
+        def instance_from_db
+          instance.class.find(instance.id)
+        end
+
+        def is_blank?(object)
+          object.blank?
+        end
+
+        def is_new?(object)
+          object.new_record?
+        end
+
+        def is_present?(object)
+          object.present?
         end
 
         def loadable?
@@ -91,6 +108,10 @@ module Stringex
         def modify_base_url
           root = instance.send(settings.attribute_to_urlify).to_s
           self.base_url = root.to_url(configuration.string_extensions_settings)
+        end
+
+        def read_attribute(instance, attribute)
+          instance.read_attribute attribute
         end
 
         def url_attribute_for(object)
@@ -107,8 +128,12 @@ module Stringex
           klass
         end
 
+        def write_attribute(instance, attribute, value)
+          instance.send :write_attribute, attribute, value
+        end
+
         def write_url_attribute(value)
-          instance.send :write_attribute, settings.url_attribute, value
+          write_attribute instance, settings.url_attribute, value
         end
       end
     end

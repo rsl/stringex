@@ -9,7 +9,7 @@ puts "-------------------------------------------------"
 puts "Running ActsAsUrl tests with ActiveRecord adapter"
 puts "-------------------------------------------------"
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+ActiveRecord::Base.establish_connection :adapter => "sqlite3", :database => ":memory:"
 
 ActiveRecord::Migration.verbose = false
 ActiveRecord::Schema.define do
@@ -64,5 +64,9 @@ module AdapterSpecificTestBehaviors
     Document.class_eval do
       _validators.delete :title
     end
+  end
+
+  def adapter_specific_update(instance, hash)
+    instance.send :update_attributes!, hash
   end
 end

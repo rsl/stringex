@@ -66,4 +66,8 @@ module AdapterSpecificTestBehaviors
       _validators.delete :title
     end
   end
+
+  def adapter_specific_update(instance, hash)
+    instance.send :update_attributes!, hash
+  end
 end
