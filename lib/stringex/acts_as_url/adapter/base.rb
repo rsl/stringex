@@ -54,6 +54,26 @@ module Stringex
 
       private
 
+        def add_new_record_url_owner_conditions
+          return if is_new?(instance)
+          @url_owner_conditions.first << " and id != ?"
+          @url_owner_conditions << instance.id
+        end
+
+        def add_scoped_url_owner_conditions
+          return unless settings.scope_for_url
+          @url_owner_conditions.first << " and #{settings.scope_for_url} = ?"
+          @url_owner_conditions << instance.send(settings.scope_for_url)
+        end
+
+        def create_callback
+          if settings.sync_url
+            klass.before_validation :ensure_unique_url
+          else
+            klass.before_validation :ensure_unique_url, :on => :create
+          end
+        end
+
         def create_method_to_callback
           klass.class_eval <<-"END"
             def #{settings.url_attribute}
@@ -68,6 +88,17 @@ module Stringex
 
         def ensure_loadable
           self.class.ensure_loadable
+        end
+
+        # NOTE: The <tt>instance</tt> here is not the cached instance but a block variable
+        # passed from <tt>klass_previous_instances</tt>, just to be clear
+        def ensure_unique_url_for!(instance)
+          instance.send :ensure_unique_url
+          instance.save
+        end
+
+        def get_base_url_owner_conditions
+          @url_owner_conditions = ["#{settings.url_attribute} LIKE ?", base_url + '%']
         end
 
         def handle_duplicate_url!
@@ -110,12 +141,28 @@ module Stringex
           self.base_url = root.to_url(configuration.string_extensions_settings)
         end
 
+        def orm_class
+          self.class.orm_class
+        end
+
         def read_attribute(instance, attribute)
           instance.read_attribute attribute
         end
 
         def url_attribute_for(object)
           object.send settings.url_attribute
+        end
+
+        def url_owner_conditions
+          get_base_url_owner_conditions
+          add_new_record_url_owner_conditions
+          add_scoped_url_owner_conditions
+
+          @url_owner_conditions
+        end
+
+        def url_owners
+          @url_owners ||= url_owners_class.unscoped.where(url_owner_conditions).to_a
         end
 
         def url_owners_class
