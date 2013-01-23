@@ -1,5 +1,6 @@
 require "stringex/acts_as_url/adapter/base"
 require "stringex/acts_as_url/adapter/active_record"
+require "stringex/acts_as_url/adapter/data_mapper"
 require "stringex/acts_as_url/adapter/mongoid"
 
 module Stringex

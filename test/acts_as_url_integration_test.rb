@@ -50,8 +50,9 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
       acts_as_url :title, :sync_url => true
     end
 
-    @doc = Document.new(:title => "Continuous or Constant")
-    5.times do
+    @doc = Document.create(:title => "Continuous or Constant")
+    assert_equal "continuous-or-constant", @doc.url
+    5.times do |n|
       @doc.save!
       assert_equal "continuous-or-constant", @doc.url
     end
