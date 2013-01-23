@@ -72,6 +72,8 @@ class StringExtensionsTest < Test::Unit::TestCase
         "ellada",
       "中文" =>
         "zhong-wen",
+      "yingwen中文混合shuru" =>
+        "yingwen-zhong-wen-hun-he-shuru",
       "Paul Cézanne" =>
         "paul-cezanne",
       "21'17ʼ51" =>
@@ -81,7 +83,7 @@ class StringExtensionsTest < Test::Unit::TestCase
       "／" =>
         "slash",
       "私はガラスを食べられます。それは私を傷つけません。" =>
-        "si-hagarasuwoshi-beraremasu-sorehasi-woshang-tukemasen",
+        "si-hagarasuwo-shi-beraremasu-soreha-si-wo-shang-tukemasen",
       "ǝ is a magical string" =>
         "at-is-a-magical-string",
       "either | or" =>
@@ -89,9 +91,9 @@ class StringExtensionsTest < Test::Unit::TestCase
       "La Maison d`Uliva" =>
         "la-maison-duliva",
       "カッページ・テラスに日系カフェ＆バー、店内にDJブースも - シンガポール経済新聞" =>
-        "katupeziterasuniri-xi-kahue-and-ba-dian-nei-nidjbusumo-singaporujing-ji-xin-wen",
+        "katupeziterasuni-ri-xi-kahue-and-ba-dian-nei-nidjbusumo-singaporu-jing-ji-xin-wen",
       "AVアンプ、ホームシアターシステム、スピーカーシステム等" =>
-        "avanpu-homusiatasisutemu-supikasisutemudeng",
+        "avanpu-homusiatasisutemu-supikasisutemu-deng",
       "У лукоморья дуб зеленый" =>
         "u-lukomoria-dub-zielienyi"
     }.each do |html, plain|

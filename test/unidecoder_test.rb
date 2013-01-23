@@ -43,9 +43,9 @@ class UnidecoderTest < Test::Unit::TestCase
     "ฉันกินกระจกได้ แต่มันไม่ทำให้ฉันเจ็บ" => # Thai
       "chankinkracchkaid aetmanaimthamaihchanecchb",
     "我能吞下玻璃而不伤身体。" => # Chinese
-      "Wo Neng Tun Xia Bo Li Er Bu Shang Shen Ti . ",
+      " Wo  Neng  Tun  Xia  Bo  Li  Er  Bu  Shang  Shen  Ti . ",
     "私はガラスを食べられます。それは私を傷つけません。" => # Japanese
-      "Si hagarasuwoShi beraremasu. sorehaSi woShang tukemasen. ",
+      " Si hagarasuwo Shi beraremasu. soreha Si wo Shang tukemasen. ",
     "⠋⠗⠁⠝⠉⠑" => # Braille
       "france"
   }
