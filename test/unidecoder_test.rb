@@ -25,9 +25,9 @@ class UnidecoderTest < Test::Unit::TestCase
     "Mogę jeść szkło i mi nie szkodzi." => # Polish
       "Moge jesc szklo i mi nie szkodzi.",
     "Я могу есть стекло, оно мне не вредит." => # Russian
-      "Ia moghu iest' stieklo, ono mnie nie vriedit.",
+      "Ya mogu est' steklo, ono mne ne vredit.",
     "Мога да ям стъкло, то не ми вреди." => # Bulgarian
-      "Mogha da iam stklo, to nie mi vriedi.",
+      "Moga da yam stklo, to ne mi vredi.",
     "ᛁᚳ᛫ᛗᚨᚷ᛫ᚷᛚᚨᛋ᛫ᛖᚩᛏᚪᚾ᛫ᚩᚾᛞ᛫ᚻᛁᛏ᛫ᚾᛖ᛫ᚻᛖᚪᚱᛗᛁᚪᚧ᛫ᛗᛖ᛬" => # Anglo-Saxon
       "ic.mag.glas.eotacn.ond.hit.ne.heacrmiacth.me:",
     "ὕαλον ϕαγεῖν δύναμαι· τοῦτο οὔ με βλάπτει" => # Classical Greek

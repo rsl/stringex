@@ -93,7 +93,7 @@ class StringExtensionsTest < Test::Unit::TestCase
       "AVアンプ、ホームシアターシステム、スピーカーシステム等" =>
         "avanpu-homusiatasisutemu-supikasisutemudeng",
       "У лукоморья дуб зеленый" =>
-        "u-lukomoria-dub-zielienyi"
+        "u-lukomorya-dub-zelenyi"
     }.each do |html, plain|
       assert_equal plain, html.to_url
     end
