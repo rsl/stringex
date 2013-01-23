@@ -2,6 +2,8 @@
 
 Some [hopefully] useful extensions to Ruby's String class. It is made up of three libraries: ActsAsUrl, Unidecoder, and StringExtensions.
 
+<em>NOTE: Stringex 2.0 [and beyond] drops support for Rails 2. If you need support for that version, use 1.5.1 instead.</em>
+
 == ActsAsUrl
 
 This library is designed to create URI-friendly representations of an attribute, for use in generating urls from your attributes. Basic usage is just calling the method:
