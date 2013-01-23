@@ -58,7 +58,7 @@ module Stringex
         end
 
         def url_owners
-          @url_owners ||= url_owners_class.unscoped.find(:all, :conditions => url_owner_conditions)
+          @url_owners ||= url_owners_class.unscoped.where(url_owner_conditions)
         end
 
         def self.orm_class
