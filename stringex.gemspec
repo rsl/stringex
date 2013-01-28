@@ -215,7 +215,7 @@ Gem::Specification.new do |s|
     "lib/stringex/unidecoder_data/xff.yml",
     "lib/stringex/version.rb",
     "stringex.gemspec",
-    "test/unicoder/bad_localization.yml",
+    "test/unidecoder/bad_localization.yml",
     "test/string_extensions_test.rb",
     "test/unicode_point_suite/basic_greek_test.rb",
     "test/unicode_point_suite/basic_latin_test.rb",
