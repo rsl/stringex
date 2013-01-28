@@ -72,9 +72,11 @@ module Stringex
           /(\s*=\s*)/ => " equals ",
           /\s*\+\s*/ => "plus",
           /\s*÷\s*/ => "divide",
-          /\s*°\s*/ => "degrees"
+          /\s*°\s*/ => "degrees",
+          /\s*(\\|\/|／)\s*/ => "slash"
         }
-        misc_characters[/\s*(\\|\/|／)\s*/] = 'slash' unless options[:allow_slash]
+        misc_characters.merge!(options[:localized]) if options[:localized]
+        misc_characters.delete(/\s*(\\|\/|／)\s*/) if options[:allow_slash]
         misc_characters.each do |found, replaced|
           replaced = " #{replaced} " unless replaced =~ /\\1/
           dummy.gsub!(found, replaced)

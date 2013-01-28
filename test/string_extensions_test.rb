@@ -232,6 +232,31 @@ class StringExtensionsTest < Test::Unit::TestCase
     end
   end
 
+  def test_convert_miscellaneous_characters_localized
+
+    localized = {
+      /\s*&\s*/ => "og",
+      /\s*#/ => 'nummer',
+      /\s*@\s*/ => 'snabel a',
+      /(\S|^)\.(\S)/ => '\1 punktum \2',
+      /\s*\*\s*/ => 'stjerne',
+      /\s*%\s*/ => 'prosent',
+      /(\s*=\s*)/ => " like med ",
+      /\s*\+\s*/ => "pluss",
+      /\s*°\s*/ => "grader"
+    }
+
+    {
+      "Foo & bar make foobar" => "Foo og bar make foobar",
+      "Breakdown #9" => "Breakdown nummer 9",
+      "foo@bar.com" => "foo snabel a bar punktum com",
+      "100% of yr love" => "100 prosent of yr love",
+      "Food+Drink" => "Food pluss Drink"
+    }.each do |misc, plain|
+      assert_equal plain, misc.convert_miscellaneous_characters(:localized => localized)
+    end
+  end
+
   def test_replace_whitespace
     {
       "this has     too much space" => "this has too much space",
