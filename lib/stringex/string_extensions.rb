@@ -39,16 +39,45 @@ module Stringex
       #   "100%".convert_misc_characters # => "100 percent"
       #   "windows/mac/linux".convert_misc_characters # => "windows slash mac slash linux"
       #
+      # It allows custom conversions so you can use it to convert characters into your own language.
+      # Examples:
+      #
+      #   "ich & dich".convert_misc_characters(:conversions => { :and => "und" }) # => "ich und dich"
+      #   "det var 100% godt".convert_misc_characters(:conversions => { :percent => "procent" }) # => "det var 100 procent godt"
+      #
       # Note: Because this method will convert any & symbols to the string "and",
       # you should run any methods which convert HTML entities (convert_accented_html_entities and convert_miscellaneous_html_entities)
       # before running this method.
       def convert_miscellaneous_characters(options = {})
         options = stringex_default_options.merge(options)
-        dummy = dup.gsub(/\.{3,}/, " dot dot dot ") # Catch ellipses before single dot rule!
+
+        conversions =
+        {
+          :and => "and",
+          :number => "number",
+          :at => "at",
+          :dot => '\1 dot \2',
+          :dollars => '\2 dollars',
+          :dollars_cents => '\2 dollars \3 cents',
+          :pounds => '\2 pounds',
+          :pounds_pence => '\2 pounds \3 pence',
+          :yen => '\2 yen',
+          :star => "star",
+          :percent => "percent",
+          :equals => " equals ",
+          :plus => "plus",
+          :divide => "divide",
+          :degrees => "degrees",
+          :ellipsis => " dot dot dot ",
+          :slash => "slash"
+        }
+        conversions.merge!(options[:conversions]) if options[:conversions]
+
+        dummy = dup.gsub(/\.{3,}/, conversions[:ellipsis]) # Catch ellipses before single dot rule!
         # Special rules for money
         {
-          /(\s|^)\$(\d+)\.(\d+)(\s|$)/ => '\2 dollars \3 cents',
-          /(\s|^)£(\d+)\.(\d+)(\s|$)/u => '\2 pounds \3 pence',
+          /(\s|^)\$(\d+)\.(\d+)(\s|$)/ => conversions[:dollars_cents],
+          /(\s|^)£(\d+)\.(\d+)(\s|$)/u => conversions[:pounds_pence],
         }.each do |found, replaced|
           replaced = " #{replaced} " unless replaced =~ /\\1/
           dummy.gsub!(found, replaced)
@@ -58,23 +87,24 @@ module Stringex
           x.gsub(".", "")
         end
         # Back to normal rules
+
         misc_characters =
         {
-          /\s*&\s*/ => "and",
-          /\s*#/ => "number",
-          /\s*@\s*/ => "at",
-          /(\S|^)\.(\S)/ => '\1 dot \2',
-          /(\s|^)\$(\d*)(\s|$)/ => '\2 dollars',
-          /(\s|^)£(\d*)(\s|$)/u => '\2 pounds',
-          /(\s|^)¥(\d*)(\s|$)/u => '\2 yen',
-          /\s*\*\s*/ => "star",
-          /\s*%\s*/ => "percent",
-          /(\s*=\s*)/ => " equals ",
-          /\s*\+\s*/ => "plus",
-          /\s*÷\s*/ => "divide",
-          /\s*°\s*/ => "degrees"
+          /\s*&\s*/ => conversions[:and],
+          /\s*#/ => conversions[:number],
+          /\s*@\s*/ => conversions[:at],
+          /(\S|^)\.(\S)/ => conversions[:dot],
+          /(\s|^)\$(\d*)(\s|$)/ => conversions[:dollars],
+          /(\s|^)£(\d*)(\s|$)/u => conversions[:pounds],
+          /(\s|^)¥(\d*)(\s|$)/u => conversions[:yen],
+          /\s*\*\s*/ => conversions[:star],
+          /\s*%\s*/ => conversions[:percent],
+          /(\s*=\s*)/ => conversions[:equals],
+          /\s*\+\s*/ => conversions[:plus],
+          /\s*÷\s*/ => conversions[:divide],
+          /\s*°\s*/ => conversions[:degrees]
         }
-        misc_characters[/\s*(\\|\/|／)\s*/] = 'slash' unless options[:allow_slash]
+        misc_characters[/\s*(\\|\/|／)\s*/] = conversions[:slash] unless options[:allow_slash]
         misc_characters.each do |found, replaced|
           replaced = " #{replaced} " unless replaced =~ /\\1/
           dummy.gsub!(found, replaced)

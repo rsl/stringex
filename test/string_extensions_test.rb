@@ -232,6 +232,21 @@ class StringExtensionsTest < Test::Unit::TestCase
     end
   end
 
+  def test_custom_conversions
+    custom =
+    {
+      :and => "und",
+      :percent => "procent"
+    }
+
+    {
+      "ich & dich" => "ich und dich",
+      "det var 100% godt" => "det var 100 procent godt"
+    }.each do |misc, plain|
+      assert_equal plain, misc.convert_miscellaneous_characters(:conversions => custom)
+    end
+  end
+
   def test_replace_whitespace
     {
       "this has     too much space" => "this has too much space",
