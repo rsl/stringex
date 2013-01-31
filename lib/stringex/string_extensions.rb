@@ -4,23 +4,23 @@ module Stringex
   module StringExtensions
     DEFAULT_CHARACTER_CONVERSIONS = 
       {
-        :and => "and",
-        :number => "number",
-        :at => "at",
-        :dot => '\1 dot \2',
-        :dollars => '\2 dollars',
+        :and           => "and",
+        :number        => "number",
+        :at            => "at",
+        :dot           => '\1 dot \2',
+        :dollars       => '\2 dollars',
         :dollars_cents => '\2 dollars \3 cents',
-        :pounds => '\2 pounds',
-        :pounds_pence => '\2 pounds \3 pence',
-        :yen => '\2 yen',
-        :star => "star",
-        :percent => "percent",
-        :equals => " equals ",
-        :plus => "plus",
-        :divide => "divide",
-        :degrees => "degrees",
-        :ellipsis => " dot dot dot ",
-        :slash => "slash"
+        :pounds        => '\2 pounds',
+        :pounds_pence  => '\2 pounds \3 pence',
+        :yen           => '\2 yen',
+        :star          => "star",
+        :percent       => "percent",
+        :equals        => " equals ",
+        :plus          => "plus",
+        :divide        => "divide",
+        :degrees       => "degrees",
+        :ellipsis      => " dot dot dot ",
+        :slash         => "slash"
       }
 
     DEFAULT_HTML_ENTITY_CONVERSIONS =
@@ -115,19 +115,19 @@ module Stringex
 
         misc_characters =
         {
-          /\s*&\s*/ => :and,
-          /\s*#/ => :number,
-          /\s*@\s*/ => :at,
-          /(\S|^)\.(\S)/ => :dot,
+          /\s*&\s*/             => :and,
+          /\s*#/                => :number,
+          /\s*@\s*/             => :at,
+          /(\S|^)\.(\S)/        => :dot,
           /(\s|^)\$(\d*)(\s|$)/ => :dollars,
           /(\s|^)£(\d*)(\s|$)/u => :pounds,
           /(\s|^)¥(\d*)(\s|$)/u => :yen,
-          /\s*\*\s*/ => :star,
-          /\s*%\s*/ => :percent,
-          /(\s*=\s*)/ => :equals,
-          /\s*\+\s*/ => :plus,
-          /\s*÷\s*/ => :divide,
-          /\s*°\s*/ => :degrees
+          /\s*\*\s*/            => :star,
+          /\s*%\s*/             => :percent,
+          /(\s*=\s*)/           => :equals,
+          /\s*\+\s*/            => :plus,
+          /\s*÷\s*/             => :divide,
+          /\s*°\s*/             => :degrees
         }
         misc_characters[/\s*(\\|\/|／)\s*/] = :slash unless options[:allow_slash]
         misc_characters.each do |found, key|
