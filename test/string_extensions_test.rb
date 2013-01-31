@@ -194,6 +194,25 @@ class StringExtensionsTest < Test::Unit::TestCase
     end
   end
 
+  def test_localized_vulgar_fractions_conversion
+    Stringex::Localization.backend = :internal
+    Stringex::Localization.store_translations :de, :vulgar_fractions, {
+      :one_fourth => "en fjerdedel",
+      :half => "en halv"
+    }
+    Stringex::Localization.locale = :de
+
+    {
+      "&frac14;" => "en fjerdedel",
+      "½" => "en halv"
+    }.each do |entitied, plain|
+      assert_equal plain, entitied.convert_vulgar_fractions
+    end
+
+  ensure
+    Stringex::Localization.translations = nil
+  end
+
   def test_convert_miscellaneous_html_entities
     {
       "America&#8482;" => "America(tm)",

@@ -47,6 +47,25 @@ module Stringex
         :deg          => " degrees "
       }
 
+    DEFAULT_VULGAR_FRACTION_CONVERSIONS =
+      {
+        :one_fourth    => "one fourth",
+        :half          => "half",
+        :three_fourths => "three fourths",
+        :one_third     => "one third",
+        :two_thirds    => "two thirds",
+        :one_fifth     => "one fifth",
+        :two_fifths    => "two fifths",
+        :three_fifths  => "three fifths",
+        :four_fifths   => "four fifths",
+        :one_sixth     => "one sixth",
+        :five_sixths   => "five sixths",
+        :one_eighth    => "one eighth",
+        :three_eighths => "three eighths",
+        :five_eighths  => "five eighths",
+        :seven_eighths => "seven eighths"
+      }
+
     # These methods are all included into the String class.
     module PublicInstanceMethods
       # Removes specified character from the beginning and/or end of the string and then performs
@@ -191,22 +210,23 @@ module Stringex
       def convert_vulgar_fractions
         dummy = dup
         {
-          "(&#188;|&frac14;|¼)" => "one fourth",
-          "(&#189;|&frac12;|½)" => "half",
-          "(&#190;|&frac34;|¾)" => "three fourths",
-          "(&#8531;|⅓)" => "one third",
-          "(&#8532;|⅔)" => "two thirds",
-          "(&#8533;|⅕)" => "one fifth",
-          "(&#8534;|⅖)" => "two fifths",
-          "(&#8535;|⅗)" => "three fifths",
-          "(&#8536;|⅘)" => "four fifths",
-          "(&#8537;|⅙)" => "one sixth",
-          "(&#8538;|⅚)" => "five sixths",
-          "(&#8539;|⅛)" => "one eighth",
-          "(&#8540;|⅜)" => "three eighths",
-          "(&#8541;|⅝)" => "five eighths",
-          "(&#8542;|⅞)" => "seven eighths"
-        }.each do |textiled, normal|
+          "(&#188;|&frac14;|¼)" => :one_fourth,
+          "(&#189;|&frac12;|½)" => :half,
+          "(&#190;|&frac34;|¾)" => :three_fourths,
+          "(&#8531;|⅓)"         => :one_third,
+          "(&#8532;|⅔)"         => :two_thirds,
+          "(&#8533;|⅕)"         => :one_fifth,
+          "(&#8534;|⅖)"         => :two_fifths,
+          "(&#8535;|⅗)"         => :three_fifths,
+          "(&#8536;|⅘)"         => :four_fifths,
+          "(&#8537;|⅙)"         => :one_sixth,
+          "(&#8538;|⅚)"         => :five_sixths,
+          "(&#8539;|⅛)"         => :one_eighth,
+          "(&#8540;|⅜)"         => :three_eighths,
+          "(&#8541;|⅝)"         => :five_eighths,
+          "(&#8542;|⅞)"         => :seven_eighths
+        }.each do |textiled, key|
+          normal = stringex_translate_vulgar_fraction(key)
           dummy.gsub!(/#{textiled}/, normal)
         end
         dummy
@@ -304,6 +324,10 @@ module Stringex
 
       def stringex_translate_html_entitity(key)
         Localization.translate(:html_entities, key, :default => DEFAULT_HTML_ENTITY_CONVERSIONS[key])
+      end
+
+      def stringex_translate_vulgar_fraction(key)
+        Localization.translate(:vulgar_fractions, key, :default => DEFAULT_VULGAR_FRACTION_CONVERSIONS[key])
       end
     end
 
