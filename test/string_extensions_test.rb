@@ -232,19 +232,23 @@ class StringExtensionsTest < Test::Unit::TestCase
     end
   end
 
-  def test_custom_conversions
-    custom =
-    {
-      :and => "und",
+  def test_localized_character_conversions
+    Stringex::Localization.backend = :internal
+    Stringex::Localization.store_translations :de, :characters, {
+      "and" => "und",
       :percent => "procent"
     }
+    Stringex::Localization.locale = :de
 
     {
       "ich & dich" => "ich und dich",
       "det var 100% godt" => "det var 100 procent godt"
     }.each do |misc, plain|
-      assert_equal plain, misc.convert_miscellaneous_characters(:conversions => custom)
+      assert_equal plain, misc.convert_miscellaneous_characters
     end
+    
+  ensure
+    Stringex::Localization.translations = nil
   end
 
   def test_replace_whitespace
