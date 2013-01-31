@@ -207,6 +207,27 @@ class StringExtensionsTest < Test::Unit::TestCase
     end
   end
 
+  def test_localized_html_entities_conversion
+    Stringex::Localization.backend = :internal
+    Stringex::Localization.store_translations :de, :html_entities, {
+      :amp => "und",
+      :ellipsis => " prik prik prik",
+      :frac14 => "en fjerdedel"
+    }
+    Stringex::Localization.locale = :de
+
+    {
+      "Tea &amp; Sympathy" => "Tea und Sympathy",
+      "To be continued&#8230;" => "To be continued prik prik prik",
+      "Det var til &frac14; af prisen" => "Det var til en fjerdedel af prisen"
+    }.each do |entitied, plain|
+      assert_equal plain, entitied.convert_miscellaneous_html_entities
+    end
+
+  ensure
+    Stringex::Localization.translations = nil
+  end
+
   def test_convert_smart_punctuation
     {
       "“smart quotes”" => '"smart quotes"',

@@ -23,6 +23,30 @@ module Stringex
         :slash => "slash"
       }
 
+    DEFAULT_HTML_ENTITY_CONVERSIONS =
+      {
+        :double_quote => "\"",
+        :single_quote => "'",
+        :ellipsis     => "...",
+        :en_dash      => "-",
+        :em_dash      => "--",
+        :times        => "x",
+        :gt           => ">",
+        :lt           => "<",
+        :trade        => "(tm)",
+        :reg          => "(r)",
+        :copy         => "(c)",
+        :amp          => "and",
+        :nbsp         => " ",
+        :cent         => " cent",
+        :pound        => " pound",
+        :frac14       => "one fourth",
+        :frac12       => "half",
+        :frac34       => "three fourths",
+        :divide       => "divide",
+        :deg          => " degrees "
+      }
+
     # These methods are all included into the String class.
     module PublicInstanceMethods
       # Removes specified character from the beginning and/or end of the string and then performs
@@ -121,27 +145,28 @@ module Stringex
       def convert_miscellaneous_html_entities
         dummy = dup
         {
-          "#822[01]" => "\"",
-          "#821[67]" => "'",
-          "#8230" => "...",
-          "#8211" => "-",
-          "#8212" => "--",
-          "#215" => "x",
-          "gt" => ">",
-          "lt" => "<",
-          "(#8482|trade)" => "(tm)",
-          "(#174|reg)" => "(r)",
-          "(#169|copy)" => "(c)",
-          "(#38|amp)" => "and",
-          "nbsp" => " ",
-          "(#162|cent)" => " cent",
-          "(#163|pound)" => " pound",
-          "(#188|frac14)" => "one fourth",
-          "(#189|frac12)" => "half",
-          "(#190|frac34)" => "three fourths",
-          "(#247|divide)" => "divide",
-          "(#176|deg)" => " degrees "
-        }.each do |textiled, normal|
+          "#822[01]"      => :double_quote,
+          "#821[67]"      => :single_quote,
+          "#8230"         => :ellipsis,
+          "#8211"         => :en_dash,
+          "#8212"         => :em_dash,
+          "#215"          => :times,
+          "gt"            => :gt,
+          "lt"            => :lt,
+          "(#8482|trade)" => :trade,
+          "(#174|reg)"    => :reg,
+          "(#169|copy)"   => :copy,
+          "(#38|amp)"     => :amp,
+          "nbsp"          => :nbsp,
+          "(#162|cent)"   => :cent,
+          "(#163|pound)"  => :pound,
+          "(#188|frac14)" => :frac14,
+          "(#189|frac12)" => :frac12,
+          "(#190|frac34)" => :frac34,
+          "(#247|divide)" => :divide,
+          "(#176|deg)"    => :deg
+        }.each do |textiled, key|
+          normal = stringex_translate_html_entitity(key)
           dummy.gsub!(/&#{textiled};/, normal)
         end
         dummy.gsub(/&[^;]+;/, "").strip
@@ -275,6 +300,10 @@ module Stringex
 
       def stringex_translate_character(key)
         Localization.translate(:characters, key, :default => DEFAULT_CHARACTER_CONVERSIONS[key])
+      end
+
+      def stringex_translate_html_entitity(key)
+        Localization.translate(:html_entities, key, :default => DEFAULT_HTML_ENTITY_CONVERSIONS[key])
       end
     end
 
