@@ -11,7 +11,7 @@ module Stringex
       attr_accessor :backend
 
       def backend
-        @backend ||= defined?(I18n) ? :i18n : :self
+        @backend ||= defined?(I18n) ? :i18n : :internal
       end
 
       def store_translations(locale, scope, data)

@@ -9,7 +9,7 @@ class LocalizationTest < Test::Unit::TestCase
   end
 
   def test_stores_translations
-    Stringex::Localization.backend = :self
+    Stringex::Localization.backend = :internal
 
     data = { :one => "number one", :two => "number two" }
     Stringex::Localization.store_translations :en, :test_store, data
@@ -20,7 +20,7 @@ class LocalizationTest < Test::Unit::TestCase
   end
 
   def test_converts_translation_keys_to_symbols
-    Stringex::Localization.backend = :self
+    Stringex::Localization.backend = :internal
 
     data = { "one" => "number one", "two" => "number two" }
     Stringex::Localization.store_translations :en, :test_convert, data
@@ -31,7 +31,7 @@ class LocalizationTest < Test::Unit::TestCase
   end
 
   def test_can_translate
-    Stringex::Localization.backend = :self
+    Stringex::Localization.backend = :internal
 
     data = { :one => "number one", :two => "number two" }
     Stringex::Localization.store_translations :en, :test_translate, data
@@ -42,7 +42,7 @@ class LocalizationTest < Test::Unit::TestCase
   end
 
   def test_can_translate_when_given_string_as_key
-    Stringex::Localization.backend = :self
+    Stringex::Localization.backend = :internal
 
     data = { :one => "number one", :two => "number two" }
     Stringex::Localization.store_translations :en, :test_translate, data
@@ -53,17 +53,17 @@ class LocalizationTest < Test::Unit::TestCase
   end
 
   def test_returns_default_if_none_found
-    Stringex::Localization.backend = :self
+    Stringex::Localization.backend = :internal
     assert_equal "my default", Stringex::Localization.translate(:test_default, :nonexistent, :default => "my default")
   end
 
   def test_returns_nil_if_no_default
-    Stringex::Localization.backend = :self
+    Stringex::Localization.backend = :internal
     assert_nil Stringex::Localization.translate(:test_no_default, :nonexistent)
   end
 
   def test_falls_back_to_default_locale
-    Stringex::Localization.backend = :self
+    Stringex::Localization.backend = :internal
     Stringex::Localization.default_locale = :es
     Stringex::Localization.locale = :da
 
