@@ -1,14 +1,12 @@
 module Stringex
   module Localization
     class << self
-      attr_accessor :translations
+      attr_writer :translations, :backend
 
       def translations
         # Set up hash like translations[:en][:transliterations]["é"]
         @translations ||= Hash.new { |k, v| k[v] = Hash.new({}) }
       end
-
-      attr_accessor :backend
 
       def backend
         @backend ||= defined?(I18n) ? :i18n : :internal
@@ -32,7 +30,7 @@ module Stringex
         else
           translated = translations[locale][scope][key.to_sym]
         end
-        
+
         if !translated.to_s.empty?
           translated
         elsif locale != default_locale
