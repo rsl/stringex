@@ -5,7 +5,6 @@ require 'stringex/localization'
 require 'stringex/string_extensions'
 require 'stringex/unidecoder'
 require 'stringex/acts_as_url'
-require 'stringex/deprecated_localization'
 
 String.send :include, Stringex::StringExtensions::PublicInstanceMethods
 String.send :extend, Stringex::StringExtensions::PublicClassMethods
