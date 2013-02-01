@@ -25,15 +25,11 @@ module Stringex
 
         locale = options[:locale] || self.locale
 
-        if backend == :i18n
-          translated = I18n.translate(key, :scope => [:stringex, scope], :locale => locale, :default => "")
-        else
-          translated = translations[locale][scope][key.to_sym]
-        end
+        translation = initial_translation(scope, key, locale)
 
-        if !translated.to_s.empty?
-          translated
-        elsif locale != default_locale
+        return translation unless translation.to_s.empty?
+
+        if locale != default_locale
           translate(scope, key, options.merge(:locale => default_locale))
         else
           options[:default]
@@ -78,6 +74,16 @@ module Stringex
 
       def with_default_locale(&block)
         with_locale default_locale, &block
+      end
+
+    private
+
+      def initial_translation(scope, key, locale)
+        if backend == :i18n
+          I18n.translate(key, :scope => [:stringex, scope], :locale => locale, :default => "")
+        else
+          translations[locale][scope][key.to_sym]
+        end
       end
     end
   end
