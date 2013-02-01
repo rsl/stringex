@@ -221,8 +221,6 @@ Gem::Specification.new do |s|
     "test/unicode_point_suite/basic_latin_test.rb",
     "test/unicode_point_suite/codepoint_test_helper.rb",
     "test/unidecoder/localization.yml",
-    "test/unidecoder_localization_alias_test.rb",
-    "test/unidecoder_localization_test.rb",
     "test/unidecoder_test.rb"
   ]
   s.homepage = "http://github.com/rsl/stringex"
