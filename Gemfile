@@ -12,4 +12,5 @@ group :development do
   gem "RedCloth", "4.2.9" # Can I state that I really dislike camelcased gem names?
   gem "sqlite3", "1.3.6"
   gem "travis-lint", "1.4.0"
+  gem "i18n", "0.6.1"
 end

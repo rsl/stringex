@@ -194,6 +194,25 @@ class StringExtensionsTest < Test::Unit::TestCase
     end
   end
 
+  def test_localized_vulgar_fractions_conversion
+    Stringex::Localization.backend = :internal
+    Stringex::Localization.store_translations :de, :vulgar_fractions, {
+      :one_fourth => "en fjerdedel",
+      :half => "en halv"
+    }
+    Stringex::Localization.locale = :de
+
+    {
+      "&frac14;" => "en fjerdedel",
+      "½" => "en halv"
+    }.each do |entitied, plain|
+      assert_equal plain, entitied.convert_vulgar_fractions
+    end
+
+  ensure
+    Stringex::Localization.translations = nil
+  end
+
   def test_convert_miscellaneous_html_entities
     {
       "America&#8482;" => "America(tm)",
@@ -205,6 +224,27 @@ class StringExtensionsTest < Test::Unit::TestCase
     }.each do |entitied, plain|
       assert_equal plain, entitied.convert_miscellaneous_html_entities
     end
+  end
+
+  def test_localized_html_entities_conversion
+    Stringex::Localization.backend = :internal
+    Stringex::Localization.store_translations :de, :html_entities, {
+      :amp => "und",
+      :ellipsis => " prik prik prik",
+      :frac14 => "en fjerdedel"
+    }
+    Stringex::Localization.locale = :de
+
+    {
+      "Tea &amp; Sympathy" => "Tea und Sympathy",
+      "To be continued&#8230;" => "To be continued prik prik prik",
+      "Det var til &frac14; af prisen" => "Det var til en fjerdedel af prisen"
+    }.each do |entitied, plain|
+      assert_equal plain, entitied.convert_miscellaneous_html_entities
+    end
+
+  ensure
+    Stringex::Localization.translations = nil
   end
 
   def test_convert_smart_punctuation
@@ -232,19 +272,23 @@ class StringExtensionsTest < Test::Unit::TestCase
     end
   end
 
-  def test_custom_conversions
-    custom =
-    {
-      :and => "und",
+  def test_localized_character_conversions
+    Stringex::Localization.backend = :internal
+    Stringex::Localization.store_translations :de, :characters, {
+      "and" => "und",
       :percent => "procent"
     }
+    Stringex::Localization.locale = :de
 
     {
       "ich & dich" => "ich und dich",
       "det var 100% godt" => "det var 100 procent godt"
     }.each do |misc, plain|
-      assert_equal plain, misc.convert_miscellaneous_characters(:conversions => custom)
+      assert_equal plain, misc.convert_miscellaneous_characters
     end
+    
+  ensure
+    Stringex::Localization.translations = nil
   end
 
   def test_replace_whitespace

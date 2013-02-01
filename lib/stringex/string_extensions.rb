@@ -2,6 +2,70 @@
 
 module Stringex
   module StringExtensions
+    DEFAULT_CHARACTER_CONVERSIONS = 
+      {
+        :and           => "and",
+        :number        => "number",
+        :at            => "at",
+        :dot           => '\1 dot \2',
+        :dollars       => '\2 dollars',
+        :dollars_cents => '\2 dollars \3 cents',
+        :pounds        => '\2 pounds',
+        :pounds_pence  => '\2 pounds \3 pence',
+        :yen           => '\2 yen',
+        :star          => "star",
+        :percent       => "percent",
+        :equals        => " equals ",
+        :plus          => "plus",
+        :divide        => "divide",
+        :degrees       => "degrees",
+        :ellipsis      => " dot dot dot ",
+        :slash         => "slash"
+      }
+
+    DEFAULT_HTML_ENTITY_CONVERSIONS =
+      {
+        :double_quote => "\"",
+        :single_quote => "'",
+        :ellipsis     => "...",
+        :en_dash      => "-",
+        :em_dash      => "--",
+        :times        => "x",
+        :gt           => ">",
+        :lt           => "<",
+        :trade        => "(tm)",
+        :reg          => "(r)",
+        :copy         => "(c)",
+        :amp          => "and",
+        :nbsp         => " ",
+        :cent         => " cent",
+        :pound        => " pound",
+        :frac14       => "one fourth",
+        :frac12       => "half",
+        :frac34       => "three fourths",
+        :divide       => "divide",
+        :deg          => " degrees "
+      }
+
+    DEFAULT_VULGAR_FRACTION_CONVERSIONS =
+      {
+        :one_fourth    => "one fourth",
+        :half          => "half",
+        :three_fourths => "three fourths",
+        :one_third     => "one third",
+        :two_thirds    => "two thirds",
+        :one_fifth     => "one fifth",
+        :two_fifths    => "two fifths",
+        :three_fifths  => "three fifths",
+        :four_fifths   => "four fifths",
+        :one_sixth     => "one sixth",
+        :five_sixths   => "five sixths",
+        :one_eighth    => "one eighth",
+        :three_eighths => "three eighths",
+        :five_eighths  => "five eighths",
+        :seven_eighths => "seven eighths"
+      }
+
     # These methods are all included into the String class.
     module PublicInstanceMethods
       # Removes specified character from the beginning and/or end of the string and then performs
@@ -39,11 +103,12 @@ module Stringex
       #   "100%".convert_misc_characters # => "100 percent"
       #   "windows/mac/linux".convert_misc_characters # => "windows slash mac slash linux"
       #
-      # It allows custom conversions so you can use it to convert characters into your own language.
-      # Examples:
+      # It allows localization of conversions so you can use it to convert characters into your own language.
+      # Example:
       #
-      #   "ich & dich".convert_misc_characters(:conversions => { :and => "und" }) # => "ich und dich"
-      #   "det var 100% godt".convert_misc_characters(:conversions => { :percent => "procent" }) # => "det var 100 procent godt"
+      #   I18n.backend.store_translations :de, { :stringex => { :characters => { :and => "und" } } }
+      #   I18n.locale = :de
+      #   "ich & dich".convert_misc_characters # => "ich und dich"
       #
       # Note: Because this method will convert any & symbols to the string "and",
       # you should run any methods which convert HTML entities (convert_accented_html_entities and convert_miscellaneous_html_entities)
@@ -51,34 +116,13 @@ module Stringex
       def convert_miscellaneous_characters(options = {})
         options = stringex_default_options.merge(options)
 
-        conversions =
-        {
-          :and => "and",
-          :number => "number",
-          :at => "at",
-          :dot => '\1 dot \2',
-          :dollars => '\2 dollars',
-          :dollars_cents => '\2 dollars \3 cents',
-          :pounds => '\2 pounds',
-          :pounds_pence => '\2 pounds \3 pence',
-          :yen => '\2 yen',
-          :star => "star",
-          :percent => "percent",
-          :equals => " equals ",
-          :plus => "plus",
-          :divide => "divide",
-          :degrees => "degrees",
-          :ellipsis => " dot dot dot ",
-          :slash => "slash"
-        }
-        conversions.merge!(options[:conversions]) if options[:conversions]
-
-        dummy = dup.gsub(/\.{3,}/, conversions[:ellipsis]) # Catch ellipses before single dot rule!
+        dummy = dup.gsub(/\.{3,}/, stringex_translate_character(:ellipsis)) # Catch ellipses before single dot rule!
         # Special rules for money
         {
-          /(\s|^)\$(\d+)\.(\d+)(\s|$)/ => conversions[:dollars_cents],
-          /(\s|^)£(\d+)\.(\d+)(\s|$)/u => conversions[:pounds_pence],
-        }.each do |found, replaced|
+          /(\s|^)\$(\d+)\.(\d+)(\s|$)/ => :dollars_cents,
+          /(\s|^)£(\d+)\.(\d+)(\s|$)/u => :pounds_pence,
+        }.each do |found, key|
+          replaced = stringex_translate_character(key)
           replaced = " #{replaced} " unless replaced =~ /\\1/
           dummy.gsub!(found, replaced)
         end
@@ -90,22 +134,23 @@ module Stringex
 
         misc_characters =
         {
-          /\s*&\s*/ => conversions[:and],
-          /\s*#/ => conversions[:number],
-          /\s*@\s*/ => conversions[:at],
-          /(\S|^)\.(\S)/ => conversions[:dot],
-          /(\s|^)\$(\d*)(\s|$)/ => conversions[:dollars],
-          /(\s|^)£(\d*)(\s|$)/u => conversions[:pounds],
-          /(\s|^)¥(\d*)(\s|$)/u => conversions[:yen],
-          /\s*\*\s*/ => conversions[:star],
-          /\s*%\s*/ => conversions[:percent],
-          /(\s*=\s*)/ => conversions[:equals],
-          /\s*\+\s*/ => conversions[:plus],
-          /\s*÷\s*/ => conversions[:divide],
-          /\s*°\s*/ => conversions[:degrees]
+          /\s*&\s*/             => :and,
+          /\s*#/                => :number,
+          /\s*@\s*/             => :at,
+          /(\S|^)\.(\S)/        => :dot,
+          /(\s|^)\$(\d*)(\s|$)/ => :dollars,
+          /(\s|^)£(\d*)(\s|$)/u => :pounds,
+          /(\s|^)¥(\d*)(\s|$)/u => :yen,
+          /\s*\*\s*/            => :star,
+          /\s*%\s*/             => :percent,
+          /(\s*=\s*)/           => :equals,
+          /\s*\+\s*/            => :plus,
+          /\s*÷\s*/             => :divide,
+          /\s*°\s*/             => :degrees
         }
-        misc_characters[/\s*(\\|\/|／)\s*/] = conversions[:slash] unless options[:allow_slash]
-        misc_characters.each do |found, replaced|
+        misc_characters[/\s*(\\|\/|／)\s*/] = :slash unless options[:allow_slash]
+        misc_characters.each do |found, key|
+          replaced = stringex_translate_character(key)
           replaced = " #{replaced} " unless replaced =~ /\\1/
           dummy.gsub!(found, replaced)
         end
@@ -119,27 +164,28 @@ module Stringex
       def convert_miscellaneous_html_entities
         dummy = dup
         {
-          "#822[01]" => "\"",
-          "#821[67]" => "'",
-          "#8230" => "...",
-          "#8211" => "-",
-          "#8212" => "--",
-          "#215" => "x",
-          "gt" => ">",
-          "lt" => "<",
-          "(#8482|trade)" => "(tm)",
-          "(#174|reg)" => "(r)",
-          "(#169|copy)" => "(c)",
-          "(#38|amp)" => "and",
-          "nbsp" => " ",
-          "(#162|cent)" => " cent",
-          "(#163|pound)" => " pound",
-          "(#188|frac14)" => "one fourth",
-          "(#189|frac12)" => "half",
-          "(#190|frac34)" => "three fourths",
-          "(#247|divide)" => "divide",
-          "(#176|deg)" => " degrees "
-        }.each do |textiled, normal|
+          "#822[01]"      => :double_quote,
+          "#821[67]"      => :single_quote,
+          "#8230"         => :ellipsis,
+          "#8211"         => :en_dash,
+          "#8212"         => :em_dash,
+          "#215"          => :times,
+          "gt"            => :gt,
+          "lt"            => :lt,
+          "(#8482|trade)" => :trade,
+          "(#174|reg)"    => :reg,
+          "(#169|copy)"   => :copy,
+          "(#38|amp)"     => :amp,
+          "nbsp"          => :nbsp,
+          "(#162|cent)"   => :cent,
+          "(#163|pound)"  => :pound,
+          "(#188|frac14)" => :frac14,
+          "(#189|frac12)" => :frac12,
+          "(#190|frac34)" => :frac34,
+          "(#247|divide)" => :divide,
+          "(#176|deg)"    => :deg
+        }.each do |textiled, key|
+          normal = stringex_translate_html_entitity(key)
           dummy.gsub!(/&#{textiled};/, normal)
         end
         dummy.gsub(/&[^;]+;/, "").strip
@@ -164,22 +210,23 @@ module Stringex
       def convert_vulgar_fractions
         dummy = dup
         {
-          "(&#188;|&frac14;|¼)" => "one fourth",
-          "(&#189;|&frac12;|½)" => "half",
-          "(&#190;|&frac34;|¾)" => "three fourths",
-          "(&#8531;|⅓)" => "one third",
-          "(&#8532;|⅔)" => "two thirds",
-          "(&#8533;|⅕)" => "one fifth",
-          "(&#8534;|⅖)" => "two fifths",
-          "(&#8535;|⅗)" => "three fifths",
-          "(&#8536;|⅘)" => "four fifths",
-          "(&#8537;|⅙)" => "one sixth",
-          "(&#8538;|⅚)" => "five sixths",
-          "(&#8539;|⅛)" => "one eighth",
-          "(&#8540;|⅜)" => "three eighths",
-          "(&#8541;|⅝)" => "five eighths",
-          "(&#8542;|⅞)" => "seven eighths"
-        }.each do |textiled, normal|
+          "(&#188;|&frac14;|¼)" => :one_fourth,
+          "(&#189;|&frac12;|½)" => :half,
+          "(&#190;|&frac34;|¾)" => :three_fourths,
+          "(&#8531;|⅓)"         => :one_third,
+          "(&#8532;|⅔)"         => :two_thirds,
+          "(&#8533;|⅕)"         => :one_fifth,
+          "(&#8534;|⅖)"         => :two_fifths,
+          "(&#8535;|⅗)"         => :three_fifths,
+          "(&#8536;|⅘)"         => :four_fifths,
+          "(&#8537;|⅙)"         => :one_sixth,
+          "(&#8538;|⅚)"         => :five_sixths,
+          "(&#8539;|⅛)"         => :one_eighth,
+          "(&#8540;|⅜)"         => :three_eighths,
+          "(&#8541;|⅝)"         => :five_eighths,
+          "(&#8542;|⅞)"         => :seven_eighths
+        }.each do |textiled, key|
+          normal = stringex_translate_vulgar_fraction(key)
           dummy.gsub!(/#{textiled}/, normal)
         end
         dummy
@@ -269,6 +316,18 @@ module Stringex
 
       def stringex_default_options
         Stringex::Configuration::StringExtensions.default_settings
+      end
+
+      def stringex_translate_character(key)
+        Localization.translate(:characters, key, :default => DEFAULT_CHARACTER_CONVERSIONS[key])
+      end
+
+      def stringex_translate_html_entitity(key)
+        Localization.translate(:html_entities, key, :default => DEFAULT_HTML_ENTITY_CONVERSIONS[key])
+      end
+
+      def stringex_translate_vulgar_fraction(key)
+        Localization.translate(:vulgar_fractions, key, :default => DEFAULT_VULGAR_FRACTION_CONVERSIONS[key])
       end
     end
 

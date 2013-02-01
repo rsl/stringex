@@ -5,7 +5,7 @@ require "stringex"
 class UnidecoderLocalizationTest < Test::Unit::TestCase
   def setup
     # Just unsetting what might have been set last in previous test. Nothing magical.
-    Stringex::Unidecoder.default_locale = "en"
+    Stringex::Unidecoder.default_locale = :en
   end
 
   # NOTE: Localization tests go though String#to_ascii
@@ -62,13 +62,13 @@ class UnidecoderLocalizationTest < Test::Unit::TestCase
   end
 
   def test_default_locale
-    assert_equal "en", Stringex::Unidecoder.default_locale
+    assert_equal :en, Stringex::Unidecoder.default_locale
   end
 
   def test_default_locale_equals
-    Stringex::Unidecoder.default_locale = "xx"
-    assert_equal "xx", Stringex::Unidecoder.default_locale
-    assert_equal "xx", Stringex::Unidecoder.locale
+    Stringex::Unidecoder.default_locale = :xx
+    assert_equal :xx, Stringex::Unidecoder.default_locale
+    assert_equal :xx, Stringex::Unidecoder.locale
   end
 
   def test_localization_locale_change_block_method
