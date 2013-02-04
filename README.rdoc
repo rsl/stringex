@@ -94,7 +94,7 @@ A collection of extensions on Ruby's String class. Please see the documentation 
 
 == Localization
 
-You can localize the different conversions in Stringex. Read more here[https://github.com/rsl/stringex/wiki/Localization-of-Stringex-conversions]
+From Stringex version 2.0 and ahead: You can localize the different conversions in Stringex. Read more here[https://github.com/rsl/stringex/wiki/Localization-of-Stringex-conversions]
 
 == Note to users of CanCan
 
