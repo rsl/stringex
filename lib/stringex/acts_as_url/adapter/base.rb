@@ -56,7 +56,7 @@ module Stringex
 
         def add_new_record_url_owner_conditions
           return if is_new?(instance)
-          @url_owner_conditions.first << " and id != ?"
+          @url_owner_conditions.first << " and #{instance.class.primary_key} != ?"
           @url_owner_conditions << instance.id
         end
 
