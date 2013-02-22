@@ -37,4 +37,14 @@ class ActsAsUrlConfigurationTest < Test::Unit::TestCase
       assert_equal acts_as_url_settings.settings.send(key), string_extensions_settings.settings.send(key)
     end
   end
+
+  def test_accepts_base_settings_for_string_extensions
+    string_extensions_settings = Stringex::Configuration::StringExtensions.new.default_settings    
+
+    Stringex::ActsAsUrl.configure do |c|
+      string_extensions_settings.keys.each do |key|
+        assert_respond_to c, "#{key}="
+      end
+    end
+  end
 end
