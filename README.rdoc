@@ -94,7 +94,7 @@ A collection of extensions on Ruby's String class. Please see the documentation 
 
 == Using with Rails
 
-When using Stringex with Ruby on Rails, you get automatically get built-in translations for miscellaneous characters, HTML entities, and vulgar fractions.
+When using Stringex with Ruby on Rails, you automatically get built-in translations for miscellaneous characters, HTML entities, and vulgar fractions.
 
 You can see Stringex's standard translations here: TODO: Insert link to the +locales+ folder.
 
