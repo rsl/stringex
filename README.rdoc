@@ -92,6 +92,21 @@ In both the YAML and pure Hash implementation, the end result should be a Hash w
 
 A collection of extensions on Ruby's String class. Please see the documentation for StringExtensions module for more information. There's not much to explain about them really.
 
+== Using with Rails
+
+When using Stringex with Ruby on Rails, you get automatically get built-in translations for miscellaneous characters, HTML entities, and vulgar fractions.
+
+You can see Stringex's standard translations here: TODO: Insert link to the +locales+ folder.
+
+Currently, built-in translations are available for the following languages:
+English (en), Danish (da)
+
+You can easily add your own or customize the built-in translations - read here[https://github.com/rsl/stringex/wiki/Localization-of-Stringex-conversions]. If you add a new language, please submit a pull request so we can make it available to other users also.
+
+If you don't want to use the Stringex built-in translations, you can force Stringex to use English (or another language), regardless what is in your +I18n.locale+. In an initializer, e.g. +config/initializers/stringex.rb+:
+
+  Stringex::Localization.locale = :en
+
 == Note to users of CanCan
 
 You'll need to add a <tt>:find_by => :url</tt> to your <tt>load_and_authorize_resource</tt>.  Here's an example:
