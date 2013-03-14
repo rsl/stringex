@@ -1,0 +1,64 @@
+da:
+  stringex:
+    characters:
+      and: og
+      number: nummer
+      at: snabel-a
+      dot: \1 punktum \2
+      dollars: \2 dollars
+      dollars_cents: \2 dollars \3 cents
+      pounds: \2 pund
+      pounds_pence: \2 pund \3 pence
+      yen: \2 yen
+      star: stjerne
+      percent: procent
+      equals: lig med
+      plus: plus
+      divide: divideret med
+      degrees: grader
+      ellipsis: prik prik prik
+      slash: skråstreg
+    html_entities:
+      double_quote: "\""
+      single_quote: "'"
+      ellipsis: "..."
+      en_dash: "-"
+      em_dash: "--"
+      times: x
+      gt: >
+      lt: <
+      trade: (tm)
+      reg: (r)
+      copy: (c)
+      amp: and
+      nbsp: " "
+      cent: cent
+      pound: pund
+      frac14: en fjerdedel
+      frac12: halv
+      frac34: tre fjerdedele
+      divide: divideret med
+      deg: grader
+    vulgar_fractions:
+      one_fourth: en fjerdedel
+      half: halv
+      three_fourths: tre fjerdedele
+      one_third: en tredjedel
+      two_thirds: to tredjedele
+      one_fifth: en femtedel
+      two_fifths: to femtedele
+      three_fifths: tre femtedele
+      four_fifths: fire femtedele
+      one_sixth: en sjettedel
+      five_sixths: fem sjettedele
+      one_eighth: en ottendedel
+      three_eighths: tre ottendedele
+      five_eighths: fem ottendedele
+      seven_eighths: syv ottendedele
+    transliterations:
+      Æ: AE
+      Ø: OE
+      Å: AA
+      æ: ae
+      ø: oe
+      å: aa
