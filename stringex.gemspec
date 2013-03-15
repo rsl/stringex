@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
     "lib/stringex/configuration.rb",
     "lib/stringex/configuration/acts_as_url.rb",
     "lib/stringex/configuration/string_extensions.rb",
+    "lib/stringex/rails/railtie.rb",
     "lib/stringex/string_extensions.rb",
     "lib/stringex/unidecoder.rb",
     "lib/stringex/unidecoder_data/x00.yml",
@@ -222,7 +223,7 @@ Gem::Specification.new do |s|
     "test/unicode_point_suite/codepoint_test_helper.rb",
     "test/unidecoder/localization.yml",
     "test/unidecoder_test.rb"
-  ]
+  ] + Dir.glob("locales/*")
   s.homepage = "http://github.com/rsl/stringex"
   s.rdoc_options = ["--main", "README.rdoc", "--charset", "utf-8", "--line-numbers"]
   s.require_paths = ["lib"]

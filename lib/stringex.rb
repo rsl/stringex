@@ -10,3 +10,7 @@ String.send :include, Stringex::StringExtensions::PublicInstanceMethods
 String.send :extend, Stringex::StringExtensions::PublicClassMethods
 
 Stringex::ActsAsUrl::Adapter.load_available
+
+if defined?(Rails)
+  require 'stringex/rails/railtie'
+end

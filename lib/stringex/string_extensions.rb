@@ -8,18 +8,20 @@ module Stringex
         :number        => "number",
         :at            => "at",
         :dot           => '\1 dot \2',
-        :dollars       => '\2 dollars',
-        :dollars_cents => '\2 dollars \3 cents',
-        :pounds        => '\2 pounds',
-        :pounds_pence  => '\2 pounds \3 pence',
-        :yen           => '\2 yen',
+        :dollars       => '\1 dollars',
+        :dollars_cents => '\1 dollars \2 cents',
+        :pounds        => '\1 pounds',
+        :pounds_pence  => '\1 pounds \2 pence',
+        :euros         => '\1 euros',
+        :euros_cents   => '\1 euros \2 cents',
+        :yen           => '\1 yen',
         :star          => "star",
         :percent       => "percent",
-        :equals        => " equals ",
+        :equals        => "equals",
         :plus          => "plus",
         :divide        => "divide",
         :degrees       => "degrees",
-        :ellipsis      => " dot dot dot ",
+        :ellipsis      => "dot dot dot",
         :slash         => "slash"
       }
 
@@ -116,15 +118,15 @@ module Stringex
       def convert_miscellaneous_characters(options = {})
         options = stringex_default_options.merge(options)
 
-        dummy = dup.gsub(/\.{3,}/, stringex_translate_character(:ellipsis)) # Catch ellipses before single dot rule!
+        dummy = dup.gsub(/\s*\.{3,}\s*/, " #{stringex_translate_character(:ellipsis)} ") # Catch ellipses before single dot rule!
         # Special rules for money
         {
-          /(\s|^)\$(\d+)\.(\d+)(\s|$)/ => :dollars_cents,
-          /(\s|^)£(\d+)\.(\d+)(\s|$)/u => :pounds_pence,
+          /(?:\s|^)\$(\d+)\.(\d+)(?:\s|$)/ => :dollars_cents,
+          /(?:\s|^)£(\d+)\.(\d+)(?:\s|$)/u => :pounds_pence,
+          /(?:\s|^)€(\d+)\.(\d+)(?:\s|$)/u => :euros_cents,
         }.each do |found, key|
           replaced = stringex_translate_character(key)
-          replaced = " #{replaced} " unless replaced =~ /\\1/
-          dummy.gsub!(found, replaced)
+          dummy.gsub!(found, " #{replaced} ")
         end
         # Special rules for abbreviations
         dummy.gsub!(/(\s|^)([[:alpha:]](\.[[:alpha:]])+(\.?)[[:alpha:]]*(\s|$))/) do |x|
@@ -134,24 +136,25 @@ module Stringex
 
         misc_characters =
         {
-          /\s*&\s*/             => :and,
-          /\s*#/                => :number,
-          /\s*@\s*/             => :at,
-          /(\S|^)\.(\S)/        => :dot,
-          /(\s|^)\$(\d*)(\s|$)/ => :dollars,
-          /(\s|^)£(\d*)(\s|$)/u => :pounds,
-          /(\s|^)¥(\d*)(\s|$)/u => :yen,
-          /\s*\*\s*/            => :star,
-          /\s*%\s*/             => :percent,
-          /(\s*=\s*)/           => :equals,
-          /\s*\+\s*/            => :plus,
-          /\s*÷\s*/             => :divide,
-          /\s*°\s*/             => :degrees
+          /\s*&\s*/                 => :and,
+          /\s*#/                    => :number,
+          /\s*@\s*/                 => :at,
+          /(\S|^)\.(\S)/            => :dot,
+          /(?:\s|^)\$(\d*)(?:\s|$)/ => :dollars,
+          /(?:\s|^)£(\d*)(?:\s|$)/u => :pounds,
+          /(?:\s|^)€(\d*)(?:\s|$)/u => :euros,
+          /(?:\s|^)¥(\d*)(?:\s|$)/u => :yen,
+          /\s*\*\s*/                => :star,
+          /\s*%\s*/                 => :percent,
+          /\s*=\s*/                 => :equals,
+          /\s*\+\s*/                => :plus,
+          /\s*÷\s*/                 => :divide,
+          /\s*°\s*/                 => :degrees
         }
         misc_characters[/\s*(\\|\/|／)\s*/] = :slash unless options[:allow_slash]
         misc_characters.each do |found, key|
           replaced = stringex_translate_character(key)
-          replaced = " #{replaced} " unless replaced =~ /\\1/
+          replaced = " #{replaced} " unless key == :dot
           dummy.gsub!(found, replaced)
         end
         dummy = dummy.gsub(/(^|[[:alpha:]])'|`([[:alpha:]]|$)/, '\1\2').gsub(/[\.,:;()\[\]\/\?!\^'ʼ"_\|]/, " ").strip
