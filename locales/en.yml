@@ -9,6 +9,8 @@ en:
       dollars_cents: \1 dollars \2 cents
       pounds: \1 pounds
       pounds_pence: \1 pounds \2 pence
+      euros: \1 euros
+      euros_cents: \1 euros \2 cents
       yen: \1 yen
       star: star
       percent: percent
