@@ -99,4 +99,17 @@ class UnidecoderTest < Test::Unit::TestCase
       assert_equal output, Stringex::Unidecoder.in_yaml_file(character)
     end
   end
+
+  def test_transliterate_danish_characters
+    {
+      "æ" => "ae",
+      "ø" => "oe",
+      "å" => "aa",
+      "Æ" => "AE",
+      "Ø" => "OE",
+      "Å" => "AA",
+    }.each do |character, output|
+      assert_equal output, Stringex::Unidecoder.decode(character)
+    end
+  end
 end
