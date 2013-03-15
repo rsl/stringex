@@ -12,6 +12,8 @@ module Stringex
         :dollars_cents => '\1 dollars \2 cents',
         :pounds        => '\1 pounds',
         :pounds_pence  => '\1 pounds \2 pence',
+        :euros         => '\1 euros',
+        :euros_cents   => '\1 euros \2 cents',
         :yen           => '\1 yen',
         :star          => "star",
         :percent       => "percent",
@@ -121,6 +123,7 @@ module Stringex
         {
           /(?:\s|^)\$(\d+)\.(\d+)(?:\s|$)/ => :dollars_cents,
           /(?:\s|^)£(\d+)\.(\d+)(?:\s|$)/u => :pounds_pence,
+          /(?:\s|^)€(\d+)\.(\d+)(?:\s|$)/u => :euros_cents,
         }.each do |found, key|
           replaced = stringex_translate_character(key)
           dummy.gsub!(found, " #{replaced} ")
@@ -139,6 +142,7 @@ module Stringex
           /(\S|^)\.(\S)/            => :dot,
           /(?:\s|^)\$(\d*)(?:\s|$)/ => :dollars,
           /(?:\s|^)£(\d*)(?:\s|$)/u => :pounds,
+          /(?:\s|^)€(\d*)(?:\s|$)/u => :euros,
           /(?:\s|^)¥(\d*)(?:\s|$)/u => :yen,
           /\s*\*\s*/                => :star,
           /\s*%\s*/                 => :percent,
