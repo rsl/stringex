@@ -266,7 +266,10 @@ class StringExtensionsTest < Test::Unit::TestCase
       "Kisses are $3.25 each" => "Kisses are 3 dollars 25 cents each",
       "That CD is £3.25 plus tax" => "That CD is 3 pounds 25 pence plus tax",
       "This CD is ¥1000 instead" => "This CD is 1000 yen instead",
-      "Food+Drink" => "Food plus Drink"
+      "Food+Drink" => "Food plus Drink",
+      "this & that #2 @ bla.bla for $3" => "this and that number 2 at bla dot bla for 3 dollars",
+      "three + four ÷ 40 ° fahrenheit... end" => "three plus four divide 40 degrees fahrenheit dot dot dot end",
+      "£4 but ¥5 * 100% = two" => "4 pounds but 5 yen star 100 percent equals two"
     }.each do |misc, plain|
       assert_equal plain, misc.convert_miscellaneous_characters
     end

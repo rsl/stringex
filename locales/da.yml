@@ -5,11 +5,11 @@ da:
       number: nummer
       at: snabel-a
       dot: \1 punktum \2
-      dollars: \2 dollars
-      dollars_cents: \2 dollars \3 cents
-      pounds: \2 pund
-      pounds_pence: \2 pund \3 pence
-      yen: \2 yen
+      dollars: \1 dollars
+      dollars_cents: \1 dollars \2 cents
+      pounds: \1 pund
+      pounds_pence: \1 pund \2 pence
+      yen: \1 yen
       star: stjerne
       percent: procent
       equals: lig med

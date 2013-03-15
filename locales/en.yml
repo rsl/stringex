@@ -5,11 +5,11 @@ en:
       number: number
       at: at
       dot: \1 dot \2
-      dollars: \2 dollars
-      dollars_cents: \2 dollars \3 cents
-      pounds: \2 pounds
-      pounds_pence: \2 pounds \3 pence
-      yen: \2 yen
+      dollars: \1 dollars
+      dollars_cents: \1 dollars \2 cents
+      pounds: \1 pounds
+      pounds_pence: \1 pounds \2 pence
+      yen: \1 yen
       star: star
       percent: percent
       equals: equals
