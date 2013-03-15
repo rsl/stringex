@@ -5,8 +5,6 @@ module Stringex
         if options[:scope]
           options[:scope_for_url] = options.delete(:scope)
         end
-        options = Stringex::Configuration::StringExtensions.new.default_settings.merge(options)
-
         super
       end
 
@@ -43,7 +41,7 @@ module Stringex
           :scope_for_url => nil,
           :sync_url => false,
           :url_attribute => "url",
-        }
+        }.merge(Stringex::Configuration::StringExtensions.new.default_settings)
       end
     end
   end

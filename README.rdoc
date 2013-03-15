@@ -92,6 +92,10 @@ In both the YAML and pure Hash implementation, the end result should be a Hash w
 
 A collection of extensions on Ruby's String class. Please see the documentation for StringExtensions module for more information. There's not much to explain about them really.
 
+== Localization
+
+From Stringex version 2.0 and ahead: You can localize the different conversions in Stringex. Read more here[https://github.com/rsl/stringex/wiki/Localization-of-Stringex-conversions]
+
 == Using with Rails
 
 When using Stringex with Ruby on Rails, you automatically get built-in translations for miscellaneous characters, HTML entities, and vulgar fractions.
