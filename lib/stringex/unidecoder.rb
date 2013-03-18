@@ -46,7 +46,7 @@ module Stringex
       end
 
     private
-    
+
       def translate(codepoint)
         Localization.translate(:transliterations, codepoint)
       end
@@ -60,7 +60,6 @@ module Stringex
       def grouped_point(unpacked_character)
         unpacked_character & 255
       end
-
     end
   end
 end
