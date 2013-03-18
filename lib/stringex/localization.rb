@@ -1,5 +1,11 @@
+# encoding: UTF-8
+
+require 'stringex/localization/default_conversions'
+
 module Stringex
   module Localization
+    include DefaultConversions
+
     class << self
       attr_writer :translations, :backend
 
@@ -30,9 +36,9 @@ module Stringex
         return translation unless translation.to_s.empty?
 
         if locale != default_locale
-          translate(scope, key, options.merge(:locale => default_locale))
+          translate scope, key, options.merge(:locale => default_locale)
         else
-          options[:default]
+          default_conversion(scope, key) || options[:default]
         end
       end
 
@@ -88,6 +94,11 @@ module Stringex
         else
           translations[locale][scope][key.to_sym]
         end
+      end
+
+      def default_conversion(scope, key)
+        return unless Stringex::Localization::DefaultConversions.respond_to?(scope)
+        Stringex::Localization::DefaultConversions.send(scope)[key]
       end
     end
   end
