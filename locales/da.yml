@@ -1,6 +1,8 @@
-# Please read https://github.com/rsl/stringex/wiki/Localization-of-Stringex-conversions
-# before attempting to edit the following translations in order to correctly use
-# the regular expression matches as necessary.
+# NOTE: Some translation keys make use of matches from regular expressions
+# to manipulate whitespace and order. Please consult the source code for
+# StringExtensions#convert_miscellaneous_characters to see what those
+# regular expressions look like if you need to manipulate the order
+# differently than the usage below.
 da:
   stringex:
     characters:
