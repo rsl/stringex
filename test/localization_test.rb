@@ -1,11 +1,8 @@
 require "test_helper"
 
 class LocalizationTest < Test::Unit::TestCase
-  def teardown
-    Stringex::Localization.translations = nil
-    Stringex::Localization.backend = nil
-    Stringex::Localization.default_locale = :en
-    Stringex::Localization.locale = :en
+  def setup
+    Stringex::Localization.reset!
   end
 
   def test_stores_translations

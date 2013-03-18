@@ -76,6 +76,10 @@ module Stringex
         with_locale default_locale, &block
       end
 
+      def reset!
+        @backend = @translations = @locale = @default_locale = nil
+      end
+
     private
 
       def initial_translation(scope, key, locale)

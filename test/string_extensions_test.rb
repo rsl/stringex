@@ -7,6 +7,10 @@ if RUBY_VERSION.to_f < 1.9
 end
 
 class StringExtensionsTest < Test::Unit::TestCase
+  def setup
+    Stringex::Localization.reset!
+  end
+
   def test_to_html
     require "rubygems"
     require "RedCloth"
@@ -208,9 +212,6 @@ class StringExtensionsTest < Test::Unit::TestCase
     }.each do |entitied, plain|
       assert_equal plain, entitied.convert_vulgar_fractions
     end
-
-  ensure
-    Stringex::Localization.translations = nil
   end
 
   def test_convert_miscellaneous_html_entities
@@ -242,9 +243,6 @@ class StringExtensionsTest < Test::Unit::TestCase
     }.each do |entitied, plain|
       assert_equal plain, entitied.convert_miscellaneous_html_entities
     end
-
-  ensure
-    Stringex::Localization.translations = nil
   end
 
   def test_convert_smart_punctuation
@@ -290,9 +288,6 @@ class StringExtensionsTest < Test::Unit::TestCase
     }.each do |misc, plain|
       assert_equal plain, misc.convert_miscellaneous_characters
     end
-    
-  ensure
-    Stringex::Localization.translations = nil
   end
 
   def test_replace_whitespace
