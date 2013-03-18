@@ -11,35 +11,6 @@ class StringExtensionsTest < Test::Unit::TestCase
     Stringex::Localization.reset!
   end
 
-  def test_to_html
-    require "rubygems"
-    require "RedCloth"
-    {
-      "h1. A Solution" => "<h1>A Solution</h1>",
-      "I hated wrapping textilize around a string.\n\nIt always felt dirty." =>
-        "<p>I hated wrapping textilize around a string.</p>\n<p>It always felt dirty.</p>",
-      "I think _this_ is awesome" => "<p>I think <em>this</em> is awesome</p>",
-      "Um... _*really*_, man" => "<p>Um&#8230; <em><strong>really</strong></em>, man</p>"
-    }.each do |plain, html|
-      assert_equal html, plain.to_html
-    end
-  rescue LoadError
-    puts "\n>> Could not load RedCloth. String#to_html was not tested.\n>> Please gem install RedCloth if you'd like to use this functionality."
-  end
-
-  def test_to_html_lite
-    require "rubygems"
-    require "RedCloth"
-    {
-      "I have no pee on me" => "I have no pee on me",
-      "But I _do_ get Textile!" => "But I <em>do</em> get Textile!"
-    }.each do |plain, html|
-      assert_equal html, plain.to_html(:lite)
-    end
-  rescue LoadError
-    puts "\n>> Could not load RedCloth. String#to_html (with :lite argument) was not tested.\n>> Please gem install RedCloth if you'd like to use this functionality."
-  end
-
   def test_to_url
     {
       "<p>This has 100% too much    <em>formatting</em></p>" =>
