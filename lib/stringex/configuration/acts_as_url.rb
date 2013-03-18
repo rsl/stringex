@@ -24,10 +24,6 @@ module Stringex
 
     private
 
-      # def default_settings
-      #   Stringex::Configuration::StringExtensions.new.default_settings.merge(default_settings)
-      # end
-
       def default_settings
         self.class.default_settings
       end
