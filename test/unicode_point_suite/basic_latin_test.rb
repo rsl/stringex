@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 require "test/unit"
 require "stringex"
 require File.join(File.expand_path(File.dirname(__FILE__)), "codepoint_test_helper.rb")

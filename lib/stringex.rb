@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 require 'ostruct'
 require 'stringex/configuration'
 require 'stringex/localization'

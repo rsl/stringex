@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 require 'test_helper'
 require 'stringex'
 
@@ -39,7 +40,7 @@ class ActsAsUrlConfigurationTest < Test::Unit::TestCase
   end
 
   def test_accepts_base_settings_for_string_extensions
-    string_extensions_settings = Stringex::Configuration::StringExtensions.new.default_settings    
+    string_extensions_settings = Stringex::Configuration::StringExtensions.new.default_settings
 
     Stringex::ActsAsUrl.configure do |c|
       string_extensions_settings.keys.each do |key|

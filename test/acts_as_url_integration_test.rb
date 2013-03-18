@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 require 'test_helper'
 
 adapter = ENV['ADAPTER'] || 'active_record'
