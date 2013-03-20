@@ -53,31 +53,40 @@ module Stringex
         options = stringex_default_options.merge(options)
 
         dummy = dup.gsub(/\s*\.{3,}\s*/, " #{stringex_translate_character(:ellipsis)} ") # Catch ellipses before single dot rule!
+
         # Special rules for money
+        # Complex currency first
         {
           /(?:\s|^)\$(\d+)\.(\d+)(?:\s|$)/ => :dollars_cents,
           /(?:\s|^)£(\d+)\.(\d+)(?:\s|$)/u => :pounds_pence,
           /(?:\s|^)€(\d+)\.(\d+)(?:\s|$)/u => :euros_cents,
         }.each do |found, key|
-          replaced = stringex_translate_character(key)
+          replaced = stringex_translate_currency(key)
           dummy.gsub!(found, " #{replaced} ")
         end
+        # Simple currency last
+        {
+          /(?:\s|^)\$(\d*)(?:\s|$)/ => :dollars,
+          /(?:\s|^)£(\d*)(?:\s|$)/u => :pounds,
+          /(?:\s|^)€(\d*)(?:\s|$)/u => :euros,
+          /(?:\s|^)¥(\d*)(?:\s|$)/u => :yen,
+        }.each do |found, key|
+          replaced = stringex_translate_currency(key)
+          dummy.gsub!(found, " #{replaced} ")
+        end
+
         # Special rules for abbreviations
         dummy.gsub!(/(\s|^)([[:alpha:]](\.[[:alpha:]])+(\.?)[[:alpha:]]*(\s|$))/) do |x|
           x.gsub(".", "")
         end
-        # Back to normal rules
 
+        # Back to normal rules
         misc_characters =
         {
           /\s*&\s*/                 => :and,
           /\s*#/                    => :number,
           /\s*@\s*/                 => :at,
           /(\S|^)\.(\S)/            => :dot,
-          /(?:\s|^)\$(\d*)(?:\s|$)/ => :dollars,
-          /(?:\s|^)£(\d*)(?:\s|$)/u => :pounds,
-          /(?:\s|^)€(\d*)(?:\s|$)/u => :euros,
-          /(?:\s|^)¥(\d*)(?:\s|$)/u => :yen,
           /\s*\*\s*/                => :star,
           /\s*%\s*/                 => :percent,
           /\s*=\s*/                 => :equals,
@@ -257,6 +266,10 @@ module Stringex
 
       def stringex_translate_character(key)
         Localization.translate(:characters, key)
+      end
+
+      def stringex_translate_currency(key)
+        Localization.translate(:currencies, key)
       end
 
       def stringex_translate_html_entity(key)
