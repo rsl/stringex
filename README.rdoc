@@ -1,4 +1,4 @@
-= Stringex
+= Stringex {<img src="https://codeclimate.com/github/rsl/stringex.png" />}[https://codeclimate.com/github/rsl/stringex]
 
 Some [hopefully] useful extensions to Ruby's String class. It is made up of three libraries: ActsAsUrl, Unidecoder, and StringExtensions.
 
