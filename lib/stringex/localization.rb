@@ -87,7 +87,7 @@ module Stringex
       end
 
       def currencies_supported_regex
-        Regexp.new DefaultConversions::CURRENCIES_SUPPORTED.join('|')
+        Regexp.new DefaultConversions::CURRENCIES_SUPPORTED.map{|x| Regexp.escape(x)}.join('|')
       end
 
     private
