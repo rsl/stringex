@@ -1,6 +1,7 @@
 # encoding: UTF-8
 
 require 'test_helper'
+require 'stringex'
 
 class DefaultLocalizationTest < Test::Unit::TestCase
   def setup
