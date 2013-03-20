@@ -86,6 +86,10 @@ module Stringex
         @backend = @translations = @locale = @default_locale = nil
       end
 
+      def currencies_supported_regex
+        Regexp.new DefaultConversions::CURRENCIES_SUPPORTED.join('|')
+      end
+
     private
 
       def initial_translation(scope, key, locale)
@@ -97,8 +101,8 @@ module Stringex
       end
 
       def default_conversion(scope, key)
-        return unless Stringex::Localization::DefaultConversions.respond_to?(scope)
-        Stringex::Localization::DefaultConversions.send(scope)[key]
+        return unless DefaultConversions.respond_to?(scope)
+        DefaultConversions.send(scope)[key]
       end
     end
   end

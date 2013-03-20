@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module Stringex
   module Localization
     module DefaultConversions
@@ -25,6 +27,8 @@ module Stringex
         :pounds_pence  => '\1 pounds \2 pence',
         :yen           => '\1 yen',
       }
+
+      CURRENCIES_SUPPORTED = %w{$ £ € ¥}
 
       HTML_ENTITIES = {
         :amp          => "and",
