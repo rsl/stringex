@@ -1,6 +1,4 @@
 require "test_helper"
-require 'stringex'
-require 'i18n'
 
 class LocalizationTest < Test::Unit::TestCase
   def setup
