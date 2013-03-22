@@ -15,7 +15,7 @@ module Stringex
         :degrees       => /\s*°\s*/,
         :divide        => /\s*÷\s*/,
         :dot           => /(\S|^)\.(\S)/,
-        :ellipsis      => /\s*\.{3,}\s*/,
+        :ellipsis      => /\s*\.{3,}|\s*/,
         :equals        => /\s*=\s*/,
         :number        => /\s*#/,
         :percent       => /\s*%\s*/,
@@ -42,7 +42,7 @@ module Stringex
       CURRENCIES_SUPPORTED = Regexp.new(CURRENCIES_SUPPORTED_SIMPLE.values.join('|'))
       CURRENCIES_SIMPLE = CURRENCIES_SUPPORTED_SIMPLE.inject({}) do |hash, content|
         key, expression = content
-        hash[key] = /(?:\s|^)#{expression}(\d*)(?:\s|$)/u
+        hash[key] = /(?:\s|^)#{expression}(\d*)(?:\s|$)/
         hash
       end
       CURRENCIES_COMPLEX = CURRENCIES_SUPPORTED_SIMPLE.inject({}) do |hash, content|
@@ -50,7 +50,7 @@ module Stringex
         # Do we really need to not worry about complex currencies if there are none for the currency?
         complex_key = CURRENCIES_SUPPORTED_COMPLEX[key]
         if complex_key
-          hash[complex_key] = /(?:\s|^)#{expression}(\d+)\.(\d+)(?:\s|$)/u
+          hash[complex_key] = /(?:\s|^)#{expression}(\d+)\.(\d+)(?:\s|$)/
         end
         hash
       end
