@@ -7,9 +7,18 @@ da:
   stringex:
     characters:
       and: og
-      number: nummer
       at: snabel-a
+      divide: divideret med
+      degrees: grader
       dot: \1 punktum \2
+      ellipsis: prik prik prik
+      equals: lig med
+      number: nummer
+      percent: procent
+      plus: plus
+      slash: skråstreg
+      star: stjerne
+    currencies:
       dollars: \1 dollars
       dollars_cents: \1 dollars \2 cents
       pounds: \1 pund
@@ -17,41 +26,34 @@ da:
       euros: \1 euro
       euros_cents: \1 euro \2 cent
       yen: \1 yen
-      star: stjerne
-      percent: procent
-      equals: lig med
-      plus: plus
-      divide: divideret med
-      degrees: grader
-      ellipsis: prik prik prik
-      slash: skråstreg
     html_entities:
-      double_quote: "\""
-      single_quote: "'"
+      amp: and
+      cent: cent
+      copy: (c)
+      deg: grader
+      divide: divideret med
+      double_quote: '"'
       ellipsis: "..."
       en_dash: "-"
       em_dash: "--"
-      times: x
-      gt: >
-      lt: <
-      trade: (tm)
-      reg: (r)
-      copy: (c)
-      amp: and
-      nbsp: " "
-      cent: cent
-      pound: pund
       frac14: en fjerdedel
       frac12: halv
       frac34: tre fjerdedele
-      divide: divideret med
-      deg: grader
+      gt: >
+      lt: <
+      nbsp: " "
+      pound: pund
+      reg: (r)
+      single_quote: "'"
+      times: x
+      trade: (tm)
+      yen: yen
     vulgar_fractions:
-      one_fourth: en fjerdedel
       half: halv
-      three_fourths: tre fjerdedele
       one_third: en tredjedel
       two_thirds: to tredjedele
+      one_fourth: en fjerdedel
+      three_fourths: tre fjerdedele
       one_fifth: en femtedel
       two_fifths: to femtedele
       three_fifths: tre femtedele
