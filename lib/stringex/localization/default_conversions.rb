@@ -7,7 +7,7 @@ module Stringex
         :and           => "and",
         :at            => "at",
         :degrees       => "degrees",
-        :divide        => "divide",
+        :divide        => "divided by",
         :dot           => '\1 dot \2',
         :ellipsis      => "dot dot dot",
         :equals        => "equals",
@@ -36,7 +36,7 @@ module Stringex
         :cent         => " cents",
         :copy         => "(c)",
         :deg          => " degrees ",
-        :divide       => "divide",
+        :divide       => " divided by ",
         :double_quote => '"',
         :ellipsis     => "...",
         :en_dash      => "-",
@@ -47,12 +47,12 @@ module Stringex
         :gt           => ">",
         :lt           => "<",
         :nbsp         => " ",
-        :pound        => " pounds",
+        :pound        => " pounds ",
         :reg          => "(r)",
         :single_quote => "'",
         :times        => "x",
         :trade        => "(tm)",
-        :yen          => " yen"
+        :yen          => " yen "
       }
 
       TRANSLITERATIONS = {}

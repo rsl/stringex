@@ -66,7 +66,7 @@ module Stringex
           :double_quote => %w{#34 #822[012] quot ldquo rdquo dbquo},
           :ellipsis     => %w{#8230 hellip},
           :en_dash      => %w{#8211 ndash},
-          :em_dash      => %w{#8212 emdash},
+          :em_dash      => %w{#8212 mdash},
           :frac14       => %w{#188 frac14},
           :frac12       => %w{#189 frac12},
           :frac34       => %w{#190 frac34},

@@ -94,6 +94,7 @@ module Stringex
         expressions.html_entities.each do |key, expression|
           string.gsub! expression, translate(key, :html_entities)
         end
+        string.squeeze! ' '
       end
 
       def vulgar_fractions
