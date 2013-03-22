@@ -15,7 +15,7 @@ module Stringex
         :degrees       => /\s*°\s*/,
         :divide        => /\s*÷\s*/,
         :dot           => /(\S|^)\.(\S)/,
-        :ellipsis      => /\s*\.{3,}|\s*/,
+        :ellipsis      => /\s*\.{3,}\s*/,
         :equals        => /\s*=\s*/,
         :number        => /\s*#/,
         :percent       => /\s*%\s*/,
