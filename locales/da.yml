@@ -1,6 +1,6 @@
 # NOTE: Some translation keys make use of matches from regular expressions
 # to manipulate whitespace and order. Please consult the source code for
-# StringExtensions#convert_miscellaneous_characters to see what those
+# Stringex::Localization::ConversionExpressions to see what those
 # regular expressions look like if you need to manipulate the order
 # differently than the usage below.
 da:
