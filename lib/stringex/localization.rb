@@ -1,5 +1,6 @@
 # encoding: UTF-8
 
+require 'stringex/localization/converter'
 require 'stringex/localization/default_conversions'
 
 module Stringex
@@ -86,8 +87,11 @@ module Stringex
         @backend = @translations = @locale = @default_locale = nil
       end
 
-      def currencies_supported_regex
-        Regexp.new DefaultConversions::CURRENCIES_SUPPORTED.map{|x| Regexp.escape(x)}.join('|')
+      def convert(string, options = {}, &block)
+        converter = Converter.new(string)
+        converter.instance_exec &block
+        converter.smart_strip!
+        converter.string
       end
 
     private

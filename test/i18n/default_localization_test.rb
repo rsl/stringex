@@ -6,7 +6,6 @@ require 'stringex'
 class DefaultLocalizationTest < Test::Unit::TestCase
   def setup
     Stringex::Localization.reset!
-
     Stringex::Localization.backend = :internal
   end
 
@@ -23,7 +22,11 @@ class DefaultLocalizationTest < Test::Unit::TestCase
       "Food+Drink" => "Food plus Drink",
       "this & that #2 @ bla.bla for $3" => "this and that number 2 at bla dot bla for 3 dollars",
       "three + four ÷ 40 ° fahrenheit... end" => "three plus four divide 40 degrees fahrenheit dot dot dot end",
-      "£4 but ¥5 * 100% = two" => "4 pounds but 5 yen star 100 percent equals two"
+      "£4 but ¥5 * 100% = two" => "4 pounds but 5 yen star 100 percent equals two",
+      "N.A.S.A. is cool" => "NASA is cool",
+      "That's not fair" => "Thats not fair",
+      "That`s not fair either" => "Thats not fair either",
+      " whitespace maintained " => " whitespace maintained ",
     }.each do |misc, plain|
       assert_equal plain, misc.convert_miscellaneous_characters
     end
@@ -35,8 +38,9 @@ class DefaultLocalizationTest < Test::Unit::TestCase
       "Tea &amp; Sympathy" => "Tea and Sympathy",
       "To be continued&#8230;" => "To be continued...",
       "Foo&nbsp;Bar" => "Foo Bar",
-      "100&#163;" => "100 pound",
-      "35&deg;" => "35 degrees"
+      "100&#163;" => "100 pounds",
+      "35&deg;" => "35 degrees",
+      " whitespace maintained " => " whitespace maintained ",
     }.each do |entitied, plain|
       assert_equal plain, entitied.convert_miscellaneous_html_entities
     end

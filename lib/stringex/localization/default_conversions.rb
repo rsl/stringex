@@ -18,17 +18,18 @@ module Stringex
         :star          => "star",
       }
 
-      CURRENCIES = {
+      CURRENCIES_SIMPLE = {
         :dollars       => '\1 dollars',
-        :dollars_cents => '\1 dollars \2 cents',
         :euros         => '\1 euros',
-        :euros_cents   => '\1 euros \2 cents',
         :pounds        => '\1 pounds',
-        :pounds_pence  => '\1 pounds \2 pence',
         :yen           => '\1 yen',
       }
-
-      CURRENCIES_SUPPORTED = %w{$ £ € ¥}
+      CURRENCIES_COMPLEX = {
+        :dollars_cents => '\1 dollars \2 cents',
+        :euros_cents   => '\1 euros \2 cents',
+        :pounds_pence  => '\1 pounds \2 pence',
+      }
+      CURRENCIES = CURRENCIES_SIMPLE.merge(CURRENCIES_COMPLEX)
 
       HTML_ENTITIES = {
         :amp          => "and",
@@ -36,7 +37,7 @@ module Stringex
         :copy         => "(c)",
         :deg          => " degrees ",
         :divide       => "divide",
-        :double_quote => "\"",
+        :double_quote => '"',
         :ellipsis     => "...",
         :en_dash      => "-",
         :em_dash      => "--",
@@ -46,21 +47,23 @@ module Stringex
         :gt           => ">",
         :lt           => "<",
         :nbsp         => " ",
-        :pound        => " pound",
+        :pound        => " pounds",
         :reg          => "(r)",
         :single_quote => "'",
         :times        => "x",
         :trade        => "(tm)",
+        :yen          => " yen"
       }
 
       TRANSLITERATIONS = {}
 
+      # Ordered by denominator then numerator of the value
       VULGAR_FRACTIONS = {
-        :one_fourth    => "one fourth",
         :half          => "half",
-        :three_fourths => "three fourths",
         :one_third     => "one third",
         :two_thirds    => "two thirds",
+        :one_fourth    => "one fourth",
+        :three_fourths => "three fourths",
         :one_fifth     => "one fifth",
         :two_fifths    => "two fifths",
         :three_fifths  => "three fifths",
