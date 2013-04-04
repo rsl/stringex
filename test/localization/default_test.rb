@@ -111,44 +111,4 @@ class DefaultLocalizationTest < Test::Unit::TestCase
       assert_equal converted, original.convert_vulgar_fractions
     end
   end
-
-  def test_convert_vulgar_fractions
-    {
-      "&frac14;" => "one fourth",
-      "¼" => "one fourth",
-      "&#188;" => "one fourth",
-      "&frac12;" => "half",
-      "½" => "half",
-      "&#189;" => "half",
-      "&frac34;" => "three fourths",
-      "¾" => "three fourths",
-      "&#190;" => "three fourths",
-      "⅓" => "one third",
-      "&#8531;" => "one third",
-      "⅔" => "two thirds",
-      "&#8532;" => "two thirds",
-      "⅕" => "one fifth",
-      "&#8533;" => "one fifth",
-      "⅖" => "two fifths",
-      "&#8534;" => "two fifths",
-      "⅗" => "three fifths",
-      "&#8535;" => "three fifths",
-      "⅘" => "four fifths",
-      "&#8536;" => "four fifths",
-      "⅙" => "one sixth",
-      "&#8537;" => "one sixth",
-      "⅚" => "five sixths",
-      "&#8538;" => "five sixths",
-      "⅛" => "one eighth",
-      "&#8539;" => "one eighth",
-      "⅜" => "three eighths",
-      "&#8540;" => "three eighths",
-      "⅝" => "five eighths",
-      "&#8541;" => "five eighths",
-      "⅞" => "seven eighths",
-      "&#8542;" => "seven eighths"
-    }.each do |entitied, plain|
-      assert_equal plain, entitied.convert_vulgar_fractions
-    end
-  end
 end
