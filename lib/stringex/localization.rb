@@ -7,6 +7,8 @@ module Stringex
   module Localization
     include DefaultConversions
 
+    I18N_LOAD_PATH_BASE = File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', 'locales')
+
     class << self
       attr_writer :translations, :backend
 
@@ -92,6 +94,11 @@ module Stringex
         converter.instance_exec &block
         converter.smart_strip!
         converter.string
+      end
+
+      def load_i18n_yaml(locale = nil)
+        locale ||= I18n.locale
+        I18n.load_path << Dir[File.join(I18N_LOAD_PATH_BASE, "#{locale}.yml")]
       end
 
     private

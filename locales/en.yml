@@ -8,7 +8,7 @@ en:
     characters:
       and: and
       at: at
-      divide: divide
+      divide: divided by
       degrees: degrees
       dot: \1 dot \2
       ellipsis: dot dot dot
@@ -28,10 +28,10 @@ en:
       yen: \1 yen
     html_entities:
       amp: and
-      cent: cents
+      cent: " cents"
       copy: (c)
-      deg: degrees
-      divide: divide
+      deg: " degrees "
+      divide: " divided by "
       double_quote: '"'
       ellipsis: "..."
       en_dash: "-"
@@ -42,12 +42,12 @@ en:
       gt: >
       lt: <
       nbsp: " "
-      pound: pounds
+      pound: " pounds "
       reg: (r)
       single_quote: "'"
       times: x
       trade: (tm)
-      yen: yen
+      yen: " yen "
     vulgar_fractions:
       half: half
       one_third: one third
