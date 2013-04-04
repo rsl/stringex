@@ -28,10 +28,10 @@ da:
       yen: \1 yen
     html_entities:
       amp: and
-      cent: cent
+      cent: " cents"
       copy: (c)
-      deg: grader
-      divide: divideret med
+      deg: " grader "
+      divide: " divideret med "
       double_quote: '"'
       ellipsis: "..."
       en_dash: "-"
@@ -42,12 +42,12 @@ da:
       gt: >
       lt: <
       nbsp: " "
-      pound: pund
+      pound: " pund "
       reg: (r)
       single_quote: "'"
       times: x
       trade: (tm)
-      yen: yen
+      yen: " yen "
     vulgar_fractions:
       half: halv
       one_third: en tredjedel
