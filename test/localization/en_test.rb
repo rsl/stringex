@@ -3,13 +3,13 @@
 require 'test_helper'
 require 'i18n'
 require 'stringex'
+Stringex::Localization.load_i18n_yaml :en
 
 class EnglishYAMLLocalizationTest < Test::Unit::TestCase
   def setup
     Stringex::Localization.reset!
     Stringex::Localization.backend = :i18n
     I18n.locale = :en
-    Stringex::Localization.load_i18n_yaml :en
   end
 
   {
