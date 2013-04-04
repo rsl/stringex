@@ -99,6 +99,7 @@ module Stringex
       def load_i18n_yaml(locale = nil)
         locale ||= I18n.locale
         I18n.load_path << Dir[File.join(I18N_LOAD_PATH_BASE, "#{locale}.yml")]
+        I18n.backend.load_translations
       end
 
     private
