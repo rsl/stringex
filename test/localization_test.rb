@@ -75,11 +75,14 @@ class LocalizationTest < Test::Unit::TestCase
   end
 
   def test_with_locale
+    Stringex::Localization.backend = :internal
     Stringex::Localization.locale = :fr
     assert_equal :fr, Stringex::Localization.locale
+    locale_set_in_block = nil
     Stringex::Localization.with_locale :da do
-      assert_equal :da, Stringex::Localization.locale
+      locale_set_in_block = Stringex::Localization.locale
     end
+    assert_equal :da, locale_set_in_block
     assert_equal :fr, Stringex::Localization.locale
   end
 
