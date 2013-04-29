@@ -5,8 +5,6 @@ module Stringex
         DEFAULT_LOCALE = :en
 
         class << self
-          attr_writer :translations
-
           def locale
             @locale || default_locale
           end
