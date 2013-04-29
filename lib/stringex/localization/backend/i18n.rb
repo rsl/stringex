@@ -30,7 +30,10 @@ module Stringex
           end
 
           def initial_translation(scope, key, locale)
-            ::I18n.translate(key, :scope => [:stringex, scope], :locale => locale, :default => "")
+            # I18n can't return a nil as default as this gets interpreted as if no default
+            # is specified, so we use a string instead.
+            translated = ::I18n.translate(key, :scope => [:stringex, scope], :locale => locale, :default => "__default__")
+            translated == "__default__" ? nil : translated
           end
 
           def load_translations(locale = nil)

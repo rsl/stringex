@@ -39,7 +39,7 @@ en:
       frac14: one fourth
       frac12: half
       frac34: three fourths
-      gt: >
+      gt: ">"
       lt: <
       nbsp: " "
       pound: " pounds "

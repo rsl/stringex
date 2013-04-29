@@ -39,7 +39,7 @@ da:
       frac14: en fjerdedel
       frac12: halv
       frac34: tre fjerdedele
-      gt: >
+      gt: ">"
       lt: <
       nbsp: " "
       pound: " pund "
