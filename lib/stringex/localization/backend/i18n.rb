@@ -35,7 +35,8 @@ module Stringex
 
           def load_translations(locale = nil)
             locale ||= ::I18n.locale
-            ::I18n.load_path << Dir[File.join(LOAD_PATH_BASE, "#{locale}.yml")]
+            path = Dir[File.join(LOAD_PATH_BASE, "#{locale}.yml")]
+            ::I18n.load_path |= Dir[File.join(LOAD_PATH_BASE, "#{locale}.yml")]
             ::I18n.backend.load_translations
           end
 
