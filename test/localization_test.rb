@@ -74,6 +74,15 @@ class LocalizationTest < Test::Unit::TestCase
     end
   end
 
+  def test_with_locale
+    Stringex::Localization.locale = :fr
+    assert_equal :fr, Stringex::Localization.locale
+    Stringex::Localization.with_locale :da do
+      assert_equal :da, Stringex::Localization.locale
+    end
+    assert_equal :fr, Stringex::Localization.locale
+  end
+
   def test_stores_translations_in_i18n
     Stringex::Localization.backend = :i18n
 
