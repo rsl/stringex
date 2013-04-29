@@ -2,31 +2,32 @@
 
 require 'stringex/localization/converter'
 require 'stringex/localization/default_conversions'
+require 'stringex/localization/backend/internal'
+require 'stringex/localization/backend/i18n'
 
 module Stringex
   module Localization
     include DefaultConversions
 
-    I18N_LOAD_PATH_BASE = File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', 'locales')
-
     class << self
-      attr_writer :translations, :backend
-
-      def translations
-        # Set up hash like translations[:en][:transliterations]["é"]
-        @translations ||= Hash.new { |k, v| k[v] = Hash.new({}) }
+      def backend
+        @backend ||= defined?(I18n) ? Backend::I18n : Backend::Internal
       end
 
-      def backend
-        @backend ||= defined?(I18n) ? :i18n : :internal
+      def backend=(sym_or_class)
+        if sym_or_class.is_a?(Symbol)
+          @backend = case sym_or_class
+            when :internal then Backend::Internal
+            when :i18n then Backend::I18n
+            else raise "Invalid backend :#{sym_or_class}"
+          end
+        else
+          @backend = sym_or_class
+        end
       end
 
       def store_translations(locale, scope, data)
-        if backend == :i18n
-          I18n.backend.store_translations(locale, { :stringex => { scope => data } })
-        else
-          self.translations[locale.to_sym][scope.to_sym] = Hash[data.map { |k, v| [k.to_sym, v] }] # Symbolize keys
-        end
+        backend.store_translations(locale, scope, data)
       end
 
       def translate(scope, key, options = {})
@@ -46,39 +47,24 @@ module Stringex
       end
 
       def locale
-        if @locale
-          @locale
-        elsif defined?(I18n)
-          I18n.locale
-        else
-          default_locale
-        end
+        backend.locale
       end
 
       def locale=(new_locale)
-        @locale = new_locale.to_sym
+        backend.locale = new_locale
       end
 
       def default_locale
-        if @default_locale
-          @default_locale
-        elsif defined?(I18n)
-          I18n.default_locale
-        else
-          :en
-        end
+        backend.default_locale
       end
 
       def default_locale=(new_locale)
-        @default_locale = @locale = new_locale.to_sym
+        backend.default_locale = new_locale
       end
 
       def with_locale(new_locale, &block)
         new_locale = default_locale if new_locale == :default
-        original_locale = locale
-        self.locale = new_locale
-        block.call
-        self.locale = original_locale
+        backend.with_locale new_locale, &block
       end
 
       def with_default_locale(&block)
@@ -86,7 +72,8 @@ module Stringex
       end
 
       def reset!
-        @backend = @translations = @locale = @default_locale = nil
+        backend.reset!
+        @backend = nil
       end
 
       def convert(string, options = {}, &block)
@@ -96,20 +83,10 @@ module Stringex
         converter.string
       end
 
-      def load_i18n_yaml(locale = nil)
-        locale ||= I18n.locale
-        I18n.load_path << Dir[File.join(I18N_LOAD_PATH_BASE, "#{locale}.yml")]
-        I18n.backend.load_translations
-      end
-
     private
 
       def initial_translation(scope, key, locale)
-        if backend == :i18n
-          I18n.translate(key, :scope => [:stringex, scope], :locale => locale, :default => "")
-        else
-          translations[locale][scope][key.to_sym]
-        end
+        backend.initial_translation(scope, key, locale)
       end
 
       def default_conversion(scope, key)
