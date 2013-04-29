@@ -14,7 +14,7 @@ class LocalizationTest < Test::Unit::TestCase
     Stringex::Localization.store_translations :en, :test_store, data
 
     data.each do |key, value|
-      assert_equal value, Stringex::Localization.translations[:en][:test_store][key]
+      assert_equal value, Stringex::Localization.translate(:test_store, key)
     end
   end
 
@@ -25,7 +25,8 @@ class LocalizationTest < Test::Unit::TestCase
     Stringex::Localization.store_translations :en, :test_convert, data
 
     data.each do |key, value|
-      assert_equal value, Stringex::Localization.translations[:en][:test_convert][key.to_sym]
+      assert_equal value, Stringex::Localization.translate(:test_convert, key)
+      assert_equal value, Stringex::Localization.translate(:test_convert, key.to_sym)
     end
   end
 
