@@ -109,4 +109,15 @@ class LocalizationTest < Test::Unit::TestCase
       assert_equal value, Stringex::Localization.translate(:test_i18n_translation, key)
     end
   end
+
+  def test_allows_blank_translations
+    [:internal, :i18n].each do |backend|
+      Stringex::Localization.backend = backend
+
+      assert_equal "Test blank", "Test&nbsp;blank".convert_miscellaneous_html_entities
+
+      Stringex::Localization.store_translations :en, :html_entities, { :nbsp => "" }
+      assert_equal "Testblank", "Test&nbsp;blank".convert_miscellaneous_html_entities
+    end
+  end
 end

@@ -37,7 +37,7 @@ module Stringex
 
         translation = initial_translation(scope, key, locale)
 
-        return translation unless translation.to_s.empty?
+        return translation unless translation.nil?
 
         if locale != default_locale
           translate scope, key, options.merge(:locale => default_locale)
