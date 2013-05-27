@@ -12,6 +12,6 @@ String.send :extend, Stringex::StringExtensions::PublicClassMethods
 
 Stringex::ActsAsUrl::Adapter.load_available
 
-if defined?(Rails)
+if defined?(Rails::Railtie)
   require 'stringex/rails/railtie'
 end
