@@ -99,7 +99,7 @@ With Stringex version 2.0 and higher, you can localize the different conversions
 
 When using Stringex with Ruby on Rails, you automatically get built-in translations for miscellaneous characters, HTML entities, and vulgar fractions.
 
-You can see Stringex's standard translations here[https://github.com/rsl/stringex/locales].
+You can see Stringex's standard translations here[https://github.com/rsl/stringex/tree/master/locales].
 
 Currently, built-in translations are available for the following languages:
 English (en), Danish (da)
