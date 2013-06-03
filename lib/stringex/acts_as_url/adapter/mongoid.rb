@@ -15,8 +15,9 @@ module Stringex
         end
 
         def add_scoped_url_owner_conditions
-          return unless settings.scope_for_url
-          @url_owner_conditions.merge! settings.scope_for_url => instance.send(settings.scope_for_url)
+          [settings.scope_for_url].flatten.compact.each do |scope|
+            @url_owner_conditions.merge! scope => instance.send(scope)
+          end
         end
 
         def get_base_url_owner_conditions

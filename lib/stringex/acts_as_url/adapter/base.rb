@@ -56,14 +56,15 @@ module Stringex
 
         def add_new_record_url_owner_conditions
           return if is_new?(instance)
-          @url_owner_conditions.first << " and #{instance.class.primary_key} != ?"
+          @url_owner_conditions.first << " and #{primary_key} != ?"
           @url_owner_conditions << instance.id
         end
 
         def add_scoped_url_owner_conditions
-          return unless settings.scope_for_url
-          @url_owner_conditions.first << " and #{settings.scope_for_url} = ?"
-          @url_owner_conditions << instance.send(settings.scope_for_url)
+          [settings.scope_for_url].flatten.compact.each do |scope|
+            @url_owner_conditions.first << " and #{scope} = ?"
+            @url_owner_conditions << instance.send(scope)
+          end
         end
 
         def create_callback
@@ -143,6 +144,10 @@ module Stringex
 
         def orm_class
           self.class.orm_class
+        end
+
+        def primary_key
+          instance.class.primary_key
         end
 
         def read_attribute(instance, attribute)

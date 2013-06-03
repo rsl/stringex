@@ -22,21 +22,23 @@ DataMapper.setup :default, 'sqlite::memory:'
 DefineTestClasses = proc do
   class Document
     include DataMapper::Resource
-    property :id,    Serial
-    property :title, String
-    property :other, String
-    property :url,   String, :lazy => false
+    property :id,      Serial
+    property :title,   String
+    property :other,   String
+    property :another, String
+    property :url,     String, :lazy => false
 
     acts_as_url :title
   end
 
   class STIBaseDocument
     include DataMapper::Resource
-    property :id,    Serial
-    property :title, String
-    property :other, String
-    property :url,   String, :lazy => false
-    property :type,  String
+    property :id,      Serial
+    property :title,   String
+    property :other,   String
+    property :another, String
+    property :url,     String, :lazy => false
+    property :type,    String
 
     # This gets redefined in the only test that uses it but I want to be uniform
     # in setting configuration details in the tests themselves

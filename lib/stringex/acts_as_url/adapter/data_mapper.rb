@@ -42,6 +42,10 @@ module Stringex
           klass.all(:conditions => {settings.url_attribute => nil}).each(&block)
         end
 
+        def primary_key
+          instance.class.key.first.instance_variable_get '@name'
+        end
+
         def read_attribute(instance, attribute)
           instance.attributes[attribute]
         end

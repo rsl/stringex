@@ -15,19 +15,21 @@ end
 
 class Document
   include Mongoid::Document
-  field :title, :type => String
-  field :other, :type => String
-  field :url,   :type => String
+  field :title,   :type => String
+  field :other,   :type => String
+  field :another, :type => String
+  field :url,     :type => String
 
   acts_as_url :title
 end
 
 class STIBaseDocument
   include Mongoid::Document
-  field :title, :type => String
-  field :other, :type => String
-  field :url,   :type => String
-  field :type,  :type => String
+  field :title,   :type => String
+  field :other,   :type => String
+  field :another, :type => String
+  field :url,     :type => String
+  field :type,    :type => String
 
   # This gets redefined in the only test that uses it but I want to be uniform
   # in setting configuration details in the tests themselves

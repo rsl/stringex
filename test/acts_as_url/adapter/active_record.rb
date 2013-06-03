@@ -14,11 +14,11 @@ ActiveRecord::Base.establish_connection :adapter => "sqlite3", :database => ":me
 ActiveRecord::Migration.verbose = false
 ActiveRecord::Schema.define do
   create_table :documents, :force => true do |t|
-    t.string :title, :other, :url
+    t.string :title, :other, :another, :url
   end
 
   create_table :sti_base_documents, :force => true do |t|
-    t.string :title, :other, :url, :type
+    t.string :title, :other, :another, :url, :type
   end
 end
 ActiveRecord::Migration.verbose = true
