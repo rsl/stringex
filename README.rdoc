@@ -27,7 +27,6 @@ which will populate the <tt>url</tt> attribute on the object with the converted 
                              be guaranteed to lookup the expected record based on a duplicate slug.</em>
 <tt>:limit</tt>:: If set, will limit length of url generated. Default is nil.
 
-
 In order to use the generated url attribute, you will probably want to override <tt>to_param</tt> like so, in your Model:
 
   # Inside your model
@@ -37,7 +36,7 @@ In order to use the generated url attribute, you will probably want to override 
 
 Routing called via named routes like <tt>foo_path(@foo)</tt> will automatically use the url. In your controllers you will need to call <tt>Foo.find_by_url(params[:id])</tt> instead of the regular find. Don't look for <tt>params[:url]</tt> unless you set it explicitly in the routing, <tt>to_param</tt> will generate <tt>params[:id]</tt>.
 
-Note that if you add <tt>acts_as_url</tt> to an old model, the <tt>url</tt> database column will inititally be blank. To set this column for your old instances, you can use the <tt>initialize_urls</tt> method. So if your class is <tt>Post</tt>, just say <tt>Post.initialize_urls</tt>.
+Note that if you add <tt>acts_as_url</tt> to an existing model, the <tt>url</tt> database column will initially be blank. To set this column for your existing instances, you can use the <tt>initialize_urls</tt> method. So if your class is <tt>Post</tt>, just say <tt>Post.initialize_urls</tt>.
 
 Unlike other permalink solutions, ActsAsUrl doesn't rely on Iconv (which is inconsistent across platforms and doesn't provide great transliteration as is) but instead uses a transliteration scheme (see the code for Unidecoder) which produces much better results for Unicode characters. It also mixes in some custom helpers to translate common characters into a more URI-friendly format rather than just dump them completely. Examples:
 
@@ -90,17 +89,17 @@ In both the YAML and pure Hash implementation, the end result should be a Hash w
 
 == StringExtensions
 
-A collection of extensions on Ruby's String class. Please see the documentation for StringExtensions module for more information. There's not much to explain about them really.
+A small collection of extensions on Ruby's String class. Please see the documentation for StringExtensions module for more information. There's not much to explain about them really.
 
 == Localization
 
-With Stringex version 2.0 and higher, you can localize the different conversions in Stringex. Read more here[https://github.com/rsl/stringex/wiki/Localization-of-Stringex-conversions]
+With Stringex version 2.0 and higher, you can localize the different conversions in Stringex. Read more here[https://github.com/rsl/stringex/wiki/Localization-of-Stringex-conversions]. If you add a new language, please submit a pull request so we can make it available to other users also.
 
 == Using with Rails
 
 When using Stringex with Ruby on Rails, you automatically get built-in translations for miscellaneous characters, HTML entities, and vulgar fractions.
 
-You can see Stringex's standard translations here: TODO: Insert link to the +locales+ folder.
+You can see Stringex's standard translations here[https://github.com/rsl/stringex/locales].
 
 Currently, built-in translations are available for the following languages:
 English (en), Danish (da)
