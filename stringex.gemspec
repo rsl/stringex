@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "stringex"
-  s.version = "1.5.1"
+  s.version = "2.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Russell Norris"]
-  s.date = "2012-12-04"
+  s.date = "2013-06-03"
   s.description = "Some [hopefully] useful extensions to Ruby's String class. Stringex is made up of three libraries: ActsAsUrl [permalink solution with better character translation], Unidecoder [Unicode to ASCII transliteration], and StringExtensions [miscellaneous helper methods for the String class]."
   s.email = "rsl@luckysneaks.com"
   s.extra_rdoc_files = [
@@ -28,9 +28,19 @@ Gem::Specification.new do |s|
     "lib/stringex/acts_as_url/adapter.rb",
     "lib/stringex/acts_as_url/adapter/active_record.rb",
     "lib/stringex/acts_as_url/adapter/base.rb",
+    "lib/stringex/acts_as_url/adapter/data_mapper.rb",
+    "lib/stringex/acts_as_url/adapter/mongoid.rb",
     "lib/stringex/configuration.rb",
     "lib/stringex/configuration/acts_as_url.rb",
+    "lib/stringex/configuration/base.rb",
+    "lib/stringex/configuration/configurator.rb",
     "lib/stringex/configuration/string_extensions.rb",
+    "lib/stringex/localization.rb",
+    "lib/stringex/localization/backend/i18n.rb",
+    "lib/stringex/localization/backend/internal.rb",
+    "lib/stringex/localization/conversion_expressions.rb",
+    "lib/stringex/localization/converter.rb",
+    "lib/stringex/localization/default_conversions.rb",
     "lib/stringex/rails/railtie.rb",
     "lib/stringex/string_extensions.rb",
     "lib/stringex/unidecoder.rb",
@@ -215,43 +225,74 @@ Gem::Specification.new do |s|
     "lib/stringex/unidecoder_data/xfe.yml",
     "lib/stringex/unidecoder_data/xff.yml",
     "lib/stringex/version.rb",
+    "locales/da.yml",
+    "locales/en.yml",
     "stringex.gemspec",
-    "test/unidecoder/bad_localization.yml",
+    "test/acts_as_url/adapter/active_record.rb",
+    "test/acts_as_url/adapter/data_mapper.rb",
+    "test/acts_as_url/adapter/mongoid.rb",
+    "test/acts_as_url_configuration_test.rb",
+    "test/acts_as_url_integration_test.rb",
+    "test/localization/da_test.rb",
+    "test/localization/default_test.rb",
+    "test/localization/en_test.rb",
+    "test/localization_test.rb",
+    "test/redcloth_to_html_test.rb",
     "test/string_extensions_test.rb",
+    "test/test_helper.rb",
     "test/unicode_point_suite/basic_greek_test.rb",
     "test/unicode_point_suite/basic_latin_test.rb",
     "test/unicode_point_suite/codepoint_test_helper.rb",
+    "test/unidecoder/bad_localization.yml",
     "test/unidecoder/localization.yml",
     "test/unidecoder_test.rb"
-  ] + Dir.glob("locales/*")
+  ]
   s.homepage = "http://github.com/rsl/stringex"
   s.rdoc_options = ["--main", "README.rdoc", "--charset", "utf-8", "--line-numbers"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.24"
+  s.rubygems_version = "2.0.3"
   s.summary = "Some [hopefully] useful extensions to Ruby's String class"
 
   if s.respond_to? :specification_version then
-    s.specification_version = 3
+    s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<activerecord>, [">= 0"])
+      s.add_development_dependency(%q<activerecord>, ["= 3.2.11"])
+      s.add_development_dependency(%q<dm-core>, ["= 1.2.0"])
+      s.add_development_dependency(%q<dm-migrations>, ["= 1.2.0"])
+      s.add_development_dependency(%q<dm-sqlite-adapter>, ["= 1.2.0"])
+      s.add_development_dependency(%q<dm-validations>, ["= 1.2.0"])
       s.add_development_dependency(%q<jeweler>, ["= 1.8.4"])
-      s.add_development_dependency(%q<RedCloth>, [">= 0"])
-      s.add_development_dependency(%q<sqlite3>, [">= 0"])
+      s.add_development_dependency(%q<mongoid>, ["= 3.0.14"])
+      s.add_development_dependency(%q<RedCloth>, ["= 4.2.9"])
+      s.add_development_dependency(%q<sqlite3>, ["= 1.3.6"])
       s.add_development_dependency(%q<travis-lint>, ["= 1.4.0"])
+      s.add_development_dependency(%q<i18n>, ["= 0.6.1"])
     else
-      s.add_dependency(%q<activerecord>, [">= 0"])
+      s.add_dependency(%q<activerecord>, ["= 3.2.11"])
+      s.add_dependency(%q<dm-core>, ["= 1.2.0"])
+      s.add_dependency(%q<dm-migrations>, ["= 1.2.0"])
+      s.add_dependency(%q<dm-sqlite-adapter>, ["= 1.2.0"])
+      s.add_dependency(%q<dm-validations>, ["= 1.2.0"])
       s.add_dependency(%q<jeweler>, ["= 1.8.4"])
-      s.add_dependency(%q<RedCloth>, [">= 0"])
-      s.add_dependency(%q<sqlite3>, [">= 0"])
+      s.add_dependency(%q<mongoid>, ["= 3.0.14"])
+      s.add_dependency(%q<RedCloth>, ["= 4.2.9"])
+      s.add_dependency(%q<sqlite3>, ["= 1.3.6"])
       s.add_dependency(%q<travis-lint>, ["= 1.4.0"])
+      s.add_dependency(%q<i18n>, ["= 0.6.1"])
     end
   else
-    s.add_dependency(%q<activerecord>, [">= 0"])
+    s.add_dependency(%q<activerecord>, ["= 3.2.11"])
+    s.add_dependency(%q<dm-core>, ["= 1.2.0"])
+    s.add_dependency(%q<dm-migrations>, ["= 1.2.0"])
+    s.add_dependency(%q<dm-sqlite-adapter>, ["= 1.2.0"])
+    s.add_dependency(%q<dm-validations>, ["= 1.2.0"])
     s.add_dependency(%q<jeweler>, ["= 1.8.4"])
-    s.add_dependency(%q<RedCloth>, [">= 0"])
-    s.add_dependency(%q<sqlite3>, [">= 0"])
+    s.add_dependency(%q<mongoid>, ["= 3.0.14"])
+    s.add_dependency(%q<RedCloth>, ["= 4.2.9"])
+    s.add_dependency(%q<sqlite3>, ["= 1.3.6"])
     s.add_dependency(%q<travis-lint>, ["= 1.4.0"])
+    s.add_dependency(%q<i18n>, ["= 0.6.1"])
   end
 end
 

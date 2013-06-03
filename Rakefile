@@ -14,6 +14,8 @@ begin
     gem.summary          = "Some [hopefully] useful extensions to Ruby's String class"
     gem.description      = "Some [hopefully] useful extensions to Ruby's String class. Stringex is made up of three libraries: ActsAsUrl [permalink solution with better character translation], Unidecoder [Unicode to ASCII transliteration], and StringExtensions [miscellaneous helper methods for the String class]."
     gem.files.exclude '.travis.yml'
+    gem.files.exclude '.ruby-gemset'
+    gem.files.exclude '.ruby-version'
     gem.has_rdoc         = true
     gem.rdoc_options     = %w{--main README.rdoc --charset utf-8 --line-numbers}
     gem.extra_rdoc_files =  %w{MIT-LICENSE README.rdoc}
