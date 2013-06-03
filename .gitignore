@@ -1,7 +1,6 @@
 .DS_Store
 .rvmrc
 doc
-Gemfile.lock
 github-test.rb
 pkg
 rdoc
