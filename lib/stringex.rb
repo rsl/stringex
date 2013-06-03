@@ -6,6 +6,7 @@ require 'stringex/localization'
 require 'stringex/string_extensions'
 require 'stringex/unidecoder'
 require 'stringex/acts_as_url'
+require 'stringex/version'
 
 String.send :include, Stringex::StringExtensions::PublicInstanceMethods
 String.send :extend, Stringex::StringExtensions::PublicClassMethods
