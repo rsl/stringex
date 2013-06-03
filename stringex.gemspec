@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "stringex"
-  s.version = "2.0.0"
+  s.version = "2.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Russell Norris"]
@@ -246,7 +246,8 @@ Gem::Specification.new do |s|
     "test/unicode_point_suite/codepoint_test_helper.rb",
     "test/unidecoder/bad_localization.yml",
     "test/unidecoder/localization.yml",
-    "test/unidecoder_test.rb"
+    "test/unidecoder_test.rb",
+    "test/version_test.rb"
   ]
   s.homepage = "http://github.com/rsl/stringex"
   s.licenses = ["MIT"]
