@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     "Gemfile",
+    "Gemfile.lock",
     "MIT-LICENSE",
     "README.rdoc",
     "Rakefile",
@@ -257,41 +258,41 @@ Gem::Specification.new do |s|
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<activerecord>, ["= 3.2.11"])
+      s.add_development_dependency(%q<activerecord>, ["= 3.2.13"])
       s.add_development_dependency(%q<dm-core>, ["= 1.2.0"])
       s.add_development_dependency(%q<dm-migrations>, ["= 1.2.0"])
       s.add_development_dependency(%q<dm-sqlite-adapter>, ["= 1.2.0"])
       s.add_development_dependency(%q<dm-validations>, ["= 1.2.0"])
       s.add_development_dependency(%q<jeweler>, ["= 1.8.4"])
-      s.add_development_dependency(%q<mongoid>, ["= 3.0.14"])
+      s.add_development_dependency(%q<mongoid>, ["= 3.1.4"])
       s.add_development_dependency(%q<RedCloth>, ["= 4.2.9"])
-      s.add_development_dependency(%q<sqlite3>, ["= 1.3.6"])
-      s.add_development_dependency(%q<travis-lint>, ["= 1.4.0"])
+      s.add_development_dependency(%q<sqlite3>, ["= 1.3.7"])
+      s.add_development_dependency(%q<travis-lint>, ["= 1.7.0"])
       s.add_development_dependency(%q<i18n>, ["= 0.6.1"])
     else
-      s.add_dependency(%q<activerecord>, ["= 3.2.11"])
+      s.add_dependency(%q<activerecord>, ["= 3.2.13"])
       s.add_dependency(%q<dm-core>, ["= 1.2.0"])
       s.add_dependency(%q<dm-migrations>, ["= 1.2.0"])
       s.add_dependency(%q<dm-sqlite-adapter>, ["= 1.2.0"])
       s.add_dependency(%q<dm-validations>, ["= 1.2.0"])
       s.add_dependency(%q<jeweler>, ["= 1.8.4"])
-      s.add_dependency(%q<mongoid>, ["= 3.0.14"])
+      s.add_dependency(%q<mongoid>, ["= 3.1.4"])
       s.add_dependency(%q<RedCloth>, ["= 4.2.9"])
-      s.add_dependency(%q<sqlite3>, ["= 1.3.6"])
-      s.add_dependency(%q<travis-lint>, ["= 1.4.0"])
+      s.add_dependency(%q<sqlite3>, ["= 1.3.7"])
+      s.add_dependency(%q<travis-lint>, ["= 1.7.0"])
       s.add_dependency(%q<i18n>, ["= 0.6.1"])
     end
   else
-    s.add_dependency(%q<activerecord>, ["= 3.2.11"])
+    s.add_dependency(%q<activerecord>, ["= 3.2.13"])
     s.add_dependency(%q<dm-core>, ["= 1.2.0"])
     s.add_dependency(%q<dm-migrations>, ["= 1.2.0"])
     s.add_dependency(%q<dm-sqlite-adapter>, ["= 1.2.0"])
     s.add_dependency(%q<dm-validations>, ["= 1.2.0"])
     s.add_dependency(%q<jeweler>, ["= 1.8.4"])
-    s.add_dependency(%q<mongoid>, ["= 3.0.14"])
+    s.add_dependency(%q<mongoid>, ["= 3.1.4"])
     s.add_dependency(%q<RedCloth>, ["= 4.2.9"])
-    s.add_dependency(%q<sqlite3>, ["= 1.3.6"])
-    s.add_dependency(%q<travis-lint>, ["= 1.4.0"])
+    s.add_dependency(%q<sqlite3>, ["= 1.3.7"])
+    s.add_dependency(%q<travis-lint>, ["= 1.7.0"])
     s.add_dependency(%q<i18n>, ["= 0.6.1"])
   end
 end
