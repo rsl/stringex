@@ -19,6 +19,7 @@ begin
     gem.has_rdoc         = true
     gem.rdoc_options     = %w{--main README.rdoc --charset utf-8 --line-numbers}
     gem.extra_rdoc_files =  %w{MIT-LICENSE README.rdoc}
+    gem.licenses         = ['MIT']
   end
 
   Jeweler::RubygemsDotOrgTasks.new

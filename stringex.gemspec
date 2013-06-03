@@ -249,6 +249,7 @@ Gem::Specification.new do |s|
     "test/unidecoder_test.rb"
   ]
   s.homepage = "http://github.com/rsl/stringex"
+  s.licenses = ["MIT"]
   s.rdoc_options = ["--main", "README.rdoc", "--charset", "utf-8", "--line-numbers"]
   s.require_paths = ["lib"]
   s.rubygems_version = "2.0.3"
