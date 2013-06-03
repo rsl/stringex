@@ -8,7 +8,9 @@ group :development do
   gem "dm-sqlite-adapter", "1.2.0"
   gem "dm-validations", "1.2.0"
   gem "jeweler", "1.8.4"
-  gem "mongoid", "3.1.4"
+  if RUBY_VERSION > "1.8.x"
+    gem "mongoid", "3.1.4"
+  end
   gem "RedCloth", "4.2.9" # Can I state that I really dislike camelcased gem names?
   gem "sqlite3", "1.3.7"
   gem "travis-lint", "1.7.0"
