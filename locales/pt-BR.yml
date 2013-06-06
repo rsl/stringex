@@ -3,7 +3,7 @@
 # Stringex::Localization::ConversionExpressions to see what those
 # regular expressions look like if you need to manipulate the order
 # differently than the usage below.
-en:
+pt-BR:
   stringex:
     characters:
       and: e
