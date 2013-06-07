@@ -33,11 +33,13 @@ module Stringex
         :euros   => /€/,
         :pounds  => /£/,
         :yen     => /¥/,
+        :reais   => /R$/
       }
       CURRENCIES_SUPPORTED_COMPLEX = {
         :dollars => :dollars_cents,
         :euros   => :euros_cents,
         :pounds  => :pounds_pence,
+        :reais   => :reais_cents
       }
       CURRENCIES_SUPPORTED = Regexp.new(CURRENCIES_SUPPORTED_SIMPLE.values.join('|'))
       CURRENCIES_SIMPLE = CURRENCIES_SUPPORTED_SIMPLE.inject({}) do |hash, content|
