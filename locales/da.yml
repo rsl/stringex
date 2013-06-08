@@ -26,6 +26,8 @@ da:
       euros: \1 euro
       euros_cents: \1 euro \2 cent
       yen: \1 yen
+      reais: \1 reais
+      reais_cents: \1 reais \2 cents
     html_entities:
       amp: and
       cent: " cents"
