@@ -25,7 +25,7 @@ module Stringex
         end
 
         def klass_previous_instances(&block)
-          klass.where(settings.url_attribute => nil).to_a.each(&block)
+          klass.all(settings.url_attribute => [nil]).to_a.each(&block)
         end
 
         def self.orm_class

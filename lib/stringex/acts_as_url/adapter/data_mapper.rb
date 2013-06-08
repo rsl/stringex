@@ -39,7 +39,7 @@ module Stringex
         end
 
         def klass_previous_instances(&block)
-          klass.all(:conditions => {settings.url_attribute => nil}).each(&block)
+          klass.all(:conditions => {settings.url_attribute => [nil]}).each(&block)
         end
 
         def primary_key

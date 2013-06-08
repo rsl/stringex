@@ -11,7 +11,7 @@ module Stringex
       private
 
         def klass_previous_instances(&block)
-          klass.find_each(:conditions => {settings.url_attribute => nil}, &block)
+          klass.find_each(:conditions => {settings.url_attribute => [nil, '']}, &block)
         end
 
         def self.orm_class

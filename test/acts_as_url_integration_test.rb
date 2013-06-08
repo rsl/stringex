@@ -188,6 +188,23 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
     end
   end
 
+  def test_should_mass_initialize_empty_string_urls
+    @doc = Document.create(:title => "Initial")
+    @other_doc = Document.create(:title => "Subsequent")
+    adapter_specific_update @doc, :url => ''
+    adapter_specific_update @other_doc, :url => ''
+    # Just making sure this got unset before the real test
+    assert_equal '', @doc.url
+    assert_equal '', @other_doc.url
+
+    Document.initialize_urls
+
+    @doc.reload
+    @other_doc.reload
+    assert_equal "initial", @doc.url
+    assert_equal "subsequent", @other_doc.url
+  end
+
   def test_should_allow_using_custom_method_for_generating_url
     Document.class_eval do
       acts_as_url :non_attribute_method
