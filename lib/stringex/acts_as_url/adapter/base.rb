@@ -2,7 +2,7 @@ module Stringex
   module ActsAsUrl
     module Adapter
       class Base
-        attr_accessor :base_url, :configuration, :instance, :klass, :settings
+        attr_accessor :base_url, :callback_options, :configuration, :instance, :klass, :settings
 
         def initialize(configuration)
           ensure_loadable
@@ -12,6 +12,7 @@ module Stringex
 
         def create_callbacks!(klass)
           self.klass = klass
+          self.callback_options = {}
           create_method_to_callback
           create_callback
         end
@@ -68,10 +69,24 @@ module Stringex
         end
 
         def create_callback
-          if settings.sync_url
-            klass.before_validation :ensure_unique_url
-          else
-            klass.before_validation :ensure_unique_url, :on => :create
+          klass.send klass_callback_method, :ensure_unique_url, callback_options
+        end
+
+        def klass_callback_method
+          settings.sync_url ? klass_sync_url_callback_method : klass_non_sync_url_callback_method
+        end
+
+        def klass_sync_url_callback_method
+          configuration.settings.callback_method
+        end
+
+        def klass_non_sync_url_callback_method
+          case configuration.settings.callback_method
+          when :before_save
+            :before_create
+          else # :before_validation
+            callback_options[:on] = :create
+            configuration.settings.callback_method
           end
         end
 

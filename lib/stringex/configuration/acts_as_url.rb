@@ -31,6 +31,7 @@ module Stringex
       def self.default_settings
         @default_settings ||= {
           :allow_duplicates => false,
+          :callback_method => :before_validation,
           :duplicate_count_separator => "-",
           :enforce_uniqueness_on_sti_class => false,
           :only_when_blank => false,
