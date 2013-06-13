@@ -11,14 +11,8 @@ module Stringex
       private
 
         def create_callback
-          if settings.sync_url
-            klass.class_eval do
-              before :save, :ensure_unique_url
-            end
-          else
-            klass.class_eval do
-              before :create, :ensure_unique_url
-            end
+          klass.class_eval do
+            before settings.sync_url ? :save : :create, :ensure_unique_url
           end
         end
 
