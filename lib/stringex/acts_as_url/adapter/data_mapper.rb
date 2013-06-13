@@ -12,7 +12,7 @@ module Stringex
 
         def create_callback
           klass.class_eval do
-            before settings.sync_url ? :save : :create, :ensure_unique_url
+            before acts_as_url_configuration.settings.sync_url ? :save : :create, :ensure_unique_url
           end
         end
 
