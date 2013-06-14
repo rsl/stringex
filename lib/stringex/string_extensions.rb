@@ -52,7 +52,7 @@ module Stringex
       # you should run any methods which convert HTML entities (convert_accented_html_entities and convert_miscellaneous_html_entities)
       # before running this method.
       def convert_miscellaneous_characters(options = {})
-        stringex_convert do
+        stringex_convert(options) do
           translate! :ellipses, :currencies, :abbreviations, :characters, :apostrophes
           cleanup_characters!
         end
