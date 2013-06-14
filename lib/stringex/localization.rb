@@ -77,7 +77,7 @@ module Stringex
       end
 
       def convert(string, options = {}, &block)
-        converter = Converter.new(string)
+        converter = Converter.new(string, options)
         converter.instance_exec &block
         converter.smart_strip!
         converter.string

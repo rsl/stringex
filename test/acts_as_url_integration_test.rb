@@ -308,4 +308,22 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
     @doc_2 = AnotherSTIChildDocument.create(:title => "Unique")
     assert_equal "unique-1", @doc_2.url
   end
+
+  def test_should_strip_slashes_by_default
+    Document.class_eval do
+      acts_as_url :title
+    end
+
+    @doc = Document.create(:title => "a b/c d")
+    assert_equal "a-b-slash-c-d", @doc.url
+  end
+
+  def test_should_allow_slashes_to_be_allowed
+    Document.class_eval do
+      acts_as_url :title, :allow_slash => true
+    end
+
+    @doc = Document.create(:title => "a b/c d")
+    assert_equal "a-b/c-d", @doc.url
+  end
 end
