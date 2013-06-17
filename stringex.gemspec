@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "stringex"
-  s.version = "2.0.2"
+  s.version = "2.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Russell Norris"]
-  s.date = "2013-06-03"
+  s.date = "2013-06-17"
   s.description = "Some [hopefully] useful extensions to Ruby's String class. Stringex is made up of three libraries: ActsAsUrl [permalink solution with better character translation], Unidecoder [Unicode to ASCII transliteration], and StringExtensions [miscellaneous helper methods for the String class]."
   s.email = "rsl@luckysneaks.com"
   s.extra_rdoc_files = [
@@ -228,6 +228,7 @@ Gem::Specification.new do |s|
     "lib/stringex/version.rb",
     "locales/da.yml",
     "locales/en.yml",
+    "locales/pt-BR.yml",
     "stringex.gemspec",
     "test/acts_as_url/adapter/active_record.rb",
     "test/acts_as_url/adapter/data_mapper.rb",
