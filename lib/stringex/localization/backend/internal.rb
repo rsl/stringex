@@ -1,7 +1,7 @@
 module Stringex
   module Localization
     module Backend
-      module Internal
+      class Internal
         DEFAULT_LOCALE = :en
 
         class << self

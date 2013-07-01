@@ -1,7 +1,7 @@
 module Stringex
   module Localization
     module Backend
-      module I18n
+      class I18n
         LOAD_PATH_BASE = File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', '..', '..', 'locales')
 
         class << self
