@@ -36,6 +36,10 @@ module Stringex
         end
       end
 
+      def normalize_currency!
+        string.gsub! /(\d+),(\d+)/, '\1\2'
+      end
+
       def smart_strip!
         string.strip!
         @string = "#{starting_whitespace}#{string}#{ending_whitespace}"

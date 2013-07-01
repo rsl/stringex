@@ -53,6 +53,7 @@ module Stringex
       # before running this method.
       def convert_miscellaneous_characters(options = {})
         stringex_convert(options) do
+          normalize_currency!
           translate! :ellipses, :currencies, :abbreviations, :characters, :apostrophes
           cleanup_characters!
         end

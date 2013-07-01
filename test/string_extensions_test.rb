@@ -71,7 +71,9 @@ class StringExtensionsTest < Test::Unit::TestCase
       "У лукоморья дуб зеленый" =>
         "u-lukomoria-dub-zielienyi",
       "Here are some {braces}" =>
-        "here-are-some-braces"
+        "here-are-some-braces",
+      "$1,000" =>
+        "1000-dollars"
     }.each do |html, plain|
       assert_equal plain, html.to_url
     end
