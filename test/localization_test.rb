@@ -94,7 +94,7 @@ class LocalizationTest < Test::Unit::TestCase
     Stringex::Localization.store_translations :en, :test_i18n_store, data
 
     data.each do |key, value|
-      assert_equal value, I18n.translate("stringex.test_i18n_store.#{key}")
+      assert_equal value, I18n.translate("stringex.test_i18n_store.#{key}", locale: :en)
     end
   end
 
@@ -119,5 +119,16 @@ class LocalizationTest < Test::Unit::TestCase
       Stringex::Localization.store_translations :en, :html_entities, { :nbsp => "" }
       assert_equal "Testblank", "Test&nbsp;blank".convert_miscellaneous_html_entities
     end
+  end
+
+  def test_assigns_locale_in_i18n_backend
+    I18n.locale = :en
+    Stringex::Localization.backend = :i18n
+
+    assert_equal :en, Stringex::Localization.locale
+
+    Stringex::Localization.locale = :de
+    assert_equal :de, Stringex::Localization.locale
+    assert_equal :en, I18n.locale
   end
 end

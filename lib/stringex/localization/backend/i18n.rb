@@ -6,11 +6,11 @@ module Stringex
 
         class << self
           def locale
-            ::I18n.locale
+            @locale || ::I18n.locale
           end
 
           def locale=(new_locale)
-            ::I18n.locale = new_locale
+            @locale = new_locale
           end
 
           def default_locale
