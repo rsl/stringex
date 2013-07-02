@@ -216,4 +216,15 @@ class StringExtensionsTest < Test::Unit::TestCase
 
     assert_equal "now-with-hyphens", "----now---------with-hyphens--------".collapse("-")
   end
+
+  def test_empty_translations
+    Stringex::Localization.backend = :internal
+    Stringex::Localization.store_translations :de, :characters, {
+      :star => "",
+      :percent => "prozent"
+    }
+    Stringex::Localization.locale = :de
+
+    assert_equal "foobar ist 100 prozent gut", "foo*bar ist 100% gut".convert_miscellaneous_characters
+  end
 end
