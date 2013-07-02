@@ -37,14 +37,14 @@ module Stringex
           end
 
           def load_translations(locale = nil)
-            locale ||= ::I18n.locale
+            locale ||= self.locale
             path = Dir[File.join(LOAD_PATH_BASE, "#{locale}.yml")]
             ::I18n.load_path |= Dir[File.join(LOAD_PATH_BASE, "#{locale}.yml")]
             ::I18n.backend.load_translations
           end
 
           def reset!
-            # Can't reset I18n. Needed?
+            @locale = nil
           end
         end
       end
