@@ -1,7 +1,7 @@
 module Stringex
   module Localization
     module Backend
-      class I18n
+      class I18n < Base
         LOAD_PATH_BASE = File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', '..', '..', 'locales')
 
         class << self
@@ -41,10 +41,6 @@ module Stringex
             path = Dir[File.join(LOAD_PATH_BASE, "#{locale}.yml")]
             ::I18n.load_path |= Dir[File.join(LOAD_PATH_BASE, "#{locale}.yml")]
             ::I18n.backend.load_translations
-          end
-
-          def reset!
-            @locale = nil
           end
         end
       end

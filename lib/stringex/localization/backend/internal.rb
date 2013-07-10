@@ -1,7 +1,7 @@
 module Stringex
   module Localization
     module Backend
-      class Internal
+      class Internal < Base
         DEFAULT_LOCALE = :en
 
         class << self
@@ -39,10 +39,6 @@ module Stringex
 
           def initial_translation(scope, key, locale)
             translations[locale][scope][key.to_sym]
-          end
-
-          def reset!
-            @translations = @locale = @default_locale = nil
           end
         end
       end
