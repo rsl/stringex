@@ -148,7 +148,8 @@ class LocalizationTest < Test::Unit::TestCase
     i18n_time = Benchmark.realtime { 100.times{ "alskdjfal".to_url } }
 
     percentage_difference = ((i18n_time - internal_time) / internal_time) * 100
+    allowed_difference = 25
 
-    assert percentage_difference < 10, "The I18n backend is #{percentage_difference.to_i} percent slower than the internal backend. The allowed difference is 10 percent."
+    assert percentage_difference <= allowed_difference, "The I18n backend is #{percentage_difference.to_i} percent slower than the internal backend. The allowed difference is #{allowed_difference} percent."
   end
 end
