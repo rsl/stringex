@@ -73,7 +73,9 @@ class StringExtensionsTest < Test::Unit::TestCase
       "Here are some {braces}" =>
         "here-are-some-braces",
       "$1,000" =>
-        "1000-dollars"
+        "1000-dollars",
+      "«zut alors»" =>
+        "zut-alors"
     }.each do |html, plain|
       assert_equal plain, html.to_url
     end
