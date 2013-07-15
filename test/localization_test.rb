@@ -4,6 +4,7 @@ require 'i18n'
 
 class LocalizationTest < Test::Unit::TestCase
   def setup
+    I18n.locale = :en
     Stringex::Localization.reset!
   end
 
@@ -119,5 +120,23 @@ class LocalizationTest < Test::Unit::TestCase
       Stringex::Localization.store_translations :en, :html_entities, { :nbsp => "" }
       assert_equal "Testblank", "Test&nbsp;blank".convert_miscellaneous_html_entities
     end
+  end
+
+  def test_assigns_locale_in_i18n_backend
+    I18n.locale = :en
+    Stringex::Localization.backend = :i18n
+
+    assert_equal :en, Stringex::Localization.locale
+
+    I18n.locale = :jp
+    assert_equal :jp, Stringex::Localization.locale
+
+    Stringex::Localization.locale = :de
+    assert_equal :de, Stringex::Localization.locale
+    assert_equal :jp, I18n.locale
+
+    Stringex::Localization.locale = nil
+    assert_equal :jp, Stringex::Localization.locale
+    assert_equal :jp, I18n.locale
   end
 end

@@ -75,7 +75,7 @@ module Stringex
         expressions.characters.each do |key, expression|
           next if key == :slash && options[:allow_slash]
           replacement = translate(key)
-          replacement = " #{replacement} " unless key == :dot
+          replacement = " #{replacement} " unless replacement == '' || key == :dot
           string.gsub! expression, replacement
         end
       end

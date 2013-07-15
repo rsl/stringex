@@ -2,6 +2,7 @@
 
 require 'stringex/localization/converter'
 require 'stringex/localization/default_conversions'
+require 'stringex/localization/backend/base'
 require 'stringex/localization/backend/internal'
 require 'stringex/localization/backend/i18n'
 
