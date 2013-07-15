@@ -27,13 +27,16 @@ module Stringex
 
           def store_translations(locale, scope, data)
             ::I18n.backend.store_translations(locale, { :stringex => { scope => data } })
+            reset_translations_cache
+          end
+
+          def translations
+            # Set up hash like translations[:en][:transliterations]["é"]
+            @translations ||= Hash.new { |hsh, locale| hsh[locale] = Hash.new({}).merge(i18n_translations_for(locale)) }
           end
 
           def initial_translation(scope, key, locale)
-            # I18n can't return a nil as default as this gets interpreted as if no default
-            # is specified, so we use a string instead.
-            translated = ::I18n.translate(key, :scope => [:stringex, scope], :locale => locale, :default => "__default__")
-            translated == "__default__" ? nil : translated
+            translations[locale][scope][key.to_sym]
           end
 
           def load_translations(locale = nil)
@@ -41,6 +44,15 @@ module Stringex
             path = Dir[File.join(LOAD_PATH_BASE, "#{locale}.yml")]
             ::I18n.load_path |= Dir[File.join(LOAD_PATH_BASE, "#{locale}.yml")]
             ::I18n.backend.load_translations
+            reset_translations_cache
+          end
+
+          def i18n_translations_for(locale)
+            ::I18n.translate("stringex", :locale => locale, :default => {})
+          end
+
+          def reset_translations_cache
+            @translations = nil
           end
         end
       end
