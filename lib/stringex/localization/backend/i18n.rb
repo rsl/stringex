@@ -48,7 +48,7 @@ module Stringex
           end
 
           def i18n_translations_for(locale)
-            ::I18n.translate("stringex", locale: locale, default: {})
+            ::I18n.translate("stringex", :locale => locale, :default => {})
           end
 
           def reset_translations_cache
