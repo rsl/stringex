@@ -69,7 +69,7 @@ class StringExtensionsTest < Test::Unit::TestCase
       "AVアンプ、ホームシアターシステム、スピーカーシステム等" =>
         "avanpu-homusiatasisutemu-supikasisutemudeng",
       "У лукоморья дуб зеленый" =>
-        "u-lukomoria-dub-zielienyi",
+        "u-lukomorya-dub-zelenyj",
       "Here are some {braces}" =>
         "here-are-some-braces",
       "$1,000" =>
