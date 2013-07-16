@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "stringex"
-  s.version = "2.0.4"
+  s.version = "2.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Russell Norris"]
-  s.date = "2013-07-15"
+  s.date = "2013-07-16"
   s.description = "Some [hopefully] useful extensions to Ruby's String class. Stringex is made up of three libraries: ActsAsUrl [permalink solution with better character translation], Unidecoder [Unicode to ASCII transliteration], and StringExtensions [miscellaneous helper methods for the String class]."
   s.email = "rsl@luckysneaks.com"
   s.extra_rdoc_files = [
@@ -231,25 +231,26 @@ Gem::Specification.new do |s|
     "locales/en.yml",
     "locales/pt-BR.yml",
     "stringex.gemspec",
-    "test/acts_as_url/adapter/active_record.rb",
-    "test/acts_as_url/adapter/data_mapper.rb",
-    "test/acts_as_url/adapter/mongoid.rb",
-    "test/acts_as_url_configuration_test.rb",
-    "test/acts_as_url_integration_test.rb",
-    "test/localization/da_test.rb",
-    "test/localization/default_test.rb",
-    "test/localization/en_test.rb",
-    "test/localization_test.rb",
-    "test/redcloth_to_html_test.rb",
-    "test/string_extensions_test.rb",
+    "test/performance/localization_performance_test.rb",
     "test/test_helper.rb",
-    "test/unicode_point_suite/basic_greek_test.rb",
-    "test/unicode_point_suite/basic_latin_test.rb",
-    "test/unicode_point_suite/codepoint_test_helper.rb",
-    "test/unidecoder/bad_localization.yml",
-    "test/unidecoder/localization.yml",
-    "test/unidecoder_test.rb",
-    "test/version_test.rb"
+    "test/unit/acts_as_url/adapter/active_record.rb",
+    "test/unit/acts_as_url/adapter/data_mapper.rb",
+    "test/unit/acts_as_url/adapter/mongoid.rb",
+    "test/unit/acts_as_url_configuration_test.rb",
+    "test/unit/acts_as_url_integration_test.rb",
+    "test/unit/localization/da_test.rb",
+    "test/unit/localization/default_test.rb",
+    "test/unit/localization/en_test.rb",
+    "test/unit/localization_test.rb",
+    "test/unit/redcloth_to_html_test.rb",
+    "test/unit/string_extensions_test.rb",
+    "test/unit/unicode_point_suite/basic_greek_test.rb",
+    "test/unit/unicode_point_suite/basic_latin_test.rb",
+    "test/unit/unicode_point_suite/codepoint_test_helper.rb",
+    "test/unit/unidecoder/bad_localization.yml",
+    "test/unit/unidecoder/localization.yml",
+    "test/unit/unidecoder_test.rb",
+    "test/unit/version_test.rb"
   ]
   s.homepage = "http://github.com/rsl/stringex"
   s.licenses = ["MIT"]
