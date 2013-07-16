@@ -29,8 +29,16 @@ end
 
 Rake::TestTask.new do |t|
   t.libs << 'lib' << 'test'
-  t.pattern   = 'test/**/*_test.rb'
+  t.pattern   = 'test/unit/**/*_test.rb'
   t.verbose   = true
+end
+
+namespace :test do
+  Rake::TestTask.new(:performance) do |t|
+    t.libs << 'lib' << 'test'
+    t.pattern   = 'test/performance/**/*_test.rb'
+    t.verbose   = true
+  end
 end
 
 desc 'Default: Run Stringex test suite using ActiveRecord as the ORM'
