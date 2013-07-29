@@ -241,11 +241,18 @@ class StringExtensionsTest < Test::Unit::TestCase
 
     {
       "مصدر أمني: مجهولون يطلقون «خرطوش» على متظاهرين بمترو عزبة النخل وإصابة 16" =>
-        "مصدر-أمني-مجهولون-يطلقون-خرطوش-على-متظاهرين-بمترو-عزبة-النخل-وإصابة-16"
-    }
+        "مصدر-أمني-مجهولون-يطلقون-«خرطوش»-على-متظاهرين-بمترو-عزبة-النخل-وإصابة-16",
+      "c'est ça" =>
+        "cest-ça",
+      "la muñeca" =>
+        "la-muñeca"
+    }.each do |original, converted|
+      assert_equal converted, original.to_url
+    end
   ensure
     String.class_eval do
       remove_method :to_ascii
+
       def to_ascii
         old_to_ascii
       end
