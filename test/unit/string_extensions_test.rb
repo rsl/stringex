@@ -229,4 +229,26 @@ class StringExtensionsTest < Test::Unit::TestCase
 
     assert_equal "foobar ist 100 prozent gut", "foo*bar ist 100% gut".convert_miscellaneous_characters
   end
+
+  def test_overriding_to_ascii_allows_utf8_urls
+    String.class_eval do
+      alias :old_to_ascii :to_ascii
+
+      def to_ascii
+        self
+      end
+    end
+
+    {
+      "مصدر أمني: مجهولون يطلقون «خرطوش» على متظاهرين بمترو عزبة النخل وإصابة 16" =>
+        "مصدر-أمني-مجهولون-يطلقون-خرطوش-على-متظاهرين-بمترو-عزبة-النخل-وإصابة-16"
+    }
+  ensure
+    String.class_eval do
+      remove_method :to_ascii
+      def to_ascii
+        old_to_ascii
+      end
+    end
+  end
 end
