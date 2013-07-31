@@ -12,15 +12,19 @@ module Stringex
 
     class << self
       def backend
-        @backend ||= defined?(I18n) ? Backend::I18n : Backend::Internal
+        @backend ||= i18n_present? ? Backend::I18n : Backend::Internal
       end
 
       def backend=(sym_or_class)
         if sym_or_class.is_a?(Symbol)
           @backend = case sym_or_class
-            when :internal then Backend::Internal
-            when :i18n then Backend::I18n
-            else raise "Invalid backend :#{sym_or_class}"
+          when :internal
+            Backend::Internal
+          when :i18n
+            ensure_i18n!
+            Backend::I18n
+          else
+            raise "Invalid backend :#{sym_or_class}"
           end
         else
           @backend = sym_or_class
@@ -93,6 +97,15 @@ module Stringex
       def default_conversion(scope, key)
         return unless DefaultConversions.respond_to?(scope)
         DefaultConversions.send(scope)[key]
+      end
+
+      def i18n_present?
+        defined?(I18n) && I18n.respond_to?(:translate)
+      end
+
+      def ensure_i18n!
+        raise Backend::I18nNotDefined unless defined?(I18n)
+        raise Backend::I18nMissingTranslate unless I18n.respond_to?(:translate)
       end
     end
   end

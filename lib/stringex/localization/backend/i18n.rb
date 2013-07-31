@@ -56,6 +56,18 @@ module Stringex
           end
         end
       end
+
+      class I18nNotDefined < RuntimeError
+        def initialize
+          super 'Stringex cannot use I18n backend: I18n is not defined'
+        end
+      end
+
+      class I18nMissingTranslate < RuntimeError
+        def initialize
+          super 'Stringex cannot use I18n backend: I18n is defined but missing a translate method'
+        end
+      end
     end
   end
 end
