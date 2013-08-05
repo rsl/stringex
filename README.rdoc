@@ -103,7 +103,7 @@ Currently, built-in translations are available for the following languages:
 
   * English (en)
   * Danish (da)
-  * Portugueuse Brazilian (pt-BR)
+  * Portuguese Brazilian (pt-BR)
 
 You can easily add your own or customize the built-in translations - read here[https://github.com/rsl/stringex/wiki/Localization-of-Stringex-conversions]. If you add a new language, please submit a pull request so we can make it available to other users also.
 
