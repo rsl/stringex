@@ -77,7 +77,11 @@ class StringExtensionsTest < Test::Unit::TestCase
       "«zut alors»" =>
         "zut-alors",
       "Rabbits aren't real" =>
-        "rabbits-arent-real"
+        "rabbits-arent-real",
+      "R" =>
+	"r",
+      "R$ isn't R" =>
+	'reais-isn-t-r'
     }.each do |html, plain|
       assert_equal plain, html.to_url
     end
