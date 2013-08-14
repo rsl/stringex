@@ -114,4 +114,16 @@ class RussianYAMLLocalizationTest < Test::Unit::TestCase
       assert_equal converted, original.convert_vulgar_fractions
     end
   end
+
+  {
+    "foo & bar" => "foo-i-bar",
+    "AT&T" => "at-i-t",
+    "99° is normal" => "99-ghradusov-is-normal",
+    "4 ÷ 2 is 2" => "4-dielit-na-2-is-2",
+    "webcrawler.com" => "webcrawler-tochka-com",
+  }.each do |original, converted|
+    define_method "test_character_conversion: '#{original}'" do
+      assert_equal converted, original.to_url
+    end
+  end
 end
