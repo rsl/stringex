@@ -33,7 +33,7 @@ module Stringex
         :euros   => /€/,
         :pounds  => /£/,
         :yen     => /¥/,
-        :reais   => /R$/
+        :reais   => /R\$/
       }
       CURRENCIES_SUPPORTED_COMPLEX = {
         :dollars => :dollars_cents,
