@@ -14,7 +14,7 @@ ru:
       ellipsis: многоточие
       equals: равно
       number: номер
-      percent: процент
+      percent: процентов
       plus: плюс
       slash: слеш
       star: звезда
@@ -23,7 +23,7 @@ ru:
       dollars_cents: \1 долларов \2 центов
       pounds: \1 pounds
       pounds_pence: \1 фунтов \2 пенсов
-      euros: \1 euros
+      euros: \1 евро
       euros_cents: \1 евро \2 центов
       yen: \1 йен
       reais: \1 реал
