@@ -21,7 +21,7 @@ ru:
     currencies:
       dollars: \1 долларов
       dollars_cents: \1 долларов \2 центов
-      pounds: \1 pounds
+      pounds: \1 фунтов
       pounds_pence: \1 фунтов \2 пенсов
       euros: \1 евро
       euros_cents: \1 евро \2 центов
