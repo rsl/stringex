@@ -229,6 +229,7 @@ Gem::Specification.new do |s|
     "locales/da.yml",
     "locales/de.yml",
     "locales/en.yml",
+    "locales/nl.yml",
     "locales/pt-BR.yml",
     "stringex.gemspec",
     "test/performance/localization_performance_test.rb",
