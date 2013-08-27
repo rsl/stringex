@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "stringex"
-  s.version = "2.0.10"
+  s.version = "2.0.11"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Russell Norris"]
@@ -249,6 +249,7 @@ Gem::Specification.new do |s|
     "test/unit/localization_18n_failure_test.rb",
     "test/unit/localization_test.rb",
     "test/unit/redcloth_to_html_test.rb",
+    "test/unit/string_extensions_configuration_test.rb",
     "test/unit/string_extensions_test.rb",
     "test/unit/unicode_point_suite/basic_greek_test.rb",
     "test/unit/unicode_point_suite/basic_latin_test.rb",
