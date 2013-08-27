@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "stringex"
-  s.version = "2.0.9"
+  s.version = "2.0.10"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Russell Norris"]
-  s.date = "2013-08-26"
+  s.date = "2013-08-27"
   s.description = "Some [hopefully] useful extensions to Ruby's String class. Stringex is made up of three libraries: ActsAsUrl [permalink solution with better character translation], Unidecoder [Unicode to ASCII transliteration], and StringExtensions [miscellaneous helper methods for the String class]."
   s.email = "rsl@luckysneaks.com"
   s.extra_rdoc_files = [
@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
     "lib/stringex/configuration/base.rb",
     "lib/stringex/configuration/configurator.rb",
     "lib/stringex/configuration/string_extensions.rb",
+    "lib/stringex/configuration_lite.rb",
     "lib/stringex/localization.rb",
     "lib/stringex/localization/backend/base.rb",
     "lib/stringex/localization/backend/i18n.rb",
@@ -226,6 +227,7 @@ Gem::Specification.new do |s|
     "lib/stringex/unidecoder_data/xfe.yml",
     "lib/stringex/unidecoder_data/xff.yml",
     "lib/stringex/version.rb",
+    "lib/stringex_lite.rb",
     "locales/da.yml",
     "locales/de.yml",
     "locales/en.yml",
