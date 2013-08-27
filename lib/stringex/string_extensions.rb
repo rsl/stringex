@@ -2,6 +2,14 @@
 
 module Stringex
   module StringExtensions
+    def self.configure(&block)
+      Stringex::Configuration::StringExtensions.configure &block
+    end
+
+    def self.unconfigure!
+      Stringex::Configuration::StringExtensions.unconfigure!
+    end
+
     # These methods are all included into the String class.
     module PublicInstanceMethods
       # Removes specified character from the beginning and/or end of the string and then performs
@@ -171,7 +179,7 @@ module Stringex
       end
 
       def stringex_default_options
-        Stringex::Configuration::StringExtensions.default_settings
+        Stringex::Configuration::StringExtensions.new.settings.marshal_dump
       end
     end
 
