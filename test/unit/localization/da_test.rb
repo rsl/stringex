@@ -47,7 +47,7 @@ class DanishYAMLLocalizationTest < Test::Unit::TestCase
   end
 
   {
-    "Tea &amp; Sympathy" => "Tea and Sympathy",
+    "Tea &amp; Sympathy" => "Tea og Sympathy",
     "10&cent;" => "10 cents",
     "&copy;2000" => "(c)2000",
     "98&deg; is fine" => "98 grader is fine",
