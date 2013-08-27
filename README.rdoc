@@ -6,6 +6,8 @@ Some [hopefully] useful extensions to Ruby's String class. It is made up of thre
 
 == ActsAsUrl
 
+<em>NOTE: You can now require 'stringex_lite' instead of 'stringex' and skip loading ActsAsUrl functionality if you don't need it.</em>
+
 This library is designed to create URI-friendly representations of an attribute, for use in generating urls from your attributes. Basic usage is just calling the method:
 
   # Inside your model
