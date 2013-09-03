@@ -8,6 +8,7 @@ class DefaultLocalizationTest < Test::Unit::TestCase
     Stringex::Localization.reset!
     Stringex::Localization.backend = :internal
   end
+
   {
     "foo & bar" => "foo and bar",
     "AT&T" => "AT and T",
