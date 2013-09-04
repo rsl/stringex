@@ -33,6 +33,7 @@ class GermanYAMLLocalizationTest < Test::Unit::TestCase
   end
 
   {
+    "¤20" => "20 Euro",
     "$100" => "100 Dollar",
     "$19.99" => "19 Dollar 99 Cent",
     "£100" => "100 Pfund",

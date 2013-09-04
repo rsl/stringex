@@ -33,6 +33,7 @@ class DanishYAMLLocalizationTest < Test::Unit::TestCase
   end
 
   {
+    "¤20" => "20 kroner",
     "$100" => "100 dollars",
     "$19.99" => "19 dollars 99 cents",
     "£100" => "100 pund",

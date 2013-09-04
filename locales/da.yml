@@ -19,6 +19,7 @@ da:
       slash: skråstreg
       star: stjerne
     currencies:
+      generic: \1 kroner
       dollars: \1 dollars
       dollars_cents: \1 dollars \2 cents
       pounds: \1 pund

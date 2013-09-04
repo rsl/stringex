@@ -19,6 +19,7 @@ ru:
       slash: слеш
       star: звезда
     currencies:
+      generic: \1 рубль
       dollars: \1 долларов
       dollars_cents: \1 долларов \2 центов
       pounds: \1 фунтов

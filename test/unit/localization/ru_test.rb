@@ -33,6 +33,7 @@ class RussianYAMLLocalizationTest < Test::Unit::TestCase
   end
 
   {
+    "¤20" => "20 рубль",
     "$100" => "100 долларов",
     "$19.99" => "19 долларов 99 центов",
     "£100" => "100 фунтов",

@@ -19,6 +19,7 @@ de:
       slash: Strich
       star: Stern
     currencies:
+      generic: \1 Euro
       dollars: \1 Dollar
       dollars_cents: \1 Dollar \2 Cent
       pounds: \1 Pfund

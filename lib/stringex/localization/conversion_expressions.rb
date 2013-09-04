@@ -29,6 +29,7 @@ module Stringex
       CLEANUP_HTML_ENTITIES = /&[^;]+;/
 
       CURRENCIES_SUPPORTED_SIMPLE = {
+        :generic => /¤/,
         :dollars => /\$/,
         :euros   => /€/,
         :pounds  => /£/,

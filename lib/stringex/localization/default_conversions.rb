@@ -19,6 +19,7 @@ module Stringex
       }
 
       CURRENCIES_SIMPLE = {
+        :generic       => '\1 dollars',
         :dollars       => '\1 dollars',
         :euros         => '\1 euros',
         :pounds        => '\1 pounds',

@@ -30,6 +30,7 @@ class DefaultLocalizationTest < Test::Unit::TestCase
   end
 
   {
+    "¤20" => "20 dollars",
     "$100" => "100 dollars",
     "$19.99" => "19 dollars 99 cents",
     "£100" => "100 pounds",

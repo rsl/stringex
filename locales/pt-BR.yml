@@ -19,6 +19,7 @@ pt-BR:
       slash: barra
       star: estrela
     currencies:
+      generic: \1 reais
       dollars: \1 dólares
       dollars_cents: \1 dólares \2 cents
       pounds: \1 libras
