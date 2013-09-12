@@ -231,6 +231,7 @@ Gem::Specification.new do |s|
     "locales/da.yml",
     "locales/de.yml",
     "locales/en.yml",
+    "locales/nl.yml",
     "locales/pt-BR.yml",
     "locales/ru.yml",
     "stringex.gemspec",
