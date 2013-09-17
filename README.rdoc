@@ -105,6 +105,7 @@ Currently, built-in translations are available for the following languages:
 
   * English (en)
   * Danish (da)
+  * Dutch (nl)
   * German (de)
   * Portuguese Brazilian (pt-BR)
   * Russian (ru)
