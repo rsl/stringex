@@ -14,8 +14,13 @@ group :development do
     puts "Mongoid requires Ruby higher than 1.8.x"
   end
   gem "RedCloth", "4.2.9" # Can I state that I really dislike camelcased gem names?
-  gem "sqlite3", "1.3.7", :platform => [:ruby, :mswin, :mingw]
-  gem "jdbc-sqlite3", "3.7.2.1", :platform => :jruby
   gem "travis-lint", "1.7.0"
   gem "i18n", "0.6.1"
+  # For non-Jruby...
+  gem "sqlite3", "1.3.7", :platform => [:ruby, :mswin, :mingw]
+  # And for Jruby...
+  platform :jruby do
+    gem "jdbc-sqlite3"
+    gem "activerecord-jdbcsqlite3-adapter"
+  end
 end
