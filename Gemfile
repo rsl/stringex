@@ -20,7 +20,7 @@ group :development do
   gem "sqlite3", "1.3.7", :platform => [:ruby, :mswin, :mingw]
   # And for Jruby...
   platform :jruby do
-    gem "jdbc-sqlite3"
-    gem "activerecord-jdbcsqlite3-adapter"
+    # gem "jdbc-sqlite3"
+    # gem "activerecord-jdbcsqlite3-adapter"
   end
 end
