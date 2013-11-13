@@ -3,7 +3,7 @@
 module Stringex
   module Localization
     module ConversionExpressions
-      ABBREVIATION = /(\s|^)([[:alpha:]](\.[[:alpha:]])+(\.?)[[:alpha:]]*(\s|$))/
+      ABBREVIATION = /(\s|\(|^)([[:alpha:]](\.[[:alpha:]])+(\.?)[[:alpha:]]*(\s|\)|$))/
 
       ACCENTED_HTML_ENTITY = /&([A-Za-z])(grave|acute|circ|tilde|uml|ring|cedil|slash);/
 
