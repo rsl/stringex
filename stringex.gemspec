@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "stringex"
-  s.version = "2.1.0"
+  s.version = "2.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Russell Norris"]
-  s.date = "2013-09-17"
+  s.date = "2013-11-13"
   s.description = "Some [hopefully] useful extensions to Ruby's String class. Stringex is made up of three libraries: ActsAsUrl [permalink solution with better character translation], Unidecoder [Unicode to ASCII transliteration], and StringExtensions [miscellaneous helper methods for the String class]."
   s.email = "rsl@luckysneaks.com"
   s.extra_rdoc_files = [
@@ -280,9 +280,9 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, ["= 1.8.4"])
       s.add_development_dependency(%q<mongoid>, ["= 3.1.4"])
       s.add_development_dependency(%q<RedCloth>, ["= 4.2.9"])
-      s.add_development_dependency(%q<sqlite3>, ["= 1.3.7"])
       s.add_development_dependency(%q<travis-lint>, ["= 1.7.0"])
       s.add_development_dependency(%q<i18n>, ["= 0.6.1"])
+      s.add_development_dependency(%q<sqlite3>, ["= 1.3.7"])
     else
       s.add_dependency(%q<activerecord>, ["= 3.2.13"])
       s.add_dependency(%q<dm-core>, ["= 1.2.0"])
@@ -292,9 +292,9 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, ["= 1.8.4"])
       s.add_dependency(%q<mongoid>, ["= 3.1.4"])
       s.add_dependency(%q<RedCloth>, ["= 4.2.9"])
-      s.add_dependency(%q<sqlite3>, ["= 1.3.7"])
       s.add_dependency(%q<travis-lint>, ["= 1.7.0"])
       s.add_dependency(%q<i18n>, ["= 0.6.1"])
+      s.add_dependency(%q<sqlite3>, ["= 1.3.7"])
     end
   else
     s.add_dependency(%q<activerecord>, ["= 3.2.13"])
@@ -305,9 +305,9 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, ["= 1.8.4"])
     s.add_dependency(%q<mongoid>, ["= 3.1.4"])
     s.add_dependency(%q<RedCloth>, ["= 4.2.9"])
-    s.add_dependency(%q<sqlite3>, ["= 1.3.7"])
     s.add_dependency(%q<travis-lint>, ["= 1.7.0"])
     s.add_dependency(%q<i18n>, ["= 0.6.1"])
+    s.add_dependency(%q<sqlite3>, ["= 1.3.7"])
   end
 end
 
