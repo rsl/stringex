@@ -97,6 +97,11 @@ class StringExtensionsTest < Test::Unit::TestCase
     end
   end
 
+  def test_to_url_with_danish_characters
+    Stringex::Localization.locale = :da
+    assert_equal "roedgroed-med-floede", "Rødgrød med fløde".to_url
+  end
+
   def test_to_url_with_excludes
     assert_equal "So Fucking Special", "So Fucking Special".to_url(:exclude => "So Fucking Special")
   end
@@ -154,11 +159,11 @@ class StringExtensionsTest < Test::Unit::TestCase
 
   def test_localized_vulgar_fractions_conversion
     Stringex::Localization.backend = :internal
-    Stringex::Localization.store_translations :de, :vulgar_fractions, {
+    Stringex::Localization.store_translations :da, :vulgar_fractions, {
       :one_fourth => "en fjerdedel",
       :half => "en halv"
     }
-    Stringex::Localization.locale = :de
+    Stringex::Localization.locale = :da
 
     {
       "&frac14;" => "en fjerdedel",
