@@ -98,7 +98,6 @@ module Stringex
         if limit.nil?
           self
         else
-          puts truncate_words.inspect
           truncate_words == false ? self.whole_word_limit(limit) : self[0...limit]
         end
       end
