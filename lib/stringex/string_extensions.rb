@@ -94,9 +94,31 @@ module Stringex
       end
 
       # Returns the string limited in size to the value of limit.
-      def limit(limit = nil)
-        limit.nil? ? self : self[0...limit]
+      def limit(limit = nil, truncate_words = true)
+        if limit.nil?
+          self
+        else
+          puts truncate_words.inspect
+          truncate_words == false ? self.whole_word_limit(limit) : self[0...limit]
+        end
       end
+
+      def whole_word_limit(limit)
+        whole_words = []
+        words = self.split('-')
+
+        words.each do |word|
+          if word.size > limit
+            break
+          else
+            whole_words << word
+            limit -= (word.size + 1)
+          end
+        end
+
+        whole_words.join('-')
+      end
+
 
       # Performs multiple text manipulations. Essentially a shortcut for typing them all. View source
       # below to see which methods are run.
@@ -167,7 +189,7 @@ module Stringex
         dummy = remove_formatting(options).
                   replace_whitespace(whitespace_replacement_token).
                   collapse("-").
-                  limit(options[:limit])
+                  limit(options[:limit], options[:truncate_words])
         dummy.downcase! unless options[:force_downcase] == false
         dummy
       end
