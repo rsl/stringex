@@ -327,6 +327,15 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
     assert_equal "a-b/c-d", @doc.url
   end
 
+  def test_should_truncate_words_by_default
+    Document.class_eval do
+      acts_as_url :title, :limit => 20
+    end
+
+    @doc = Document.create(:title => "title with many whole words")
+    assert_equal 'title-with-many-whol', @doc.url
+  end
+
   def test_should_not_truncate_words
     Document.class_eval do
       acts_as_url :title, :limit => 20, :truncate_words => false

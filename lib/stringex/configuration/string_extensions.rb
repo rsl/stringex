@@ -11,7 +11,8 @@ module Stringex
           :exclude => [],
           :force_downcase => true,
           :limit => nil,
-          :replace_whitespace_with => "-"
+          :replace_whitespace_with => "-",
+          :truncate_words => true
         }
       end
     end
