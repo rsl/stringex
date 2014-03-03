@@ -41,35 +41,7 @@ namespace :test do
   end
 end
 
-desc 'Default: Run Stringex test suite using ActiveRecord as the ORM'
-task :default => [:setup_active_record_suite, :test]
-
-task :setup_active_record_suite do
-  ENV['ADAPTER'] = 'active_record'
-end
-
-desc 'Run Stringex test suite using ActiveRecord as the ORM'
-namespace :test do
-  task :active_record => [:setup_active_record_suite]
-end
-
-task :setup_mongoid_suite do
-  ENV['ADAPTER'] = 'mongoid'
-end
-
-desc 'Run Stringex test suite using Mongoid as the ORM'
-namespace :test do
-  task :mongoid => [:setup_mongoid_suite, :test]
-end
-
-task :setup_data_mapper_suite do
-  ENV['ADAPTER'] = 'data_mapper'
-end
-
-desc 'Run Stringex test suite using DataMapper as the ORM'
-namespace :test do
-  task :data_mapper => [:setup_data_mapper_suite, :test]
-end
+task :default => :test
 
 desc 'Generate RDoc for Stringex'
 Rake::RDocTask.new(:rdoc) do |rdoc|

@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-adapter = ENV['ADAPTER'] || 'active_record'
+adapter = ENV['ADAPTER'] || 'activerecord'
 require File.join(File.expand_path(File.dirname(__FILE__)), "acts_as_url/adapter/#{adapter}.rb")
 
 class ActsAsUrlIntegrationTest < Test::Unit::TestCase
