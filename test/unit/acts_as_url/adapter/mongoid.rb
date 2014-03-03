@@ -23,6 +23,14 @@ class Document
   acts_as_url :title
 end
 
+begin
+  # Let's make sure we can connect to mongodb before we run our tests!
+  Mongoid::Sessions.default.databases
+rescue Moped::Errors::ConnectionFailure => err
+  puts 'Cannot connect to mongodb. Aborting.'
+  exit
+end
+
 class STIBaseDocument
   include Mongoid::Document
   field :title,   :type => String
