@@ -7,7 +7,7 @@ env:
   - 'ADAPTER=datamapper'
   - 'ADAPTER=mongoid'
 before_script:
-  - '[ "$ADAPTER" = "mongoid" ] && service mongodb start || true'
+  - if [[ "$ADAPTER" == "mongoid" ]]; then service mongodb start; fi
 branches:
   only:
     - master
