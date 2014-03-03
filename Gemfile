@@ -15,7 +15,7 @@ group :development do
   end
   gem "RedCloth", "4.2.9" # Can I state that I really dislike camelcased gem names?
   gem "travis-lint", "1.7.0"
-  gem "i18n", "0.6.1"
+  gem "i18n", "0.6.9"
   # For non-Jruby...
   gem "sqlite3", "1.3.7", :platform => [:ruby, :mswin, :mingw]
   # And for Jruby...
