@@ -8,6 +8,8 @@ env:
   - 'ADAPTER=mongoid'
 before_script:
   - if [[ "$ADAPTER" == "mongoid" ]]; then service mongodb start; fi
+services:
+  - mongodb
 branches:
   only:
     - master
