@@ -3,7 +3,7 @@ source "https://rubygems.org"
 
 group :development do
   gem "activerecord", "3.2.13"
-  gem "dm-core", "1.2.0"
+  gem "dm-core", "1.2.1"
   gem "dm-migrations", "1.2.0"
   gem "dm-sqlite-adapter", "1.2.0"
   gem "dm-validations", "1.2.0"
