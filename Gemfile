@@ -9,7 +9,7 @@ group :development do
   gem "dm-validations", "1.2.0"
   gem "jeweler", "1.8.4"
   if RUBY_VERSION > "1.8.x"
-    gem "mongoid", "3.1.4"
+    gem "mongoid", "3.1.6"
   else
     puts "Mongoid requires Ruby higher than 1.8.x"
   end
