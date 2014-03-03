@@ -1,14 +1,13 @@
 language: ruby
 rvm:
   - 2.1.1
-  - 2.1.0
-  - 2.0.0
   - 1.9.3
-  - 1.9.2
 env:
   - 'ADAPTER=activerecord'
   - 'ADAPTER=datamapper'
   - 'ADAPTER=mongoid'
+before_script:
+  - '[ "$ADAPTER" = "mongoid" ] && service mongodb start || true'
 branches:
   only:
     - master
