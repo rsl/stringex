@@ -3,7 +3,6 @@ rvm:
   - 2.0.0
   - 1.9.3
   - 1.9.2
-  # - jruby-19mode
 branches:
   only:
     - master
