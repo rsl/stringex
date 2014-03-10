@@ -14,20 +14,7 @@ module Stringex
       #
       # You're probably better off just using the added String#to_ascii
       def decode(string)
-        string.gsub(/[^\x00-\x00]/u) do |codepoint|
-          if localized = translate(codepoint)
-            localized
-          else
-            begin
-              unpacked = codepoint.unpack("U")[0]
-              CODEPOINTS[code_group(unpacked)][grouped_point(unpacked)]
-            rescue
-              # Hopefully this won't come up much
-              # TODO: Make this note something to the user that is reportable to me perhaps
-              "?"
-            end
-          end
-        end
+        string.chars.map{|char| decoded(char)}.join
       end
 
       # Returns character for the given Unicode codepoint
@@ -49,8 +36,22 @@ module Stringex
 
     private
 
-      def translate(codepoint)
-        Localization.translate(:transliterations, codepoint)
+      def decoded(character)
+        localized(character) || from_yaml(character)
+      end
+
+      def localized(character)
+        Localization.translate(:transliterations, character)
+      end
+
+      def from_yaml(character)
+        return character unless character.ord > 128
+        unpacked = character.unpack("U")[0]
+        CODEPOINTS[code_group(unpacked)][grouped_point(unpacked)]
+      rescue
+        # Hopefully this won't come up much
+        # TODO: Make this note something to the user that is reportable to me perhaps
+        "?"
       end
 
       # Returns the Unicode codepoint grouping for the given character
