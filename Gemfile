@@ -23,7 +23,7 @@ end
 
 group :development do
   # Standard gems across gemfiles
-  gem 'jeweler', '1.8.4'
+  gem 'jeweler', '2.0.1'
   gem 'travis-lint', '1.7.0'
   # Can I state that I really dislike camelcased gem names?
   gem 'RedCloth', '4.2.9'
