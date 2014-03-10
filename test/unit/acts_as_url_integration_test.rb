@@ -20,6 +20,13 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
     assert_equal "unique-1", @other_doc.url
   end
 
+  def test_should_avoid_stop_list
+    @doc = Document.create(:title => "New")
+    @other_doc = Document.create(:title => "new")
+    assert_equal "new-document", @doc.url
+    assert_equal "new-document-1", @other_doc.url
+  end
+
   def test_should_create_unique_url_when_partial_url_already_exists
     @doc = Document.create(:title => "House Farms")
     @other_doc = Document.create(:title => "House Farm")

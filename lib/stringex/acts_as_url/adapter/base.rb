@@ -22,6 +22,7 @@ module Stringex
           self.instance = instance
 
           handle_url!
+          handle_stop_list_url!
           handle_duplicate_url! unless settings.allow_duplicates
         end
 
@@ -129,6 +130,12 @@ module Stringex
         def handle_url!
           self.base_url = instance.send(settings.url_attribute)
           modify_base_url if is_blank?(base_url) || !settings.only_when_blank
+          write_url_attribute base_url
+        end
+
+        def handle_stop_list_url!
+          return unless settings.stop_list.include?(base_url)
+          self.base_url = settings.stop_list_policy.call(instance, base_url)
           write_url_attribute base_url
         end
 
