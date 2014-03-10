@@ -15,7 +15,7 @@ module Stringex
           :force_downcase,
           :limit,
           :replace_whitespace_with,
-          :truncate_words,
+          :truncate_words
         ].inject(Hash.new){|m, x| m[x] = settings.send(x); m}
       end
 
