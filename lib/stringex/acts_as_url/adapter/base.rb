@@ -22,7 +22,7 @@ module Stringex
           self.instance = instance
 
           handle_url!
-          handle_stop_list_url!
+          handle_blacklisted_url!
           handle_duplicate_url! unless settings.allow_duplicates
         end
 
@@ -133,9 +133,9 @@ module Stringex
           write_url_attribute base_url
         end
 
-        def handle_stop_list_url!
-          return unless settings.stop_list.include?(base_url)
-          self.base_url = settings.stop_list_policy.call(instance, base_url)
+        def handle_blacklisted_url!
+          return unless settings.blacklist.to_set.include?(base_url)
+          self.base_url = settings.blacklist_policy.call(instance, base_url)
           write_url_attribute base_url
         end
 

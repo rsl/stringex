@@ -13,7 +13,8 @@ This library is designed to create URI-friendly representations of an attribute,
   # Inside your model
   acts_as_url :title
 
-which will populate the <tt>url</tt> attribute on the object with the converted contents of the <tt>title</tt> attribute. This behavior can be customized by adding the following options to the arguments of the <tt>acts_as_url</tt> method:
+which will populate the <tt>url</tt> attribute on the object with the converted contents of the <tt>title</tt> attribute.
+<tt>acts_as_url</tt> takes the following options:
 
 <tt>:url_attribute</tt>:: The name of the attribute to use for storing the generated url string.
                           Default is <tt>:url</tt>
@@ -30,6 +31,11 @@ which will populate the <tt>url</tt> attribute on the object with the converted 
 <tt>:limit</tt>:: If set, will limit length of url generated. Default is nil.
 <tt>:truncate_words</tt>:: Used with :limit. If set to false, the url will be truncated to the last
                            whole word before the limit was reached. Default is true.
+<tt>:blacklist</tt>:: List of urls that should not be allowed. Default is <tt>%w{new}</tt> [which avoids confusion
+                      on urls like <tt>/documents/new</tt>].
+<tt>:blacklist_policy</tt>:: Proc or lambda defining new naming behavior when blacklisted urls are encountered.
+                             Default converts <tt>/documents/new</tt> to </tt>/documents/new-document</tt>.
+
 
 In order to use the generated url attribute, you will probably want to override <tt>to_param</tt> like so, in your Model:
 

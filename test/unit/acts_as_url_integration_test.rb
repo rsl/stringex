@@ -20,11 +20,36 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
     assert_equal "unique-1", @other_doc.url
   end
 
-  def test_should_avoid_stop_list
+  def test_should_avoid_blacklist
     @doc = Document.create(:title => "New")
     @other_doc = Document.create(:title => "new")
     assert_equal "new-document", @doc.url
     assert_equal "new-document-1", @other_doc.url
+  end
+
+  def test_should_allow_customizing_blacklist
+    Document.class_eval do
+      # Un-blacklisting 'new' isn't advisable
+      acts_as_url :title, :blacklist => %w{special}
+    end
+
+    @doc = Document.create(:title => "New")
+    @other_doc = Document.create(:title => "Special")
+    assert_equal 'new', @doc.url
+    assert_equal 'special-document', @other_doc.url
+  end
+
+  def test_should_allow_customizing_blacklist_policy
+    Document.class_eval do
+      acts_as_url :title, :blacklist_policy => Proc.new(){|instance, url|
+        "#{url}-customized"
+      }
+    end
+
+    @doc = Document.create(:title => "New")
+    @other_doc = Document.create(:title => "New")
+    assert_equal 'new-customized', @doc.url
+    assert_equal 'new-customized-1', @other_doc.url
   end
 
   def test_should_create_unique_url_when_partial_url_already_exists
