@@ -8,3 +8,4 @@ profile*.html
 rdoc
 *.sqlite3
 *.gem
+.ruby-*

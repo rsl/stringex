@@ -15,7 +15,7 @@ module Stringex
           :force_downcase,
           :limit,
           :replace_whitespace_with,
-          :truncate_words,
+          :truncate_words
         ].inject(Hash.new){|m, x| m[x] = settings.send(x); m}
       end
 
@@ -39,6 +39,8 @@ module Stringex
           :scope_for_url => nil,
           :sync_url => false,
           :url_attribute => "url",
+          :stop_list => %w[new].to_set,
+          :stop_list_policy => lambda{ |instance, url| "#{url}-#{instance.class.to_s.downcase}" }
         }.merge(Stringex::Configuration::StringExtensions.new.default_settings)
       end
     end
