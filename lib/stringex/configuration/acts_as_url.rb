@@ -34,7 +34,7 @@ module Stringex
           :allow_duplicates => false,
           :callback_method => :before_validation,
           :duplicate_count_separator => "-",
-          :enforce_uniqueness_on_sti_class => false,
+          :enforce_uniqueness_on_sti_base_class => false,
           :only_when_blank => false,
           :scope_for_url => nil,
           :sync_url => false,
