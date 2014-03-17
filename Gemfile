@@ -31,7 +31,6 @@ group :development do
 
   if activerecord?
     gem 'activerecord', '4.0.3'
-    gem 'i18n', '0.6.9'
   end
 
   if datamapper?
