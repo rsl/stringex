@@ -59,7 +59,7 @@ Unlike other permalink solutions, ActsAsUrl doesn't rely on Iconv (which is inco
    "$12 worth of Ruby power".to_url => "12-dollars-worth-of-ruby-power"
    "10% off if you act now".to_url => "10-percent-off-if-you-act-now"
 
-   # You don't even wanna trust Iconv for this next part
+   # You should never rely on Iconv for this next part
    "kick it en Français".to_url => "kick-it-en-francais"
    "rock it Español style".to_url => "rock-it-espanol-style"
    "tell your readers 你好".to_url => "tell-your-readers-ni-hao"
@@ -113,6 +113,7 @@ Currently, built-in translations are available for the following languages:
 
   * English (en)
   * Danish (da)
+  * Swedish (sv)
   * Dutch (nl)
   * German (de)
   * Portuguese Brazilian (pt-BR)
@@ -137,4 +138,4 @@ If it's not obvious, some of the code for ActsAsUrl is based on Rick Olsen's per
 
 GIANT thanks to the many contributors who have helped make Stringex better and better: http://github.com/rsl/stringex/contributors
 
-copyright (c) 2008-2013 Lucky Sneaks, released under the MIT license
+copyright (c) 2008-2014 Lucky Sneaks, released under the MIT license
