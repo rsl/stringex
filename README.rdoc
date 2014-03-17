@@ -59,7 +59,7 @@ Unlike other permalink solutions, ActsAsUrl doesn't rely on Iconv (which is inco
    "$12 worth of Ruby power".to_url => "12-dollars-worth-of-ruby-power"
    "10% off if you act now".to_url => "10-percent-off-if-you-act-now"
 
-   # You should never rely on Iconv for this next part
+   # You dont EVEN wanna rely on Iconv for this next part
    "kick it en Français".to_url => "kick-it-en-francais"
    "rock it Español style".to_url => "rock-it-espanol-style"
    "tell your readers 你好".to_url => "tell-your-readers-ni-hao"
