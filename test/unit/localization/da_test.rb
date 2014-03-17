@@ -24,8 +24,8 @@ class DanishYAMLLocalizationTest < Test::Unit::TestCase
     "100%" => "100 procent",
     "cost+tax" => "cost plus tax",
     "batman/robin fan fiction" => "batman skråstreg robin fan fiction",
-    "dial *69" => "dial stjerne 69"
-    # " i leave whitespace on ends unchanged " => " i leave whitespace on ends unchanged "
+    "dial *69" => "dial stjerne 69",
+    " i leave whitespace on ends unchanged " => " i leave whitespace on ends unchanged "
   }.each do |original, converted|
     define_method "test_character_conversion: '#{original}'" do
       assert_equal converted, original.convert_miscellaneous_characters
