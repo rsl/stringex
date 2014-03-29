@@ -13,7 +13,7 @@ pl:
       dot: \1 kropka \2
       ellipsis: kropka kropka kropka
       equals: równy
-      number: liczba
+      number: numer
       percent: procent
       plus: plus
       slash: ukośnik
