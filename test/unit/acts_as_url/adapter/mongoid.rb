@@ -1,4 +1,3 @@
-require 'rubygems'
 gem 'mongoid'
 require 'mongoid'
 require 'stringex'

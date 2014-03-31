@@ -1,4 +1,3 @@
-require 'rubygems'
 gem 'activerecord'
 require 'active_record'
 require "stringex"

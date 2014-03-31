@@ -1,4 +1,3 @@
-require 'rubygems'
 gem 'dm-core'
 gem 'dm-migrations'
 gem 'dm-validations'
