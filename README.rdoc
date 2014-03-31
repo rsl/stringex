@@ -116,6 +116,7 @@ Currently, built-in translations are available for the following languages:
   * Swedish (sv)
   * Dutch (nl)
   * German (de)
+  * Polish (pl)
   * Portuguese Brazilian (pt-BR)
   * Russian (ru)
 
