@@ -123,7 +123,7 @@ class RussianYAMLLocalizationTest < Test::Unit::TestCase
     "4 ÷ 2 is 2" => "4-dielit-na-2-is-2",
     "webcrawler.com" => "webcrawler-tochka-com",
   }.each do |original, converted|
-    define_method "test_character_conversion: '#{original}'" do
+    define_method "test_character_conversion_to_url: '#{original}'" do
       assert_equal converted, original.to_url
     end
   end
