@@ -123,20 +123,24 @@ class LocalizationTest < Test::Unit::TestCase
   end
 
   def test_assigns_locale_in_i18n_backend
-    I18n.locale = :en
-    Stringex::Localization.backend = :i18n
+    if other_locale = I18n.available_locales.find{|locale| ![:en, :de].include?(locale)}
+      I18n.locale = :en
+      Stringex::Localization.backend = :i18n
 
-    assert_equal :en, Stringex::Localization.locale
+      assert_equal :en, Stringex::Localization.locale
 
-    I18n.locale = :jp
-    assert_equal :jp, Stringex::Localization.locale
+      I18n.locale = other_locale
+      assert_equal other_locale, Stringex::Localization.locale
 
-    Stringex::Localization.locale = :de
-    assert_equal :de, Stringex::Localization.locale
-    assert_equal :jp, I18n.locale
+      Stringex::Localization.locale = :de
+      assert_equal :de, Stringex::Localization.locale
+      assert_equal other_locale, I18n.locale
 
-    Stringex::Localization.locale = nil
-    assert_equal :jp, Stringex::Localization.locale
-    assert_equal :jp, I18n.locale
+      Stringex::Localization.locale = nil
+      assert_equal other_locale, Stringex::Localization.locale
+      assert_equal other_locale, I18n.locale
+    else
+      flunk "No I18n locales are available except :de and :en so test will not work"
+    end
   end
 end

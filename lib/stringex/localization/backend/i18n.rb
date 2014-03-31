@@ -48,6 +48,8 @@ module Stringex
           end
 
           def i18n_translations_for(locale)
+            # Allow users to have set this to false manually but default to true
+            ::I18n.enforce_available_locales ||= true
             ::I18n.translate("stringex", :locale => locale, :default => {})
           end
 
