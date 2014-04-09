@@ -145,6 +145,7 @@ class LocalizationTest < Test::Unit::TestCase
   end
 
   def test_enforce_available_locales_default
+    return unless I18n.respond_to?(:enforce_available_locales)
     Stringex::Localization.backend = :i18n
     assert_not_nil I18n.enforce_available_locales
     'Some String'.to_url
@@ -152,6 +153,7 @@ class LocalizationTest < Test::Unit::TestCase
   end
 
   def test_respects_user_enforce_available_locales_setting
+    return unless I18n.respond_to?(:enforce_available_locales)
     Stringex::Localization.backend = :i18n
     I18n.enforce_available_locales = false
     'Some String'.to_url
