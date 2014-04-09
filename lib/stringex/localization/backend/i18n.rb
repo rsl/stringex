@@ -59,7 +59,8 @@ module Stringex
           def ensure_locales_enforced_or_not
             return unless ::I18n.respond_to?(:enforce_available_locales)
             # Allow users to have set this to false manually but default to true
-            ::I18n.enforce_available_locales ||= ::I18n.available_locales != []
+            return if ::I18n.enforce_available_locales != nil
+            ::I18n.enforce_available_locales = ::I18n.available_locales != []
           end
         end
       end

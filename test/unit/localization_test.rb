@@ -143,4 +143,17 @@ class LocalizationTest < Test::Unit::TestCase
       flunk "No I18n locales are available except :de and :en so test will not work"
     end
   end
+
+  def test_defaults_enforce_available_locales_to_true
+    Stringex::Localization.backend = :i18n
+    'Some String'.to_url
+    assert_equal true, I18n.enforce_available_locales
+  end
+
+  def test_respects_user_enforce_available_locales_setting
+    Stringex::Localization.backend = :i18n
+    I18n.enforce_available_locales = false
+    'Some String'.to_url
+    assert_equal false, I18n.enforce_available_locales
+  end
 end
