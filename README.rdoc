@@ -34,7 +34,7 @@ which will populate the <tt>url</tt> attribute on the object with the converted 
 <tt>:blacklist</tt>:: List of urls that should not be allowed. Default is <tt>%w{new}</tt> [which avoids confusion
                       on urls like <tt>/documents/new</tt>].
 <tt>:blacklist_policy</tt>:: Proc or lambda defining new naming behavior when blacklisted urls are encountered.
-                             Default converts <tt>/documents/new</tt> to </tt>/documents/new-document</tt>.
+                             Default converts <tt>/documents/new</tt> to <tt>/documents/new-document</tt>.
 
 
 In order to use the generated url attribute, you will probably want to override <tt>to_param</tt> like so, in your Model:
