@@ -8,8 +8,7 @@ require 'stringex/unidecoder'
 require 'stringex/acts_as_url'
 require 'stringex/version'
 
-String.send :include, Stringex::StringExtensions::PublicInstanceMethods
-String.send :extend, Stringex::StringExtensions::PublicClassMethods
+require 'stringex/core_ext'
 
 Stringex::ActsAsUrl::Adapter.load_available
 
