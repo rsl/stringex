@@ -1,6 +1,7 @@
 # encoding: UTF-8
 
 require 'yaml'
+require 'stringex/localization'
 
 module Stringex
   module Unidecoder
@@ -68,12 +69,14 @@ module Stringex
 end
 
 module Stringex
-  module StringExtensions::PublicInstanceMethods
-    # Returns string with its UTF-8 characters transliterated to ASCII ones. Example:
-    #
-    #   "⠋⠗⠁⠝⠉⠑".to_ascii #=> "france"
-    def to_ascii
-      Stringex::Unidecoder.decode(self)
+  module StringExtensions
+    module PublicInstanceMethods
+      # Returns string with its UTF-8 characters transliterated to ASCII ones. Example:
+      #
+      #   "⠋⠗⠁⠝⠉⠑".to_ascii #=> "france"
+      def to_ascii
+        Stringex::Unidecoder.decode(self)
+      end
     end
   end
 end

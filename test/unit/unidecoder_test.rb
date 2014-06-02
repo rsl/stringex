@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 require "test_helper"
-require "stringex"
+require "stringex/unidecoder"
 
 class UnidecoderTest < Test::Unit::TestCase
   # Silly phrases courtesy of Frank da Cruz
@@ -61,6 +61,7 @@ class UnidecoderTest < Test::Unit::TestCase
   end
 
   def test_to_ascii
+    require "stringex/core_ext"
     DONT_CONVERT.each do |ascii|
       assert_equal ascii, ascii.to_ascii
     end
