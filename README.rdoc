@@ -1,4 +1,4 @@
-= Stringex {<img src="https://codeclimate.com/github/rsl/stringex.png" />}[https://codeclimate.com/github/rsl/stringex] {<img src="https://travis-ci.org/rsl/stringex.png?branch=master" alt="Build Status" />}[https://travis-ci.org/rsl/stringex] {<img src="https://badge.fury.io/rb/rails.svg" alt="Gem Version" />}[http://badge.fury.io/rb/rails]
+= Stringex {<img src="https://codeclimate.com/github/rsl/stringex.png" />}[https://codeclimate.com/github/rsl/stringex] {<img src="https://travis-ci.org/rsl/stringex.png?branch=master" alt="Build Status" />}[https://travis-ci.org/rsl/stringex] {<img src="https://badge.fury.io/rb/stringex.svg" alt="Gem Version" />}[http://badge.fury.io/rb/stringex]
 
 Some [hopefully] useful extensions to Ruby's String class. It is made up of three libraries: ActsAsUrl, Unidecoder, and StringExtensions.
 
