@@ -18,7 +18,7 @@ module Stringex
         end
 
         def ensure_unique_url!(instance)
-          @test_urls = nil
+          @url_owners = nil
           self.instance = instance
 
           handle_url!
@@ -119,12 +119,10 @@ module Stringex
         end
 
         def handle_duplicate_url!
-          return if test_urls.none?{|test_url| test_url == base_url}
-          max_id = test_urls.collect { |test_url| test_url =~ /(\d+)\Z/ && $1.to_i }.compact.max
-          if max_id
-            n = max_id.succ
-          else
-            n = 1
+          return if url_owners.none?{|owner| url_attribute_for(owner) == base_url}
+          n = 1
+          while url_owners.any?{|owner| url_attribute_for(owner) == duplicate_for_base_url(n)}
+            n = n.succ
           end
           write_url_attribute duplicate_for_base_url(n)
         end
@@ -190,8 +188,8 @@ module Stringex
           @url_owner_conditions
         end
 
-        def test_urls
-          @test_urls ||= url_owners_class.unscoped.where(url_owner_conditions).pluck(settings.url_attribute)
+        def url_owners
+          @url_owners ||= url_owners_class.unscoped.where(url_owner_conditions).to_a
         end
 
         def url_owners_class
