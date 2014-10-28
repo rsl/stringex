@@ -3,7 +3,7 @@
 # Stringex::Localization::ConversionExpressions to see what those
 # regular expressions look like if you need to manipulate the order
 # differently than the usage below.
-en:
+fr:
   stringex:
     characters:
       and: et
@@ -13,7 +13,7 @@ en:
       dot: \1 point \2
       ellipsis: point point point
       equals: égal
-      number: nombre
+      number: numéro
       percent: pourcent
       plus: plus
       slash: slash
@@ -61,9 +61,12 @@ en:
       two_fifths: deux cinquièmes
       three_fifths: trois cinquièmes
       four_fifths: quatre cinquièmes
-      one_sixth: un sixièmes
+      one_sixth: un sixième
       five_sixths: cinq sixièmes
-      one_eighth: un huitièmre
+      one_eighth: un huitième
       three_eighths: trois huitièmes
       five_eighths: cinq huitièmes
       seven_eighths: sept huitièmes
+    transliterations:
+      é: e
+      è: e
