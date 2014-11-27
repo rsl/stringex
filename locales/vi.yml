@@ -8,15 +8,15 @@ vi:
     characters:
       and: va
       at: tai
-      divide: divided by
+      divide: chia
       degrees: do
       dot: \1 cham \2
       ellipsis: dot dot dot
       equals: bang
-      number: number
+      number: so
       percent: phan tram
       plus: cong
-      slash: slash
+      slash: gach cheo
       star: sao
     currencies:
       generic: \1 pounds
@@ -33,15 +33,15 @@ vi:
       amp: and
       cent: " cents"
       copy: (c)
-      deg: " degrees "
-      divide: " divided by "
+      deg: " do "
+      divide: " chia "
       double_quote: '"'
       ellipsis: "..."
       en_dash: "-"
       em_dash: "--"
-      frac14: one fourths
-      frac12: half
-      frac34: three fourths
+      frac14: mot phan tu
+      frac12: mot nua
+      frac34: ba phan tu
       gt: ">"
       lt: <
       nbsp: " "
@@ -53,18 +53,109 @@ vi:
       yen: " yen "
     vulgar_fractions:
       half: half
-      one_third: one third
-      two_thirds: two thirds
-      one_fourth: one fourth
-      three_fourths: three fourths
-      one_fifth: one fifth
-      two_fifths: two fifths
-      three_fifths: three fifths
-      four_fifths: four fifths
-      one_sixth: one sixth
-      five_sixths: five sixths
-      one_eighth: one eighth
-      three_eighths: three eighths
-      five_eighths: five eighths
-      seven_eighths: seven eighths
+      one_third: mot phan ba
+      two_thirds: hai phan ba
+      one_fourth: mot phan tu
+      three_fourths: ba phan tu
+      one_fifth: mot phan nam
+      two_fifths: hai phan nam
+      three_fifths: ba phan nam
+      four_fifths: bon phan nam
+      one_sixth: mot phan sau
+      five_sixths: nam phan sau
+      one_eighth: mot phan tam
+      three_eighths: ba phan bay
+      five_eighths: nam phan bay
+      seven_eighths: bay phan bay
+    transliterations:
+      ạ: a
+      ả: a
+      ầ: a
+      ấ: a
+      ậ: a
+      ẩ: a
+      ẫ: a
+      ằ: a
+      ắ: a
+      ặ: a
+      ẳ: a
+      ẵ: a
+      ẹ: e
+      ẻ: e
+      ẽ: e
+      ề: e
+      ế: e
+      ệ: e
+      ể: e
+      ễ: e
+      ị: i
+      ỉ: i
+      ọ: o
+      ỏ: o
+      ồ: o
+      ố: o
+      ộ: o
+      ổ: o
+      ỗ: o
+      ờ: o
+      ớ: o
+      ợ: o
+      ở: o
+      ỡ: o
+      ụ: u
+      ủ: u
+      ừ: u
+      ứ: u
+      ự: u
+      ử: u
+      ữ: u
+      ỳ: y
+      ỵ: y
+      ỷ: y
+      ỹ: y
+      Ạ: A
+      Ả: A
+      Ầ: A
+      Ấ: A
+      Ậ: A
+      Ẩ: A
+      Ẫ: A
+      Ằ: A
+      Ắ: A
+      Ặ: A
+      Ẳ: A
+      Ẵ: A
+      Ẹ: E
+      Ẻ: E
+      Ẽ: E
+      Ề: E
+      Ế: E
+      Ệ: E
+      Ể: E
+      Ễ: E
+      Ị: I
+      Ỉ: I
+      Ọ: O
+      Ỏ: O
+      Ồ: O
+      Ố: O
+      Ộ: O
+      Ổ: O
+      Ỗ: O
+      Ờ: O
+      Ớ: O
+      Ợ: O
+      Ở: O
+      Ỡ: O
+      Ụ: U
+      Ủ: U
+      Ừ: U
+      Ứ: U
+      Ự: U
+      Ử: U
+      Ữ: U
+      Ỳ: Y
+      Ỵ: Y
+      Ỷ: Y
+      Ỹ: Y
     
