@@ -119,12 +119,20 @@ module Stringex
         end
 
         def handle_duplicate_url!
-          return if url_owners.none?{|owner| url_attribute_for(owner) == base_url}
+          return if !url_taken?(base_url)
           n = 1
-          while url_owners.any?{|owner| url_attribute_for(owner) == duplicate_for_base_url(n)}
+          while url_taken?(duplicate_for_base_url(n))
             n = n.succ
           end
           write_url_attribute duplicate_for_base_url(n)
+        end
+
+        def url_taken?(url)
+          if settings.url_taken_method
+            instance.send(settings.url_taken_method, url)
+          else
+            url_owners.any?{|owner| url_attribute_for(owner) == url}
+          end
         end
 
         def handle_url!

@@ -376,4 +376,17 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
     @doc = Document.create(:title => "title with many whole words")
     assert_equal 'title-with-many', @doc.url
   end
+
+  def test_should_allow_overriding_url_taken_method
+    Document.class_eval do
+      acts_as_url :title, :url_taken_method => :url_taken?
+
+      def url_taken?(url)
+        ["unique", "unique-1", "unique-2"].include?(url)
+      end
+    end
+
+    @doc = Document.create(:title => "unique")
+    assert_equal "unique-3", @doc.url
+  end
 end
