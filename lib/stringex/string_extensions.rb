@@ -94,17 +94,17 @@ module Stringex
       end
 
       # Returns the string limited in size to the value of limit.
-      def limit(limit = nil, truncate_words = true)
+      def limit(limit = nil, truncate_words = true, whitespace_replacement_token = "-")
         if limit.nil?
           self
         else
-          truncate_words == false ? self.whole_word_limit(limit) : self[0...limit]
+          truncate_words == false ? self.whole_word_limit(limit, whitespace_replacement_token) : self[0...limit]
         end
       end
 
-      def whole_word_limit(limit)
+      def whole_word_limit(limit, whitespace_replacement_token = "-")
         whole_words = []
-        words = self.split('-')
+        words = self.split(whitespace_replacement_token)
 
         words.each do |word|
           if word.size > limit
@@ -115,7 +115,7 @@ module Stringex
           end
         end
 
-        whole_words.join('-')
+        whole_words.join(whitespace_replacement_token)
       end
 
 
@@ -187,8 +187,8 @@ module Stringex
         whitespace_replacement_token = options[:replace_whitespace_with]
         dummy = remove_formatting(options).
                   replace_whitespace(whitespace_replacement_token).
-                  collapse("-").
-                  limit(options[:limit], options[:truncate_words])
+                  collapse(whitespace_replacement_token).
+                  limit(options[:limit], options[:truncate_words], whitespace_replacement_token)
         dummy.downcase! unless options[:force_downcase] == false
         dummy
       end

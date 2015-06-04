@@ -118,6 +118,10 @@ class StringExtensionsTest < Test::Unit::TestCase
     assert_equal "under_scores", "Under Scores".to_url(:replace_whitespace_with => "_")
   end
 
+  def test_to_url_with_alternate_whitespace_replacement_and_with_limit_and_with_truncate_words_disabled
+    assert_equal "i_am_much", "I am much too long".to_url(:replace_whitespace_with => "_", :limit => 12, :truncate_words => false)
+  end
+
   def test_remove_formatting
     {
       "<p>This has 100% too much    <em>formatting</em></p>" =>
