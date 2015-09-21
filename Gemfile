@@ -27,7 +27,8 @@ group :development do
   gem 'travis-lint', '1.7.0'
   # Can I state that I really dislike camelcased gem names?
   gem 'RedCloth', '4.2.9'
-  gem 'sqlite3', '1.3.7'
+  gem 'sqlite3', '1.3.10'
+  gem 'test-unit', '3.0.9'
 
   if activerecord?
     gem 'activerecord', '4.0.3'
