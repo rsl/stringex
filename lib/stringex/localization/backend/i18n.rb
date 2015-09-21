@@ -5,6 +5,11 @@ module Stringex
         LOAD_PATH_BASE = File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', '..', '..', 'locales')
 
         class << self
+          def reset!
+            super
+            ::I18n.reload! if defined?(::I18n) && ::I18n.respond_to?(:reload!)
+          end
+
           def locale
             @locale || ::I18n.locale
           end
