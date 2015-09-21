@@ -45,7 +45,7 @@ class BasicGreekTest < Test::Unit::TestCase
       "Ϋ" => "Y",
       "Ύ" => "Y",
       "Φ" => "Ph",
-      "Χ" => "Ks",
+      "Χ" => "X",
       "Ψ" => "Ps",
       "Ω" => "O",
       "Ώ" => "O",
