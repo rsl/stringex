@@ -3,7 +3,7 @@
 # Stringex::Localization::ConversionExpressions to see what those
 # regular expressions look like if you need to manipulate the order
 # differently than the usage below.
-no:
+'no':
   stringex:
     characters:
       and: og
