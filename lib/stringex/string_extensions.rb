@@ -93,6 +93,12 @@ module Stringex
         end
       end
 
+      def convert_unreadable_control_characters
+        stringex_convert do
+          translate! :unreadable_control_characters
+        end
+      end
+
       # Returns the string limited in size to the value of limit.
       def limit(limit = nil, truncate_words = true, whitespace_replacement_token = "-")
         if limit.nil?
@@ -126,6 +132,7 @@ module Stringex
           convert_smart_punctuation.
           convert_accented_html_entities.
           convert_vulgar_fractions.
+          convert_unreadable_control_characters.
           convert_miscellaneous_html_entities.
           convert_miscellaneous_characters(options).
           to_ascii.

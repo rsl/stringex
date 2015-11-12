@@ -284,6 +284,15 @@ class StringExtensionsTest < Test::Unit::TestCase
     end
   end
 
+  def test_remove_nonreadable_characters
+    cases = { "Jörg Immendor\u0014. Les théâtres de la peinture" => "jorg-immendor-les-theatres-de-la-peinture",
+            }
+    cases.each do |plain, converted|
+      assert_equal converted, plain.to_url
+    end
+
+  end
+
   if defined?(RedCloth)
     def test_to_html
       {

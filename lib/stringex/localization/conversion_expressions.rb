@@ -103,6 +103,8 @@ module Stringex
         /…/ => "...",
       }
 
+      UNREADABLE_CONTROL_CHARACTERS = /[[:cntrl:]]/
+
       # Ordered by denominator then numerator of the value
       VULGAR_FRACTIONS = {
         :half          => /(&#189;|&frac12;|½)/,
@@ -138,6 +140,7 @@ module Stringex
           html_entities
           html_tag
           smart_punctuation
+          unreadable_control_characters
           vulgar_fractions
           whitespace
         }.each do |conversion_type|

@@ -59,7 +59,12 @@ module Stringex
         end
       end
 
-    protected
+
+      protected
+
+      def unreadable_control_characters
+        string.gsub! expressions.unreadable_control_characters, ''
+      end
 
       def abbreviations
         string.gsub! expressions.abbreviation do |x|
@@ -100,6 +105,7 @@ module Stringex
         end
         string.squeeze! ' '
       end
+
 
       def vulgar_fractions
         expressions.vulgar_fractions.each do |key, expression|
