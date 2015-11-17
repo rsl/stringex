@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# encoding: utf-8
 
 require "test_helper"
 require "stringex"
@@ -285,12 +285,11 @@ class StringExtensionsTest < Test::Unit::TestCase
   end
 
   def test_remove_nonreadable_characters
-    cases = { "Jörg Immendor\u0014. Les théâtres de la peinture" => "jorg-immendor-les-theatres-de-la-peinture",
+    cases = { "Jörg Immendor\u0014. Les théâtres" => "jorg-immendor-les-theatres",
             }
     cases.each do |plain, converted|
       assert_equal converted, plain.to_url
     end
-
   end
 
   if defined?(RedCloth)

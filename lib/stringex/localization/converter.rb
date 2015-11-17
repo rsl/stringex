@@ -59,7 +59,6 @@ module Stringex
         end
       end
 
-
       protected
 
       def unreadable_control_characters
@@ -106,14 +105,13 @@ module Stringex
         string.squeeze! ' '
       end
 
-
       def vulgar_fractions
         expressions.vulgar_fractions.each do |key, expression|
           string.gsub! expression, translate(key, :vulgar_fractions)
         end
       end
 
-    private
+      private
 
       def expressions
         ConversionExpressions
