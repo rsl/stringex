@@ -59,7 +59,11 @@ module Stringex
         end
       end
 
-    protected
+      protected
+
+      def unreadable_control_characters
+        string.gsub! expressions.unreadable_control_characters, ''
+      end
 
       def abbreviations
         string.gsub! expressions.abbreviation do |x|
@@ -107,7 +111,7 @@ module Stringex
         end
       end
 
-    private
+      private
 
       def expressions
         ConversionExpressions

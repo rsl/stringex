@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# encoding: utf-8
 
 require "test_helper"
 require "stringex"
@@ -281,6 +281,14 @@ class StringExtensionsTest < Test::Unit::TestCase
       def to_ascii
         old_to_ascii
       end
+    end
+  end
+
+  def test_remove_nonreadable_characters
+    cases = { "Jörg Immendor\u0014. Les théâtres" => "jorg-immendor-les-theatres",
+            }
+    cases.each do |plain, converted|
+      assert_equal converted, plain.to_url
     end
   end
 
