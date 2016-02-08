@@ -1,5 +1,9 @@
-# NOTE: es.yml with "pesetas" added as *stringex.currencies.generic*.
-es-ES:
+# NOTE: Some translation keys make use of matches from regular expressions
+# to manipulate whitespace and order. Please consult the source code for
+# Stringex::Localization::ConversionExpressions to see what those
+# regular expressions look like if you need to manipulate the order
+# differently than the usage below.
+es:
   stringex:
     characters:
       and: y
@@ -15,7 +19,6 @@ es-ES:
       slash: barra
       star: estrella
     currencies:
-      generic: \1 pesetas
       dollars: \1 dólares
       dollars_cents: \1 dólares \2 céntimos
       pounds: \1 libras
