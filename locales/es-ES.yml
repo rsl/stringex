@@ -1,0 +1,69 @@
+# NOTE: Some translation keys make use of matches from regular expressions
+# to manipulate whitespace and order. Please consult the source code for
+# Stringex::Localization::ConversionExpressions to see what those
+# regular expressions look like if you need to manipulate the order
+# differently than the usage below.
+es-ES:
+  stringex:
+    characters:
+      and: y
+      at: en
+      divide: dividido por
+      degrees: grados
+      dot: \1 punto \2
+      ellipsis: puntos suspensivos
+      equals: igual a
+      number: número
+      percent: porciento
+      plus: más
+      slash: barra
+      star: estrella
+    currencies:
+      generic: \1 pesetas
+      dollars: \1 dólares
+      dollars_cents: \1 dólares \2 céntimos
+      pounds: \1 libras
+      pounds_pence: \1 libras \2 centavos
+      euros: \1 euros
+      euros_cents: \1 euros \2 céntimos
+      yen: \1 yen
+      reais: \1 reales
+      reais_cents: \1 reales \2 centavos
+    html_entities:
+      amp: e
+      cent: " centavos"
+      copy: (c)
+      deg: " drados "
+      divide: " dividido por "
+      double_quote: '"'
+      ellipsis: "..."
+      en_dash: "-"
+      em_dash: "--"
+      frac14: un cuarto
+      frac12: mitad
+      frac34: tres cuartos
+      gt: ">"
+      lt: <
+      nbsp: " "
+      pound: " libras "
+      reg: (r)
+      single_quote: "'"
+      times: x
+      trade: (tm)
+      yen: " yen "
+    vulgar_fractions:
+      half: mitad
+      one_third: un tercio
+      two_thirds: dos tercios
+      one_fourth: un cuarto
+      three_fourths: tres cuartos
+      one_fifth: un quinto
+      two_fifths: dos quintos
+      three_fifths: tres quintos
+      four_fifths: catro quintos
+      one_sixth: un sexto
+      five_sixths: cinco sextos
+      one_eighth: un octavo
+      three_eighths: tres octavos
+      five_eighths: cinco octavos
+      seven_eighths: siete octavos
