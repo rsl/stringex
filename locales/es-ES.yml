@@ -15,7 +15,7 @@ es-ES:
       slash: barra
       star: estrella
     currencies:
-      generic: \1 pesetas
+      generic: \1 Euro
       dollars: \1 dólares
       dollars_cents: \1 dólares \2 céntimos
       pounds: \1 libras
