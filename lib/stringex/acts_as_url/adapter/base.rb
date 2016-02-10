@@ -18,7 +18,7 @@ module Stringex
         end
 
         def ensure_unique_url!(instance)
-          @url_owners = nil
+          @taken_urls = nil
           self.instance = instance
 
           handle_url!
@@ -131,7 +131,7 @@ module Stringex
           if settings.url_taken_method
             instance.send(settings.url_taken_method, url)
           else
-            url_owners.any?{|owner| url_attribute_for(owner) == url}
+            taken_urls.include?(url)
           end
         end
 
@@ -196,8 +196,8 @@ module Stringex
           @url_owner_conditions
         end
 
-        def url_owners
-          @url_owners ||= url_owners_class.unscoped.where(url_owner_conditions).to_a
+        def taken_urls
+          @taken_urls ||= url_owners_class.unscoped.where(url_owner_conditions).pluck(settings.url_attribute)
         end
 
         def url_owners_class

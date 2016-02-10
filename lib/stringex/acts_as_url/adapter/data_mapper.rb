@@ -44,8 +44,8 @@ module Stringex
           instance.attributes[attribute]
         end
 
-        def url_owners
-          @url_owners ||= url_owners_class.all(:conditions => url_owner_conditions)
+        def taken_urls
+          @taken_urls ||= url_owners_class.all(:conditions => url_owner_conditions).pluck(settings.url_attribute)
         end
 
         def read_attribute(instance, name)
