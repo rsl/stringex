@@ -197,7 +197,8 @@ module Stringex
         end
 
         def taken_urls
-          @taken_urls ||= url_owners_class.unscoped.where(url_owner_conditions).pluck(settings.url_attribute)
+          @taken_urls ||= url_owners_class.unscoped.where(url_owner_conditions).
+                          pluck(settings.url_attribute)
         end
 
         def url_owners_class
