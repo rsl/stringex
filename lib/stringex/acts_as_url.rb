@@ -33,6 +33,11 @@ module Stringex
       #                              differentiate between urls. Default is false[y]. See note on <tt>:scope</tt>.
       # <tt>:duplicate_count_separator</tt>:: String to use when forcing unique urls from non-unique strings.
       #                                       Default is "-".
+      # <tt>:duplicate_sequence</tt>:: Supply an enumerator to generate the values used to generate
+      #                                unique urls (when <tt>:allow_duplicates</tt> is false).
+      #                                By default, generates positive integers in sequence from 1.
+      #                                <strong>Note:</strong> The sequence is restarted for each record
+      #                                (by calling <tt>#rewind</tt>).
       # <tt>:force_downcase</tt>:: If false, allows generated url to contain uppercased letters. Default is false.
       # <tt>:exclude_list</tt>:: List of complete strings that should not be transformed by <tt>acts_as_url</tt>.
       #                          Default is empty.
