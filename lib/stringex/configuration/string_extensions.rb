@@ -7,12 +7,12 @@ module Stringex
 
       def self.default_settings
         @default_settings ||= {
-          :allow_slash => false,
-          :exclude => [],
-          :force_downcase => true,
-          :limit => nil,
-          :replace_whitespace_with => "-",
-          :truncate_words => true
+          allow_slash: false,
+          exclude: [],
+          force_downcase: true,
+          limit: nil,
+          replace_whitespace_with: "-",
+          truncate_words: true
         }
       end
     end

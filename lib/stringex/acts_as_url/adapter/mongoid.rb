@@ -11,7 +11,7 @@ module Stringex
 
         def add_new_record_url_owner_conditions
           return if instance.new_record?
-          @url_owner_conditions.merge! :id => {'$ne' => instance.id}
+          @url_owner_conditions.merge! id: {'$ne' => instance.id}
         end
 
         def add_scoped_url_owner_conditions

@@ -33,7 +33,7 @@ module Stringex
         end
 
         def klass_previous_instances(&block)
-          klass.all(:conditions => {settings.url_attribute => [nil]}).each(&block)
+          klass.all(conditions: {settings.url_attribute => [nil]}).each(&block)
         end
 
         def primary_key
@@ -45,7 +45,7 @@ module Stringex
         end
 
         def url_owners
-          @url_owners ||= url_owners_class.all(:conditions => url_owner_conditions)
+          @url_owners ||= url_owners_class.all(conditions: url_owner_conditions)
         end
 
         def read_attribute(instance, name)

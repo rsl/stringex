@@ -25,7 +25,7 @@ DefineTestClasses = proc do
     property :title,   String
     property :other,   String
     property :another, String
-    property :url,     String, :lazy => false
+    property :url,     String, lazy: false
 
     acts_as_url :title
   end
@@ -36,7 +36,7 @@ DefineTestClasses = proc do
     property :title,   String
     property :other,   String
     property :another, String
-    property :url,     String, :lazy => false
+    property :url,     String, lazy: false
     property :type,    String
 
     # This gets redefined in the only test that uses it but I want to be uniform

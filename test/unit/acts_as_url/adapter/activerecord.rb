@@ -8,15 +8,15 @@ puts "-------------------------------------------------"
 puts "Running ActsAsUrl tests with ActiveRecord adapter"
 puts "-------------------------------------------------"
 
-ActiveRecord::Base.establish_connection :adapter => "sqlite3", :database => ":memory:"
+ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
 
 ActiveRecord::Migration.verbose = false
 ActiveRecord::Schema.define do
-  create_table :documents, :force => true do |t|
+  create_table :documents, force: true do |t|
     t.string :title, :other, :another, :url
   end
 
-  create_table :sti_base_documents, :force => true do |t|
+  create_table :sti_base_documents, force: true do |t|
     t.string :title, :other, :another, :url, :type
   end
 end

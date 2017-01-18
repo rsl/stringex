@@ -7,6 +7,7 @@ module Stringex
         class << self
           def reset!
             super
+            @locale = nil
             ::I18n.reload! if defined?(::I18n) && ::I18n.respond_to?(:reload!)
           end
 
@@ -31,7 +32,7 @@ module Stringex
           end
 
           def store_translations(locale, scope, data)
-            ::I18n.backend.store_translations(locale, { :stringex => { scope => data } })
+            ::I18n.backend.store_translations(locale, {stringex: {scope => data}})
             reset_translations_cache
           end
 
@@ -54,7 +55,7 @@ module Stringex
 
           def i18n_translations_for(locale)
             ensure_locales_enforced_or_not
-            ::I18n.translate("stringex", :locale => locale, :default => {})
+            ::I18n.translate("stringex", locale: locale, default: {})
           end
 
           def reset_translations_cache

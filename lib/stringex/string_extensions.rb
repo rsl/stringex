@@ -52,7 +52,7 @@ module Stringex
       # It allows localization of conversions so you can use it to convert characters into your own language.
       # Example:
       #
-      #   I18n.backend.store_translations :de, { :stringex => { :characters => { :and => "und" } } }
+      #   I18n.backend.store_translations :de, { stringex: { characters: { and: "und" } } }
       #   I18n.locale = :de
       #   "ich & dich".convert_misc_characters # => "ich und dich"
       #
