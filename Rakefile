@@ -30,14 +30,16 @@ end
 Rake::TestTask.new do |t|
   t.libs << 'lib' << 'test'
   t.pattern   = 'test/unit/**/*_test.rb'
-  t.verbose   = true
+  t.verbose   = false
+  t.warning   = false
 end
 
 namespace :test do
   Rake::TestTask.new(:performance) do |t|
     t.libs << 'lib' << 'test'
     t.pattern   = 'test/performance/**/*_test.rb'
-    t.verbose   = true
+    t.verbose   = false
+    t.warning   = false
   end
 end
 
