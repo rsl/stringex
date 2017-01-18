@@ -20,6 +20,39 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
     assert_equal "unique-1", @other_doc.url
   end
 
+  def test_should_allow_custom_duplicates
+    sequence = Enumerator.new { |enum| loop { enum.yield 12345 } }
+    Document.class_eval do
+      acts_as_url :title, :duplicate_sequence => sequence
+    end
+
+    @doc = Document.create(:title => "New")
+    @other_doc = Document.create(:title => "New")
+    assert_equal "new-document", @doc.url
+    assert_equal "new-document-12345", @other_doc.url
+  end
+
+  def test_should_restart_duplicate_sequence_each_time
+    sequence = Enumerator.new do |enum|
+      n = 1
+      loop do
+        enum.yield n
+        n += 1
+      end
+    end
+    Document.class_eval do
+      acts_as_url :title, :duplicate_sequence => sequence
+    end
+    @doc = Document.create(:title => "Unique")
+    @other_doc = Document.create(:title => "Unique")
+    @third_doc = Document.create(:title => "Another")
+    @fourth_doc = Document.create(:title => "Another")
+    assert_equal "unique", @doc.url
+    assert_equal "unique-1", @other_doc.url
+    assert_equal "another", @third_doc.url
+    assert_equal "another-1", @fourth_doc.url
+  end
+
   def test_should_avoid_blacklist
     @doc = Document.create(:title => "New")
     @other_doc = Document.create(:title => "new")

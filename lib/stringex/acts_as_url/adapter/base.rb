@@ -120,11 +120,24 @@ module Stringex
 
         def handle_duplicate_url!
           return if !url_taken?(base_url)
-          n = 1
-          while url_taken?(duplicate_for_base_url(n))
-            n = n.succ
+          n = nil
+          sequence = duplicate_url_sequence.tap(&:rewind)
+          loop do
+            n = sequence.next
+            break unless url_taken?(duplicate_for_base_url(n))
           end
           write_url_attribute duplicate_for_base_url(n)
+        end
+
+        def duplicate_url_sequence
+          settings.duplicate_sequence ||
+            Enumerator.new do |enum|
+              n = 1
+              loop do
+                enum.yield n
+                n += 1
+              end
+            end
         end
 
         def url_taken?(url)
