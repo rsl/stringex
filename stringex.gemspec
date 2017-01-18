@@ -308,4 +308,3 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<i18n>, ["= 0.6.9"])
   end
 end
-
