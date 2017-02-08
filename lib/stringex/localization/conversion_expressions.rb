@@ -25,7 +25,7 @@ module Stringex
       }
 
       # Things that just get converted to spaces
-      CLEANUP_CHARACTERS = /[\.,:;(){}\[\]\?!\^'ʼ"_\|<>]/
+      CLEANUP_CHARACTERS = /[\.,:;(){}\[\]\?!\^'ʼ"`~_\|<>]/
       CLEANUP_HTML_ENTITIES = /&[^;]+;/
 
       CURRENCIES_SUPPORTED_SIMPLE = {
