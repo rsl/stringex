@@ -91,7 +91,11 @@ class StringExtensionsTest < Test::Unit::TestCase
       "R$ isn't R" =>
         "reais-isnt-r",
       "Last Friday Night (T.G.I.F.)" =>
-        "last-friday-night-tgif"
+        "last-friday-night-tgif",
+      "foo` bar" =>
+        "foo-bar",
+      "foo~ bar" =>
+        "foo-bar"
     }.each do |html, plain|
       assert_equal plain, html.to_url
     end
