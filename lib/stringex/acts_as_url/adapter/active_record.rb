@@ -11,7 +11,15 @@ module Stringex
       private
 
         def klass_previous_instances(&block)
-          klass.where(settings.url_attribute => [nil, '']).find_each(&block)
+          if block_given?
+            klass.find_in_batches do |records|
+              records.each { |record| yield record }
+            end
+          else
+            klass.enum_for :find_each, options do
+              options[:start] ? where(table[primary_key].gteq(options[:start])).size : size
+            end
+          end
         end
 
         def self.orm_class
