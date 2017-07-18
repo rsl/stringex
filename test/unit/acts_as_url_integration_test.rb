@@ -177,6 +177,18 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
     assert_not_equal @doc.url, @other_doc.url
   end
 
+  def test_should_create_uniuque_urls_for_nil_scope_values
+    Document.class_eval do
+      acts_as_url :title, scope: [:other, :another]
+    end
+
+    @doc = Document.create(title: "Mocumentary", other: "Suddenly, I care if I'm unique",
+      another: nil)
+    @other_doc = Document.create(title: "Mocumentary", other: "Suddenly, I care if I'm unique",
+      another: nil)
+    assert_not_equal @doc.url, @other_doc.url
+  end
+
   def test_should_allow_setting_url_attribute
     Document.class_eval do
       # Manually undefining the url method on Document which, in a real class not reused for tests,
@@ -422,4 +434,5 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
     @doc = Document.create(title: "unique")
     assert_equal "unique-3", @doc.url
   end
+
 end
