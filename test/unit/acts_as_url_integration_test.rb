@@ -179,14 +179,14 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
 
   def test_should_create_uniuque_urls_for_nil_scope_values
     Document.class_eval do
-      acts_as_url :title, scope: %i[other, another]
+      acts_as_url :title, scope: %i[other another]
     end
 
-    @doc = Document.create(title: "Soft Deleted Document", 
+    @doc = Document.create(title: "Soft Deleted Document",
                            other: "scope key",
                            another: nil)
 
-    @other_doc = Document.create(title: "Soft Deleted Document", 
+    @other_doc = Document.create(title: "Soft Deleted Document",
                                  other: "scope key",
                                  another: nil)
 
