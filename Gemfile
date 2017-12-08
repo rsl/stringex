@@ -23,7 +23,7 @@ end
 
 group :development do
   # Standard gems across gemfiles
-  gem 'jeweler', '2.0.1'
+  gem 'jeweler', '2.3.7'
   gem 'travis-lint', '1.7.0'
   # Can I state that I really dislike camelcased gem names?
   gem 'RedCloth', '4.2.9'
@@ -31,7 +31,7 @@ group :development do
   gem 'test-unit', '3.0.9'
 
   if activerecord?
-    gem 'activerecord', '4.0.3'
+    gem 'activerecord', '5.1.4'
   end
 
   if datamapper?
@@ -46,6 +46,6 @@ group :development do
     gem 'i18n', '0.6.1'
   else
     # Everyone else can get the most up-to-date I18n
-    gem 'i18n', '0.6.9'
+    gem 'i18n', '0.7.0'
   end
 end
