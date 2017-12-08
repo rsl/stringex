@@ -37,7 +37,7 @@ module Stringex
       end
 
       def normalize_currency!
-        string.gsub! /(\d+),(\d+)/, '\1\2'
+        string.gsub!(/(\d+),(\d+)/, '\1\2')
       end
 
       def smart_strip!
