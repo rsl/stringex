@@ -40,10 +40,6 @@ module Stringex
           instance.class.key.first.instance_variable_get '@name'
         end
 
-        def read_attribute(instance, attribute)
-          instance.attributes[attribute]
-        end
-
         def url_owners
           @url_owners ||= url_owners_class.all(conditions: url_owner_conditions)
         end

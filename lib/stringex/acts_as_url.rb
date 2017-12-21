@@ -4,7 +4,7 @@ require "stringex/acts_as_url/adapter"
 module Stringex
   module ActsAsUrl # :nodoc:
     def self.configure(&block)
-      Stringex::Configuration::ActsAsUrl.configure &block
+      Stringex::Configuration::ActsAsUrl.configure(&block)
     end
 
     def self.unconfigure!

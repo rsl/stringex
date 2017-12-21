@@ -91,7 +91,7 @@ module Stringex
       }.call
 
       HTML_TAG = Proc.new(){
-        name = /[\w:_-]+/
+        name = /[\w:-]+/
         value = /([A-Za-z0-9]+|('[^']*?'|"[^"]*?"))/
         attr = /(#{name}(\s*=\s*#{value})?)/
         /<[!\/?\[]?(#{name}|--)(\s+(#{attr}(\s+#{attr})*))?\s*([!\/?\]]+|--)?>/

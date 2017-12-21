@@ -3,7 +3,7 @@
 module Stringex
   module StringExtensions
     def self.configure(&block)
-      Stringex::Configuration::StringExtensions.configure &block
+      Stringex::Configuration::StringExtensions.configure(&block)
     end
 
     def self.unconfigure!

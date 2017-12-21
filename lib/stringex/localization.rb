@@ -83,7 +83,7 @@ module Stringex
 
       def convert(string, options = {}, &block)
         converter = Converter.new(string, options)
-        converter.instance_exec &block
+        converter.instance_exec(&block)
         converter.smart_strip!
         converter.string
       end
