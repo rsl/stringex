@@ -96,6 +96,13 @@ module Stringex
       def initialize_urls
         acts_as_url_configuration.adapter.initialize_urls! self
       end
+
+      # Renitialize the url fields for the all records. Designed for people who want to update
+      # <tt>acts_as_url</tt> support once there's already development/production data they'd
+      # like to keep around.
+      def reinitialize_urls
+        acts_as_url_configuration.adapter.reinitialize_urls! self
+      end
     end
 
     module ActsAsUrlInstanceMethods

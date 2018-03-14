@@ -33,6 +33,12 @@ module Stringex
           end
         end
 
+        def reinitialize_urls!(klass)
+          self.klass = klass
+          klass.update_all(settings.url_attribute => nil)
+          initialize_urls!(klass)
+        end
+
         def url_attribute(instance)
           # Retrieve from database record if there are errors on attribute_to_urlify
           if !is_new?(instance) && is_present?(instance.errors[settings.attribute_to_urlify])
