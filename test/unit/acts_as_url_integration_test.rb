@@ -224,6 +224,21 @@ class ActsAsUrlIntegrationTest < Test::Unit::TestCase
     assert_equal "subsequent", @other_doc.url
   end
 
+  def test_should_mass_reinitialize_urls
+    @doc = Document.create(title: "Initial")
+    @other_doc = Document.create(title: "Subsequent")
+    # Just making sure this got set before the reinitialize urls test
+    assert_equal "initial", @doc.url
+    assert_equal "subsequent", @other_doc.url
+
+    Document.reinitialize_urls
+
+    @doc.reload
+    @other_doc.reload
+    assert_equal "initial", @doc.url
+    assert_equal "subsequent", @other_doc.url
+  end
+
   def test_should_mass_initialize_urls_with_custom_url_attribute
     Document.class_eval do
       # Manually undefining the url method on Document which, in a real class not reused for tests,
