@@ -1,5 +1,5 @@
-
-require 'stringex/acts_as_url/adapter'
+# encoding: UTF-8
+require "stringex/acts_as_url/adapter"
 
 module Stringex
   module ActsAsUrl # :nodoc:
@@ -61,7 +61,9 @@ module Stringex
 
           define_method :acts_as_url_configuration do
             klass = self.class
-            klass = klass.superclass while klass.acts_as_url_configuration.nil?
+            while klass.acts_as_url_configuration.nil?
+              klass = klass.superclass
+            end
             klass.acts_as_url_configuration
           end
         end
@@ -71,6 +73,7 @@ module Stringex
 
         acts_as_url_configuration.adapter.create_callbacks! self
       end
+
 
       # Some ORMs function as mixins not base classes and need to have a hook to reinclude
       # and re-extend ActsAsUrl methods
@@ -94,9 +97,9 @@ module Stringex
         acts_as_url_configuration.adapter.initialize_urls! self
       end
 
-      # Renitialize the url fields for the all records. Designed for people who want to update
-      # <tt>acts_as_url</tt> support once there's already development/production data they'd
-      # like to keep around.
+      # Renitialize the url fields for the all records. Designed for people who
+      # want to update <tt>acts_as_url</tt> support once there's already 
+      # development/production data they'd like to keep around.
       def reinitialize_urls
         acts_as_url_configuration.adapter.reinitialize_urls! self
       end
