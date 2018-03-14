@@ -1,0 +1,76 @@
+# NOTE: Some translation keys make use of matches from regular expressions
+# to manipulate whitespace and order. Please consult the source code for
+# Stringex::Localization::ConversionExpressions to see what those
+# regular expressions look like if you need to manipulate the order
+# differently than the usage below.
+fi:
+  stringex:
+    characters:
+      and: ja
+      at: at
+      divide: jaettuna luvulla
+      degrees: astetta
+      dot: \1 piste \2
+      ellipsis: piste piste piste
+      equals: on yhtä kuin
+      number: numero
+      percent: prosenttia
+      plus: plus
+      slash: kautta
+      star: tahti
+    currencies:
+      generic: \1 puntaa
+      dollars: \1 dollaria
+      dollars_cents: \1 dollaria \2 senttiä
+      pounds: \1 puntaa
+      pounds_pence: \1 puntaa \2 pennyä
+      euros: \1 euroa
+      euros_cents: \1 euroa \2 senttiä
+      yen: \1 yenia
+      reais: \1 realia
+      reais_cents: \1 realia \2 senttiä
+    html_entities:
+      amp: ja
+      cent: " senttiä"
+      copy: (c)
+      deg: " astetta "
+      divide: " jaettuna luvulla "
+      double_quote: '"'
+      ellipsis: "..."
+      en_dash: "-"
+      em_dash: "--"
+      frac14: yksi neljäsosa
+      frac12: puoli
+      frac34: kolme neljäsosaa
+      gt: ">"
+      lt: <
+      nbsp: " "
+      pound: " punta "
+      reg: (r)
+      single_quote: "'"
+      times: x
+      trade: (tm)
+      yen: " yen "
+    vulgar_fractions:
+      half: puoli
+      one_third: yksi kolmaosa
+      two_thirds: kaksi kolmasosaa
+      one_fourth: yksi neljäsosa
+      three_fourths: kolme neljäsosaa
+      one_fifth: yksi viidesosa
+      two_fifths: kaksi viidesosaa
+      three_fifths: kolme viidesosaa
+      four_fifths: nelja viidesosaa
+      one_sixth: yksi kuudesosa
+      five_sixths: viisi kuudesosaa
+      one_eighth: yksi kahdeksasosa
+      three_eighths: kolme kahdeksasosaa
+      five_eighths: viisi kahdeksasosaa
+      seven_eighths: seitsemän kahdeksasosaa
+    transliterations:
+      Å: A
+      Ä: A
+      Ö: O
+      å: a
+      ä: a
+      ö: o

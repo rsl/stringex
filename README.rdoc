@@ -110,14 +110,15 @@ When using Stringex with Ruby on Rails, you automatically get built-in translati
 
 Currently, built-in translations are available for the following languages:
 
-  * English (en)
   * Danish (da)
-  * Swedish (sv)
   * Dutch (nl)
+  * English (en)
+  * Finnish (fi)
   * German (de)
   * Polish (pl)
   * Portuguese Brazilian (pt-BR)
   * Russian (ru)
+  * Swedish (sv)
 
 You can easily add your own or customize the built-in translations - read here[https://github.com/rsl/stringex/wiki/Localization-of-Stringex-conversions]. If you add a new language, please submit a pull request so we can make it available to other users also.
 
