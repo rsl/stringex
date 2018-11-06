@@ -15,13 +15,12 @@ Gem::Specification.new do |s|
   s.description = "Some [hopefully] useful extensions to Ruby's String class. Stringex is made up of three libraries: ActsAsUrl [permalink solution with better character translation], Unidecoder [Unicode to ASCII transliteration], and StringExtensions [miscellaneous helper methods for the String class].".freeze
   s.email = "rsl@luckysneaks.com".freeze
   s.extra_rdoc_files = [
-    "MIT-LICENSE",
-    "README.rdoc"
+    "MIT-LICENSE"
   ]
   s.files = [
     "Gemfile",
     "MIT-LICENSE",
-    "README.rdoc",
+    "README.md",
     "Rakefile",
     "VERSION",
     "init.rb",
