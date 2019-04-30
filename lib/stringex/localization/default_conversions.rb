@@ -78,9 +78,11 @@ module Stringex
       }
 
       class << self
-        %w{characters currencies html_entities transliterations vulgar_fractions}.each do |conversion_type|
-          define_method conversion_type do
-            const_get conversion_type.upcase
+        # %w{characters currencies html_entities transliterations vulgar_fractions}
+
+        [['characters'.freeze, 'CHARACTERS'.freeze], ['currencies'.freeze, 'CURRENCIES'.freeze], ['html_entities'.freeze, 'HTML_ENTITIES'.freeze], ['transliterations'.freeze, 'TRANSLITERATIONS'.freeze], ['vulgar_fractions'.freeze, 'VULGAR_FRACTIONS'.freeze]].each do |conversion_type|
+          define_method conversion_type[0] do
+            const_get conversion_type[1]
           end
         end
       end

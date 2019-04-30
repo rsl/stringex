@@ -11,6 +11,9 @@ module Stringex
     include DefaultConversions
 
     class << self
+
+      DOT = ".".freeze
+      
       def backend
         @backend ||= i18n_present? ? Backend::I18n : Backend::Internal
       end
@@ -36,7 +39,7 @@ module Stringex
       end
 
       def translate(scope, key, options = {})
-        return if key == "." # I18n doesn't support dots as translation keys so we don't either
+        return if key == DOT # I18n doesn't support dots as translation keys so we don't either
 
         locale = options[:locale] || self.locale
 

@@ -9,3 +9,4 @@ rdoc
 *.sqlite3
 *.gem
 .ruby-*
+.idea/
