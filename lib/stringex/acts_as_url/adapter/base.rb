@@ -64,8 +64,10 @@ module Stringex
 
         def add_scoped_url_owner_conditions
           [settings.scope_for_url].flatten.compact.each do |scope|
-            @url_owner_conditions.first << " and #{scope} = ?"
-            @url_owner_conditions << instance.send(scope)
+            scope_val = instance.send(scope)
+            sql_operator = scope_val.nil? ? "IS" : "="
+            @url_owner_conditions.first << " AND #{scope} #{sql_operator} ?"
+            @url_owner_conditions << scope_val
           end
         end
 
