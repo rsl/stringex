@@ -66,6 +66,6 @@ module AdapterSpecificTestBehaviors
   end
 
   def adapter_specific_update(instance, hash)
-    instance.send :update_attributes!, hash
+    instance.send :update!, hash
   end
 end
