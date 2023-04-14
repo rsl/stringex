@@ -27,11 +27,11 @@ group :development do
   gem 'travis-lint', '1.7.0'
   # Can I state that I really dislike camelcased gem names?
   gem 'RedCloth', '4.2.9'
-  gem 'sqlite3', '1.3.10'
-  gem 'test-unit', '3.0.9'
+  gem 'sqlite3', '1.6.2'
+  gem 'test-unit', '3.5.7'
 
   if activerecord?
-    gem 'activerecord', '5.1.4'
+    gem 'activerecord', '~> 6.1.7'
   end
 
   if datamapper?
@@ -45,7 +45,6 @@ group :development do
     gem 'mongoid', '3.1.6'
     gem 'i18n', '0.6.1'
   else
-    # Everyone else can get the most up-to-date I18n
-    gem 'i18n', '0.7.0'
+    gem 'i18n', '1.6.0'
   end
 end
