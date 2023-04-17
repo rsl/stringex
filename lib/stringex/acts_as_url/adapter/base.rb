@@ -70,11 +70,7 @@ module Stringex
         end
 
         def create_callback
-          klass.send(
-            klass_callback_method,
-            :ensure_unique_url,
-            **callback_options
-          )
+          klass.send klass_callback_method, :ensure_unique_url, callback_options
         end
 
         def klass_callback_method
