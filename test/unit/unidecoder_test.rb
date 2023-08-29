@@ -48,7 +48,8 @@ class UnidecoderTest < Test::Unit::TestCase
     "私はガラスを食べられます。それは私を傷つけません。" => # Japanese
       "Si hagarasuwoShi beraremasu. sorehaSi woShang tukemasen. ",
     "⠋⠗⠁⠝⠉⠑" => # Braille
-      "france"
+      "france",
+    "武汉" => "Wu Han "
   }
 
   def test_unidecoder_decode
